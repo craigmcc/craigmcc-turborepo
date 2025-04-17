@@ -1,0 +1,23 @@
+{
+  "exports": {
+    "./*": ".src/*.ts"
+  },
+  "name": "@craigmcc/shared-utils",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "check-types": "tsc --noEmit",
+    "dev": "tsc --watch",
+    "lint": "eslint . --max-warnings 0"
+  },
+  "version": "0.0.0",
+  "dependencies": {
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "@craigmcc/eslint-config": "workspace:*",
+    "@craigmcc/typescript-config": "workspace:*",
+    "eslint": "^9.24.0",
+    "typescript": "5.8.2"
+  }
+}
