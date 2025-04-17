@@ -4,7 +4,7 @@
     "./next-js": "./next.js",
     "./react-internal": "./react-internal.js"
   },
-  "name": "@repo/eslint-config",
+  "name": "@craigmcc/eslint-config",
   "private": true,
   "type": "module",
   "version": "0.0.0",
