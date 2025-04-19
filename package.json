@@ -2,6 +2,8 @@
   "engines": {
     "node": ">=18"
   },
+  "description": "Monorepo for my apps and packages, based on Turborepo basic template.",
+  "license": "Apache-2.0",
   "name": "craigmcc-turborepo",
   "packageManager": "pnpm@9.0.0",
   "private": true,

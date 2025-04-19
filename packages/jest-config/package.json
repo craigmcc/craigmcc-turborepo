@@ -1,7 +1,7 @@
 {
   "main": "./index.js",
   "name": "@craigmcc/jest-config",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "private": true,
   "version": "0.0.0",
   "devDependencies": {

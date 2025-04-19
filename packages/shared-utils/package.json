@@ -5,6 +5,7 @@
   "jest": {
     "preset": "@craigmcc/jest-presets/node"
   },
+  "license": "Apache-2.0",
   "name": "@craigmcc/shared-utils",
   "private": true,
   "scripts": {

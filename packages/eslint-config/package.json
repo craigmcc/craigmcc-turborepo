@@ -4,6 +4,7 @@
     "./next-js": "./next.js",
     "./react-internal": "./react-internal.js"
   },
+  "license": "Apache-2.0",
   "name": "@craigmcc/eslint-config",
   "private": true,
   "type": "module",
