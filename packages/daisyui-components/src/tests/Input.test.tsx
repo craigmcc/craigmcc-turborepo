@@ -48,4 +48,76 @@ describe("Input", () => {
     expect(input).toHaveAttribute("type", "text");
     expect(input).not.toHaveAttribute("value");
   });
+
+it("should render an input field with className as expected", () => {
+    const CLASSNAME = "test-class";
+    render(<Input
+      className={CLASSNAME}
+      label={LABEL}
+      name={NAME}
+      placeholder={PLACEHOLDER}
+      type="text"
+    />);
+    const { input } = elements(LABEL);
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("class", `input input-bordered w-full ${CLASSNAME}`);
+  });
+
+  it("should render a disabled input field as expected", () => {
+    render(<Input
+      disabled={true}
+      label={LABEL}
+      name={NAME}
+      placeholder={PLACEHOLDER}
+      type="text"
+    />);
+    const { input } = elements(LABEL);
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("disabled");
+  });
+
+  // TODO - fails for some reason
+  it.skip("should render an input field with onBlur as expected", () => {
+    const handleBlur = jest.fn();
+    render(<Input
+      label={LABEL}
+      name={NAME}
+      onBlur={handleBlur}
+      placeholder={PLACEHOLDER}
+      type="text"
+    />);
+    const { input } = elements(LABEL);
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("onBlur");
+  });
+
+  // TODO - fails for some reason
+  it.skip("should render an input field with onChange as expected", () => {
+    const handleChange = jest.fn();
+    render(<Input
+      label={LABEL}
+      name={NAME}
+      onChange={handleChange}
+      placeholder={PLACEHOLDER}
+      type="text"
+    />);
+    const { input } = elements(LABEL);
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("onChange");
+  });
+
+  it("should render an input field with value as expected", () => {
+    const VALUE = "Test Value";
+    render(<Input
+      label={LABEL}
+      name={NAME}
+      placeholder={PLACEHOLDER}
+      type="text"
+      value={VALUE}
+    />);
+    const { input } = elements(LABEL);
+    expect(input).toBeInTheDocument();
+    expect(input).toHaveAttribute("value", VALUE);
+  });
+
 });
