@@ -7,7 +7,7 @@
 
 // Public Objects ------------------------------------------------------------
 
-const Timestamps = {
+export const Timestamps = {
   /**
    * Return a timestamp string in ISO format (yyyy-mm-ddThh:mm:ss+nn) for the
    * specified JavaScript date.  Based on:
@@ -46,7 +46,6 @@ const Timestamps = {
   },
 };
 
-export default Timestamps;
 
 // Private Objects -----------------------------------------------------------
 
