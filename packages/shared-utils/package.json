@@ -2,6 +2,9 @@
   "exports": {
     "./*": ".src/*.ts"
   },
+  "jest": {
+    "preset": "@craigmcc/jest-presets/node"
+  },
   "name": "@craigmcc/shared-utils",
   "private": true,
   "scripts": {
@@ -18,7 +21,7 @@
   },
   "devDependencies": {
     "@craigmcc/eslint-config": "workspace:*",
-    "@craigmcc/jest-config": "workspace:*",
+    "@craigmcc/jest-presets": "workspace:*",
     "@craigmcc/typescript-config": "workspace:*",
     "@types/jest": "^29.5.14",
     "eslint": "^9.24.0",
