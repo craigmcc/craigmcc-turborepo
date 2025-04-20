@@ -58,7 +58,7 @@ export function Select({
         <label htmlFor={name}>{label}</label>
       </legend>
       <select
-        className={`select w-full ${className ? className : ""}`}
+        className={`select select-bordered w-full ${className ? className : ""}`}
         disabled={disabled ? disabled : undefined}
         id={name}
         name={name}
