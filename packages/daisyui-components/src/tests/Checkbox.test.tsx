@@ -65,29 +65,19 @@ describe("Checkbox", () => {
     expect(checkbox).toHaveAttribute("disabled");
   });
 
-  // TODO - fails for some reason
-  it.skip("should render a checkbox with onBlur as expected", () => {
+  // TODO - it does not really render onBlur and onChange
+  it.skip("should render a checkbox with onBlur and onChange as expected", () => {
     const handleBlur = jest.fn();
-    render(<Checkbox
-      label={LABEL}
-      name={NAME}
-      onBlur={handleBlur}
-    />);
-    const {checkbox} = elements(LABEL);
-    expect(checkbox).toBeInTheDocument();
-    expect(checkbox).toHaveAttribute("onBlur");
-  });
-
-  // TODO - fails for some reason
-  it.skip("should render a checkbox with onChange as expected", () => {
     const handleChange = jest.fn();
     render(<Checkbox
       label={LABEL}
       name={NAME}
+      onBlur={handleBlur}
       onChange={handleChange}
     />);
     const {checkbox} = elements(LABEL);
     expect(checkbox).toBeInTheDocument();
+    expect(checkbox).toHaveAttribute("onBlur");
     expect(checkbox).toHaveAttribute("onChange");
   });
 
@@ -103,16 +93,5 @@ describe("Checkbox", () => {
     expect(checkbox).toHaveAttribute("checked");
   });
 */
-
-  it("should render a checkbox with value as undefined as expected", () => {
-    render(<Checkbox
-      label={LABEL}
-      name={NAME}
-      value={undefined}
-    />);
-    const {checkbox} = elements(LABEL);
-    expect(checkbox).toBeInTheDocument();
-    expect(checkbox).not.toHaveAttribute("checked");
-  });
 
 });

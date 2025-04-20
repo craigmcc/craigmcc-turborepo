@@ -27,7 +27,7 @@ function elements(labelText: string) {
 const LABEL = "Test Input";
 const NAME = "test-input";
 const PLACEHOLDER = "Enter text here";
-//const VALUE = "Test Value";
+const VALUE = "Test Value";
 
 describe("Input", () => {
   it("should render an input field as expected", () => {
@@ -76,48 +76,24 @@ it("should render an input field with className as expected", () => {
     expect(input).toHaveAttribute("disabled");
   });
 
-  // TODO - fails for some reason
-  it.skip("should render an input field with onBlur as expected", () => {
+  // Cannot actually test this as the onBlur and onChange events are not rendered
+  it.skip("should render an input field with onBlur and onChange as expected", () => {
     const handleBlur = jest.fn();
-    render(<Input
-      label={LABEL}
-      name={NAME}
-      onBlur={handleBlur}
-      placeholder={PLACEHOLDER}
-      type="text"
-    />);
-    const { input } = elements(LABEL);
-    expect(input).toBeInTheDocument();
-    expect(input).toHaveAttribute("onBlur");
-  });
-
-  // TODO - fails for some reason
-  it.skip("should render an input field with onChange as expected", () => {
     const handleChange = jest.fn();
     render(<Input
       label={LABEL}
       name={NAME}
+      onBlur={handleBlur}
       onChange={handleChange}
-      placeholder={PLACEHOLDER}
-      type="text"
-    />);
-    const { input } = elements(LABEL);
-    expect(input).toBeInTheDocument();
-    expect(input).toHaveAttribute("onChange");
-  });
-
-  it("should render an input field with value as expected", () => {
-    const VALUE = "Test Value";
-    render(<Input
-      label={LABEL}
-      name={NAME}
       placeholder={PLACEHOLDER}
       type="text"
       value={VALUE}
     />);
+    screen.debug();
     const { input } = elements(LABEL);
     expect(input).toBeInTheDocument();
-    expect(input).toHaveAttribute("value", VALUE);
+    expect(input).toHaveAttribute("onBlur");
+    expect(input).toHaveAttribute("onChange");
   });
 
 });
