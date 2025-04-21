@@ -7,9 +7,9 @@
 // External Modules ----------------------------------------------------------
 
 import "@testing-library/jest-dom";
-import { act, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import React from "react";
+import React, { act } from "react";
 
 // Internal Modules ----------------------------------------------------------
 

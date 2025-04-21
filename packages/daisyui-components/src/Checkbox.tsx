@@ -12,7 +12,13 @@ import React, { InputHTMLAttributes } from "react";
 
 // Public Objects ------------------------------------------------------------
 
-type Props = {
+export type CheckboxProps = {
+  // Optional incoming value of the checkbox field.  This is used instead
+  // of "value" on a checkbox but serves the same purpose.
+  // This is a controlled checkbox field, so must be stateful in the parent.
+  checked?: boolean;
+  // Optional children to render inside the fieldset.
+  children?: React.ReactNode;
   // Optional CSS classes to apply to the checkbox field.
   className?: string;
   // Optional disabled state for the checkbox field.
@@ -25,24 +31,23 @@ type Props = {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   // Optional event handler for change events.
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  // Optional initial value for the checkbox field.
-  value?: boolean | undefined;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export function Checkbox({
+  checked,
+  children,
   className,
   disabled,
   label,
   name,
   onBlur,
   onChange,
-  value,
   ...props
-}: Props) {
+}: CheckboxProps) {
   return (
     <fieldset className={"fieldset w-full grid grid-cols-2 gap-1"}>
       <input
-        checked={value ? value : undefined}
+        checked={checked}
         className={`checkbox checkbox-primary ${className ? className : ""}`}
         disabled={disabled ? disabled : undefined}
         id={name}
@@ -55,6 +60,7 @@ export function Checkbox({
       <legend className="fieldset-legend">
         <label htmlFor={name}>{label}</label>
       </legend>
+      {children}
     </fieldset>
   );
 }
