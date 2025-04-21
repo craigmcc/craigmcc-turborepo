@@ -7,11 +7,13 @@
 // External Modules ----------------------------------------------------------
 
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import React from "react";
 
 // Internal Modules ----------------------------------------------------------
 
+import { TextareaWrapper } from "./TextareaWrapper";
 import { Textarea } from "../Textarea";
 
 // Test Hooks ----------------------------------------------------------------
@@ -27,103 +29,94 @@ function elements(labelText: string) {
 
 // Test Objects --------------------------------------------------------------
 
+const CLASSNAME = "test-class";
 const LABEL = "Test Textarea";
 const NAME = "test-textarea";
 const PLACEHOLDER = "Enter text here";
+const UPDATED_VALUE = "Updated Value";
 const VALUE = "Test Value";
 
 // Test Methods --------------------------------------------------------------
 
 describe("Textarea", () => {
   it("should render a textarea field as expected", () => {
-    const handleChange = jest.fn();
-    render(
-      <Textarea
-        label={LABEL}
-        name={NAME}
-        onChange={handleChange}
-        placeholder={PLACEHOLDER}
-        value={VALUE}
-      />
-    );
-    const { textarea } = elements(LABEL);
-    expect(textarea).toBeInTheDocument();
-    expect(textarea).not.toHaveAttribute("disabled");
-    expect(textarea).toHaveAttribute("id", NAME);
-    expect(textarea).toHaveAttribute("name", NAME);
-    expect(textarea).not.toHaveAttribute("onBlur");
-    expect(textarea).not.toHaveAttribute("onChange");
-    expect(textarea).toHaveAttribute("placeholder", PLACEHOLDER);
-    expect(textarea).toHaveTextContent(VALUE);
-  });
-
-  it("should render a textarea field with className as expected", () => {
-    const CLASSNAME = "test-class";
-    const handleChange = jest.fn();
     render(
       <Textarea
         className={CLASSNAME}
+        disabled
         label={LABEL}
         name={NAME}
-        onChange={handleChange}
+        onBlur={jest.fn()}
+        onChange={jest.fn()}
         placeholder={PLACEHOLDER}
         value={VALUE}
+        vertical
       />
     );
-    const { textarea } = elements(LABEL);
-    expect(textarea).toHaveClass(CLASSNAME);
-  });
 
-  it("should render a disabled textarea field as expected", () => {
-    render(
-      <Textarea
-        disabled={true}
-        label={LABEL}
-        name={NAME}
-        placeholder={PLACEHOLDER}
-        value={VALUE}
-      />
-    );
-    const { textarea } = elements(LABEL);
-    expect(textarea).toBeDisabled();
-  });
-
-  it("should render a textarea field with vertical layout as expected", () => {
-    const handleChange = jest.fn();
-    render(
-      <Textarea
-        label={LABEL}
-        name={NAME}
-        onChange={handleChange}
-        placeholder={PLACEHOLDER}
-        value={VALUE}
-        vertical={true}
-      />
-    );
     const { textarea } = elements(LABEL);
     expect(textarea).toBeInTheDocument();
+    expect(textarea).toHaveAttribute("class", `textarea textarea-bordered w-full ${CLASSNAME}`);
+    expect(textarea).toHaveAttribute("disabled");
     expect(textarea).toHaveAttribute("id", NAME);
     expect(textarea).toHaveAttribute("name", NAME);
+    expect(textarea).not.toHaveAttribute("onBlur"); // Injected later
+    expect(textarea).not.toHaveAttribute("onChange"); // Injected later
+    expect(textarea).toHaveAttribute("placeholder", PLACEHOLDER);
+    expect(textarea).toHaveTextContent(VALUE);
+    // "vertical" is not an input element attribute
   });
 
-  // TODO: Cannot seem to render onBlur and onChange events
-  it.skip("should render a textarea field with onBlur and onChange event as expected", () => {
-    const handleBlur = jest.fn();
+  it("should trigger the onBlur event", async () => {
+    const handleOnBlur = jest.fn();
     const handleChange = jest.fn();
     render(
-      <Textarea
+      <TextareaWrapper
+        defaultValue={VALUE}
+        mockOnBlur={handleOnBlur}
         label={LABEL}
         name={NAME}
-        onBlur={handleBlur}
+        onBlur={handleOnBlur}
         onChange={handleChange}
-        placeholder={PLACEHOLDER}
+      />
+    );
+    const {textarea} = elements(LABEL);
+    expect(textarea).toBeInTheDocument();
+
+    const user = userEvent.setup();
+    await act(async () => {
+      await user.clear(textarea); // Acquire focus
+      await user.tab();
+    });
+
+    expect(handleOnBlur).toHaveBeenCalledTimes(1);
+    expect(handleChange).toHaveBeenCalledTimes(1); // The "clear" event
+
+  });
+
+  it("should trigger the onChange event", async () => {
+    const handleOnChange = jest.fn();
+    render(
+      <TextareaWrapper
+        defaultValue={VALUE}
+        mockOnChange={handleOnChange}
+        label={LABEL}
+        name={NAME}
+        onChange={handleOnChange}
         value={VALUE}
       />
     );
-    const { textarea } = elements(LABEL);
+    const {textarea} = elements(LABEL);
     expect(textarea).toBeInTheDocument();
-    expect(textarea).toHaveAttribute("onBlur");
-    expect(textarea).toHaveAttribute("onChange");
+
+    const user = userEvent.setup();
+    await act(async () => {
+      await user.clear(textarea);
+      await user.type(textarea, UPDATED_VALUE);
+    });
+
+    expect(handleOnChange).toHaveBeenCalledTimes(UPDATED_VALUE.length + 1); // The "clear"
+
   });
 
 });

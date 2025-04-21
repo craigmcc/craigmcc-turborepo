@@ -13,6 +13,8 @@ import React, { TextareaHTMLAttributes } from "react";
 // Public Objects ------------------------------------------------------------
 
 export type TextareaProps = {
+  // Optional children to render inside the textarea field.
+  children?: React.ReactNode;
   // Optional CSS classes to apply to the textarea field.
   className?: string;
   // Optional disabled state for the textarea field.
@@ -28,12 +30,14 @@ export type TextareaProps = {
   // Optional placeholder text for the textarea field.
   placeholder?: string;
   // Optional initial value for the textarea field.
+  // This is a controlled textarea field, so must be stateful in the parent.
   value?: string | number | readonly string[] | undefined;
   // Should the label be displayed above the textarea field?
   vertical?: boolean;
 } & TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export function Textarea({
+  children,
   className,
   disabled,
   label,
@@ -62,6 +66,7 @@ export function Textarea({
         value={value ? value : undefined}
         {...props}
       />
+      {children}
     </fieldset>
   );
 }
