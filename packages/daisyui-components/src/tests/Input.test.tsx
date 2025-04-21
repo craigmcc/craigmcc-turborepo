@@ -3,12 +3,13 @@
 // External Modules ----------------------------------------------------------
 
 import "@testing-library/jest-dom";
-import {/* act,*/ fireEvent, render, screen } from "@testing-library/react";
-//import { userEvent } from "@testing-library/user-event";
+import { act, render, screen } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import React from "react";
 
 // Internal Modules ----------------------------------------------------------
 
+import { InputWrapper } from "./InputWrapper";
 import { Input } from "../Input";
 
 // Test Hooks ----------------------------------------------------------------
@@ -58,25 +59,57 @@ describe("Input", () => {
     // "vertical" is not an input element attribute
   });
 
-  // TODO - does not fire event right now - need state  for the value?
-  it.skip("should trigger the onChange event", () => {
+  it("should trigger the onBlur event", async () => {
+    const handleOnBlur = jest.fn();
     const handleChange = jest.fn();
-    const UPDATED_VALUE = "Updated Value";
     render(
-      <Input
+      <InputWrapper
+        defaultValue={VALUE}
+        mockOnBlur={handleOnBlur}
         label={LABEL}
         name={NAME}
+        onBlur={handleOnBlur}
         onChange={handleChange}
+      />
+    );
+    const {input} = elements(LABEL);
+    expect(input).toBeInTheDocument();
+
+    const user = userEvent.setup();
+    await act(async () => {
+      await user.clear(input); // Acquire focus
+      await user.tab();
+    });
+
+    expect(handleOnBlur).toHaveBeenCalledTimes(1);
+    expect(handleChange).toHaveBeenCalledTimes(1); // The "clear" event
+
+  });
+
+  it("should trigger the onChange event", async () => {
+    const handleOnChange = jest.fn();
+    const UPDATED_VALUE = "Updated Value";
+    render(
+      <InputWrapper
+        defaultValue={VALUE}
+        mockOnChange={handleOnChange}
+        label={LABEL}
+        name={NAME}
+        onChange={handleOnChange}
         value={VALUE}
       />
     );
     const {input} = elements(LABEL);
     expect(input).toBeInTheDocument();
 
-    fireEvent.change(input, UPDATED_VALUE);
-    expect(handleChange).toHaveBeenCalledTimes(1);
-    expect(handleChange).toHaveBeenCalledWith(UPDATED_VALUE);
-    expect(input).toHaveAttribute("value", UPDATED_VALUE)
+    const user = userEvent.setup();
+    await act(async () => {
+      await user.clear(input);
+      await user.type(input, UPDATED_VALUE);
+    });
+
+    expect(handleOnChange).toHaveBeenCalledTimes(UPDATED_VALUE.length + 1); // The "clear"
+
   });
 
 });

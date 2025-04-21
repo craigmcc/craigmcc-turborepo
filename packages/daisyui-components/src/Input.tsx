@@ -54,6 +54,7 @@ export type InputProps = {
     | "url"
     | "week";
   // Optional initial value for the input field.
+  // This is a controlled input field, so must be stateful in the parent.
   value?: string | number | readonly string[] | undefined;
   // Should the label be displayed above the input field?
   vertical?: boolean;
