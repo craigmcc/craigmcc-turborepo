@@ -29,10 +29,11 @@ const CLASSNAME = "test-class";
 const LABEL = "Test Input";
 const NAME = "test-input";
 const PLACEHOLDER = "Enter text here";
+const UPDATED_VALUE = "Updated Value";
 const VALUE = "Test Value";
 
 describe("Input", () => {
-  it("should render a fully decorated Input field", () => {
+  it("should render a fully decorated Input component", () => {
     render(<Input
       className={CLASSNAME}
       disabled
@@ -45,6 +46,7 @@ describe("Input", () => {
       value={VALUE}
       vertical
     />);
+
     const { input } = elements(LABEL);
     expect(input).toBeInTheDocument();
     expect(input).toHaveAttribute("class", `input input-bordered w-full ${CLASSNAME}`);
@@ -57,6 +59,7 @@ describe("Input", () => {
     expect(input).toHaveAttribute("type", "text");
     expect(input).toHaveAttribute("value", VALUE);
     // "vertical" is not an input element attribute
+
   });
 
   it("should trigger the onBlur event", async () => {
@@ -88,7 +91,6 @@ describe("Input", () => {
 
   it("should trigger the onChange event", async () => {
     const handleOnChange = jest.fn();
-    const UPDATED_VALUE = "Updated Value";
     render(
       <InputWrapper
         defaultValue={VALUE}

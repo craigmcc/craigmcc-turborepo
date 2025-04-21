@@ -7,8 +7,13 @@
 // External Modules ----------------------------------------------------------
 
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen} from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import React from "react";
+
+// Internal Modules ----------------------------------------------------------
+
+import { SelectWrapper } from "./SelectWrapper";
 import { Select } from "../Select";
 
 // Test Hooks ----------------------------------------------------------------
@@ -24,6 +29,7 @@ function elements(labelText: string) {
 
 // Test Objects --------------------------------------------------------------
 
+const CLASSNAME = "test-class";
 const LABEL = "Test Select";
 const NAME = "test-select";
 const OPTIONS = [
@@ -31,96 +37,90 @@ const OPTIONS = [
   { value: "option2", label: "Option 2" },
   { value: "option3", label: "Option 3" },
 ];
+const UPDATED_VALUE = "option3";
 const VALUE = "option2";
 
 // Test Methods --------------------------------------------------------------
 
 describe("Select", () => {
-  it("should render a select field as expected", () => {
-    const handleChange = jest.fn();
+  it("should render a fully decorated select component", () => {
     render(
       <Select
+        className={CLASSNAME}
+        disabled
         label={LABEL}
         name={NAME}
-        onChange={handleChange}
+        onBlur={jest.fn()}
+        onChange={jest.fn()}
         options={OPTIONS}
         value={VALUE}
+        vertical
       />
     );
-    const { select } = elements(LABEL);
+
+    const {select} = elements(LABEL);
     expect(select).toBeInTheDocument();
-    expect(select).not.toHaveAttribute("disabled");
+    expect(select).toHaveAttribute("class", `select select-bordered w-full ${CLASSNAME}`);
+    expect(select).toHaveAttribute("disabled");
     expect(select).toHaveAttribute("id", NAME);
     expect(select).toHaveAttribute("name", NAME);
     expect(select).not.toHaveAttribute("onBlur");
     expect(select).not.toHaveAttribute("onChange");
+    expect(select).not.toHaveAttribute("value", VALUE); // Controlled component
+    // "vertical" is not a select element attribute
+
   });
 
-  it("should render a select field with className as expected", () => {
-    const CLASSNAME = "test-class";
+  it.skip("should trigger the onBlur event", async () => {
+    const handleOnBlur = jest.fn();
     const handleChange = jest.fn();
     render(
-      <Select
-        className={CLASSNAME}
+      <SelectWrapper
+        defaultValue={VALUE}
+        mockOnBlur={handleOnBlur}
         label={LABEL}
         name={NAME}
+        onBlur={handleOnBlur}
         onChange={handleChange}
         options={OPTIONS}
-        value={VALUE}
       />
     );
-    const { select } = elements(LABEL);
+    const {select} = elements(LABEL);
     expect(select).toBeInTheDocument();
-    expect(select).toHaveAttribute("class", `select select-bordered w-full ${CLASSNAME}`);
+
+    const user = userEvent.setup();
+    await act(async () => {
+      await user.tab(); // Acquire focus
+      await user.tab(); // Trigger a blur event
+    });
+
+    expect(handleOnBlur).toHaveBeenCalledTimes(1);
+
   });
 
-  it("should render a disabled select field as expected", () => {
+  it("should trigger the onChange event", async () => {
+    const handleOnChange = jest.fn();
     render(
-      <Select
-        disabled={true}
+      <SelectWrapper
+        defaultValue={VALUE}
+        mockOnChange={handleOnChange}
         label={LABEL}
         name={NAME}
+        onChange={handleOnChange}
         options={OPTIONS}
         value={VALUE}
       />
     );
-    const { select } = elements(LABEL);
+    const {select} = elements(LABEL);
     expect(select).toBeInTheDocument();
-    expect(select).toHaveAttribute("disabled");
-  });
 
-  it("should render a select field with vertical layout as expected", () => {
-    const handleChange = jest.fn();
-    render(
-      <Select
-        label={LABEL}
-        name={NAME}
-        onChange={handleChange}
-        options={OPTIONS}
-        value={VALUE}
-        vertical={true}
-      />
-    );
-    const { select } = elements(LABEL);
-    expect(select).toBeInTheDocument();
-    expect(select).toHaveAttribute("class", "select select-bordered w-full ");
-  });
+    const user = userEvent.setup();
+    await act(async () => {
+      await user.selectOptions(select, UPDATED_VALUE); // Select the option
+    });
 
-  it("should render a select field with horizontal layout as expected", () => {
-    const handleChange = jest.fn();
-    render(
-      <Select
-        label={LABEL}
-        name={NAME}
-        onChange={handleChange}
-        options={OPTIONS}
-        value={VALUE}
-        vertical={false}
-      />
-    );
-    const { select } = elements(LABEL);
-    expect(select).toBeInTheDocument();
-    expect(select).toHaveAttribute("class", "select select-bordered w-full ");
+    expect(handleOnChange).toHaveBeenCalledTimes(1);
+
   });
 
 });
