@@ -4,14 +4,16 @@
 
 // External Modules ----------------------------------------------------------
 
+import { ThemeContextProvider } from "@craigmcc/daisyui-components/ThemeContext";
+import { ThemeWrapper } from "@craigmcc/daisyui-components/ThemeWrapper";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 // Internal Modules ----------------------------------------------------------
 
 import "./globals.css";
-import { ThemeContextProvider } from "@craigmcc/daisyui-components/ThemeContext";
-import { ThemeWrapper } from "@craigmcc/daisyui-components/ThemeWrapper";
+// TODO - correct tsconfig to be able to say @/components/layout/Header
+import { Header } from "../components/layout/Header";
 
 // Public Objects ------------------------------------------------------------
 
@@ -31,12 +33,7 @@ export default function RootLayout({
     <body className={inter.className}>
     <ThemeContextProvider>
       <ThemeWrapper>
-        {/*  TODO - this will get replaced by the nav bar with dropdowns */}
-        <div className="navbar bg-base-200">
-          <div className="flex-1">
-            <a className="btn btn-ghost normal-case text-xl">Components Showcase</a>
-          </div>
-        </div>
+        <Header />
         {children}
       </ThemeWrapper>
     </ThemeContextProvider>
