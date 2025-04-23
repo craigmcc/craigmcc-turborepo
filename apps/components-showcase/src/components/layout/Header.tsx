@@ -4,6 +4,7 @@
 
 // External Modules ----------------------------------------------------------
 
+import { Images } from "lucide-react";
 import Link from "next/link";
 
 // Internal Modules ----------------------------------------------------------
@@ -17,6 +18,9 @@ export function Header() {
     <div className="navbar justify-between items-center bg-base-200">
       <div className="flex flex-row">
         <Link href="/" className="mr-2">
+          <Images/>
+        </Link>
+        <Link href="/">
           <span className="font-semibold">Component Showcase</span>
         </Link>
       </div>
