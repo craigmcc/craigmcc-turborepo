@@ -1,6 +1,6 @@
 {
   "exports": {
-    "./*": ".src/*.ts"
+    "./*": ".src/*.tsx"
   },
   "jest": {
     "preset": "@craigmcc/jest-presets/browser"

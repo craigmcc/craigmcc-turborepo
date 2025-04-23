@@ -1,7 +1,5 @@
 "use client"
 
-// @/components/layout/ThemeWrapper.tsx
-
 /**
  * Wrapper (for global layout) that sets the current theme for its children.
  */
