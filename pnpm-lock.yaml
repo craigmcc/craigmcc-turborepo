@@ -143,6 +143,9 @@ importers:
 
   packages/daisyui-components:
     dependencies:
+      lucide-react:
+        specifier: ^0.503.0
+        version: 0.503.0(react@19.1.0)
       react:
         specifier: ^19.1.0
         version: 19.1.0
