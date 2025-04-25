@@ -8,6 +8,7 @@
 
 //import { ArrowDown, ArrowUp } from "lucide-react";
 import { useEffect, useRef } from "react";
+import { twMerge } from "tailwind-merge";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -60,7 +61,7 @@ export function Dropdown({
 
   return (
     <details
-      className={`dropdown dropdown-end ${className ? className : ""}`}
+      className={twMerge("dropdown dropdown-end", className)}
       ref={dropdownRef}
     >
       <summary

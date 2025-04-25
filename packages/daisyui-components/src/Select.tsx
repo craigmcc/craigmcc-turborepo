@@ -7,6 +7,7 @@
 // External Modules ----------------------------------------------------------
 
 import React, { ChangeEvent, SelectHTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -65,7 +66,7 @@ export function Select({
         <label htmlFor={name}>{label}</label>
       </legend>
       <select
-        className={`select select-bordered w-full ${className ? className : ""}`}
+        className={twMerge("select select-bordered w-full", className)}
         disabled={disabled ? disabled : undefined}
         id={name}
         name={name}

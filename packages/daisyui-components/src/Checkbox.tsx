@@ -7,6 +7,7 @@
 // External Modules ----------------------------------------------------------
 
 import React, { InputHTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -48,7 +49,7 @@ export function Checkbox({
     <fieldset className={"fieldset w-full grid grid-cols-2 gap-1"}>
       <input
         checked={checked}
-        className={`checkbox checkbox-primary ${className ? className : ""}`}
+        className={twMerge("checkbox checkbox-primary", className)}
         disabled={disabled ? disabled : undefined}
         id={name}
         name={name}

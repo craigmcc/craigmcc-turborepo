@@ -7,6 +7,7 @@
 // External Modules ----------------------------------------------------------
 
 import React, { InputHTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -81,7 +82,7 @@ export function Input({
         <label htmlFor={name}>{label}</label>
       </legend>
       <input
-        className={`input input-bordered w-full ${className ? className : ""}`}
+        className={twMerge("input input-bordered w-full", className)}
         disabled={disabled ? disabled : undefined}
         id={name}
         name={name}

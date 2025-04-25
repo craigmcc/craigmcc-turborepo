@@ -7,6 +7,7 @@
 // External Modules ----------------------------------------------------------
 
 import React, { TextareaHTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -56,7 +57,7 @@ export function Textarea({
         <label htmlFor={name}>{label}</label>
       </legend>
       <textarea
-        className={`textarea textarea-bordered w-full ${className ? className : ""}`}
+        className={twMerge("textarea textarea-bordered w-full", className)}
         disabled={disabled ? disabled : undefined}
         id={name}
         name={name}
