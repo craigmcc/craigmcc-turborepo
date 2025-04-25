@@ -7,7 +7,7 @@
 // External Modules ----------------------------------------------------------
 
 //import { ArrowDown, ArrowUp } from "lucide-react";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef } from "react";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -37,37 +37,32 @@ export function Dropdown({
                            summary,
                          }: DropdownProps) {
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
 
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        dropdownRef.current.removeAttribute("open");
       }
     };
 
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
 
-  }, [isOpen]);
+  }, []);
 
   return (
     <details
       className={`dropdown dropdown-end ${className ? className : ""}`}
-      open={isOpen}
       ref={dropdownRef}
     >
       <summary
         className="btn btn-ghost"
         id={name ? name : undefined}
-        onClick={() => setIsOpen(!isOpen)}
       >
         {summary}
       </summary>
@@ -81,7 +76,7 @@ export function Dropdown({
               className="btn btn-ghost"
               onClick={() => {
                 handleClick(detail);
-                setIsOpen(false);
+                dropdownRef.current?.removeAttribute("open");
               }}
               type="button"
             >
