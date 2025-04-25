@@ -18,6 +18,8 @@ export type DropdownProps = {
   className?: string;
   // Optional CSS classes to apply to the dropdown details
   classNameDetails?: string;
+  // Should the dropdown be closed when an option is selected? [true]
+  closeOnSelect?: boolean;
   // The options for the dropdown details.  These should be unique
   details: string[];
   // Function to handle click events on a specific dropdown detail.
@@ -31,6 +33,7 @@ export type DropdownProps = {
 export function Dropdown({
                            className,
                            classNameDetails,
+                           closeOnSelect = true,
                            details,
                            handleClick,
                            name,
@@ -76,7 +79,9 @@ export function Dropdown({
               className="btn btn-ghost"
               onClick={() => {
                 handleClick(detail);
-                dropdownRef.current?.removeAttribute("open");
+                if (closeOnSelect) {
+                  dropdownRef.current?.removeAttribute("open");
+                }
               }}
               type="button"
             >
