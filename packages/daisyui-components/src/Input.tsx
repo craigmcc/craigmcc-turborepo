@@ -84,7 +84,7 @@ export function Input({
     <fieldset className={fieldsetClassName}>
       {vertical ? (
         <legend className="fieldset-legend">
-          <label className="p-2" htmlFor={name}>{label}</label>
+          <label htmlFor={name}>{label}</label>
         </legend>
       ) : (
         <label className="items-center p-2" htmlFor={name}>{label}</label>
