@@ -75,12 +75,20 @@ export function Input({
   vertical,
   ...props
 }: InputProps) {
+  const fieldsetClassName = twMerge(
+    "fieldset w-full",
+    vertical ? "grid grid-cols-1" : "flex flex-row gap-1"
+  );
   return (
     // prettier-ignore
-    <fieldset className={`fieldset w-full grid ${vertical ? "grid-cols-1" : "grid-cols-2 gap-1"}`}>
-      <legend className="fieldset-legend">
-        <label htmlFor={name}>{label}</label>
-      </legend>
+    <fieldset className={fieldsetClassName}>
+      {vertical ? (
+        <legend className="fieldset-legend">
+          <label className="p-2" htmlFor={name}>{label}</label>
+        </legend>
+      ) : (
+        <label className="items-center p-2" htmlFor={name}>{label}</label>
+      )}
       <input
         className={twMerge("input input-bordered w-full", className)}
         disabled={disabled ? disabled : undefined}
