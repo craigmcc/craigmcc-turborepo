@@ -23,7 +23,7 @@ export function Header() {
           <Images/>
         </Link>
         <Link href="/" className="pr-4">
-          <span className="font-semibold">Component Showcase</span>
+          <span className="font-bold">Component Showcase</span>
         </Link>
         <DaisyuiDropdown className="pr-4"/>
         <TanstackDropdown/>
