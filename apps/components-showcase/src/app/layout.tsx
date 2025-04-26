@@ -12,8 +12,7 @@ import { Inter } from "next/font/google";
 // Internal Modules ----------------------------------------------------------
 
 import "./globals.css";
-// TODO - correct tsconfig to be able to say @/components/layout/Header
-import { Header } from "../components/layout/Header";
+import { Header } from "@/components/layout/Header";
 
 // Public Objects ------------------------------------------------------------
 
