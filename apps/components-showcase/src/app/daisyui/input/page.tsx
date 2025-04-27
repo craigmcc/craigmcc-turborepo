@@ -7,6 +7,7 @@
 // External Modules ----------------------------------------------------------
 
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -16,7 +17,8 @@ import { Input } from "@craigmcc/daisyui-components/Input";
 
 export default function InputPage() {
 
-  const [value, setValue] = useState("Basic Value");
+  const [valueBasic, setValueBasic] = useState("Basic Value");
+  const [valueDisabled, setValueDisabled] = useState("");
 
   return (
     <main className="bg-base-100 flex flex-col w-full h-[calc(100vh-80px)] items-center justify-between p-6">
@@ -26,10 +28,11 @@ export default function InputPage() {
           <Input
             label="Username:"
             name="horizontal-basic"
-            onChange={(e) => setValue(e.target.value)}
+            onBlur={() => toast.warn("Horizontal Blurred")}
+            onChange={(e) => setValueBasic(e.target.value)}
             placeholder="Type here"
             type="text"
-            value={value}
+            value={valueBasic}
           />
         </div>
         <div className="bg-base-300 p-2 w-full">
@@ -37,18 +40,40 @@ export default function InputPage() {
           <Input
             label="Basic Label:"
             name="vertical-basic"
-            onChange={(e) => setValue(e.target.value)}
+            onBlur={() => toast.info("Vertical Blurred")}
+            onChange={(e) => setValueBasic(e.target.value)}
             placeholder="Type here"
             type="text"
-            value={value}
+            value={valueBasic}
             vertical
           />
         </div>
-        <div className="bg-base-300 p-2">
-          Third
+        <div className="bg-base-300 p-2 w-full">
+          <div className="text-primary font-bold items-center justify-center">Disabled Input (Horizontal)</div>
+          <Input
+            disabled
+            label="Username:"
+            name="horizontal-disabled"
+            onBlur={() => toast.warn("Horizontal Blurred")}
+            onChange={(e) => setValueBasic(e.target.value)}
+            placeholder="Type here"
+            type="text"
+            value={valueDisabled}
+          />
         </div>
-        <div className="bg-base-300 p-2">
-          Fourth
+        <div className="bg-base-300 p-2 w-full">
+          <div className="text-primary font-bold justify-center">Disabled Input (Vertical)</div>
+          <Input
+            disabled
+            label="Basic Label:"
+            name="vertical-disabled"
+            onBlur={() => toast.info("Vertical Blurred")}
+            onChange={(e) => setValueBasic(e.target.value)}
+            placeholder="Type here"
+            type="text"
+            value={valueDisabled}
+            vertical
+          />
         </div>
       </div>
     </main>

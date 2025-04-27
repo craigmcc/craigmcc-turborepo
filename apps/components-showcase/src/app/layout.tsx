@@ -8,6 +8,7 @@ import { ThemeContextProvider } from "@craigmcc/daisyui-components/ThemeContext"
 import { ThemeWrapper } from "@craigmcc/daisyui-components/ThemeWrapper";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ToastContainer } from "react-toastify";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -35,6 +36,12 @@ export default function RootLayout({
         <Header />
         {children}
       </ThemeWrapper>
+      <ToastContainer
+        autoClose={5000}
+        hideProgressBar={true}
+        position="bottom-right"
+        theme="colored"
+      />
     </ThemeContextProvider>
     </body>
     </html>
