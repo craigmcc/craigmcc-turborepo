@@ -80,7 +80,6 @@ export function Input({
     vertical ? "grid grid-cols-1" : "flex flex-row gap-1"
   );
   return (
-    // prettier-ignore
     <fieldset className={fieldsetClassName}>
       {vertical ? (
         <legend className="fieldset-legend">
