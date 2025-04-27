@@ -18,7 +18,7 @@ import { Input } from "@craigmcc/daisyui-components/Input";
 export default function InputPage() {
 
   const [valueBasic, setValueBasic] = useState("Basic Value");
-  const [valueDisabled, setValueDisabled] = useState("");
+  const [valueDisabled] = useState("");
 
   return (
     <main className="bg-base-100 flex flex-col w-full h-[calc(100vh-80px)] items-center justify-between p-6">

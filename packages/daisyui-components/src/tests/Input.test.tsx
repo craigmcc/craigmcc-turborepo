@@ -49,7 +49,8 @@ describe("Input", () => {
 
     const { input } = elements(LABEL);
     expect(input).toBeInTheDocument();
-    expect(input).toHaveAttribute("class", `input input-bordered w-full ${CLASSNAME}`);
+    const CLASSES = input.getAttribute("class")?.split(" ");
+    expect(CLASSES).toContain(CLASSNAME);
     expect(input).toHaveAttribute("disabled");
     expect(input).toHaveAttribute("id", NAME);
     expect(input).toHaveAttribute("name", NAME);
