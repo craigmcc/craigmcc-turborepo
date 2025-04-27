@@ -16,7 +16,7 @@ import { Input } from "@craigmcc/daisyui-components/Input";
 
 export default function InputPage() {
 
-  const [value, setValue] = useState("Example Value");
+  const [value, setValue] = useState("Basic Value");
 
   return (
     <main className="bg-base-100 flex flex-col w-full h-[calc(100vh-80px)] items-center justify-between p-6">

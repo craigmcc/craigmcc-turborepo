@@ -90,7 +90,7 @@ export function Input({
         <label className="items-center p-2" htmlFor={name}>{label}</label>
       )}
       <input
-        className={twMerge("input input-bordered w-full", className)}
+        className={twMerge("input border-2 border-gray-500 w-full", className)}
         disabled={disabled ? disabled : undefined}
         id={name}
         name={name}
