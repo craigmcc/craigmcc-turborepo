@@ -30,11 +30,6 @@ by that particular package.
 
 ```json
 {
-  "dependencies": {
-    "@craigmcc/tailwind-config": "workspace:*",
-    "tailwindcss": "^3.3.2",
-    "autoprefixer": "^10.4.14"
-  },
   "devDependencies": {
     "@craigmcc/tailwind-config": "workspace:*"
   }
