@@ -2,6 +2,13 @@
 
 ## Overview
 
+> **Note**:
+> If you have (or will) use a template to create a new app in this
+> monorepo (such as a Next.js app), you will want to create the
+> *globals.css* file (or whatever name you want) with a different
+> name or a different location, to avoid overwriting what the template
+> created for Tailwind support.
+
 This package has the following purposes:
 * Provide a prebuilt *globals.css* file for a basic Tailwind CSS setup.
 * Provide a prebuilt *postcss.config.mjs* file that must be included
