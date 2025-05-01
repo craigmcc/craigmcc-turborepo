@@ -1,0 +1,14 @@
+{
+  "exports": {
+    "./globals.css": "./globals.css",
+    "./postcss.config": "./postcss.config.mjs"
+  },
+  "license": "Apache-2.0",
+  "name": "@craigmcc/tailwind-config",
+  "private": true,
+  "version": "0.0.1",
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.5",
+    "tailwindcss": "^4.1.5"
+  }
+}
