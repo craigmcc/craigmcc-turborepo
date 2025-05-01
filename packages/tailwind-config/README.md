@@ -24,26 +24,37 @@ by that particular package.
 
 ## Installation
 
-In the *package.json* file for your app or package, included the following:
+(1) In the *package.json* file for your app or package, included the following:
+
+##### File: `package.json`
 
 ```json
 {
+  "dependencies": {
+    "@craigmcc/tailwind-config": "workspace:*",
+    "tailwindcss": "^3.3.2",
+    "autoprefixer": "^10.4.14"
+  },
   "devDependencies": {
     "@craigmcc/tailwind-config": "workspace:*"
   }
 }
 ```
 
-In the root directory of your app or package, set up a *postcss.config.mjs* file
+(2) In the root directory of your app or package, set up a *postcss.config.mjs* file
 with the following contents:
+
+##### File: `postcss.config.mjs`
 
 ```javascript
 export { default } from "@craigmcc/tailwind-config/postcss.config";
 ```
 
-Then, in the *src/app* directory of your app or package (or wherever you want it),
+(3) Then, in the *src/app* directory of your app or package (or wherever you want it),
 create a *globals.css* file (or whatever name you want) with the following
 contents:
+
+##### File: `src/app/globals.css`
 
 ```css
 @import "@craigmcc/tailwind-config/globals.css";
@@ -51,9 +62,11 @@ contents:
 /* Include whatever other CSS configuration you want here */
 ```
 
-Finally, include a reference to the *globals.css* file in your app or package.
+(4) Finally, include a reference to the *globals.css* file in your app or package.
 For a Next.js app, for example, you might include it in the *src/app/layout.tsx* file
 if it is in the same directory:
+
+##### File: `src/app/layout.tsx`
 
 ```tsx
 import "./globals.css";
