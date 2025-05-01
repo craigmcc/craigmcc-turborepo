@@ -17,6 +17,7 @@
     "test:ci": "turbo run test:ci"
   },
   "devDependencies": {
+    "@craigmcc/tailwind-config": "workspace:*",
     "prettier": "^3.5.3",
     "turbo": "^2.5.0",
     "typescript": "5.8.2"
