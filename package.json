@@ -5,7 +5,7 @@
   "description": "Monorepo for my apps and packages, based on Turborepo basic template.",
   "license": "Apache-2.0",
   "name": "craigmcc-turborepo",
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.10.0",
   "private": true,
   "scripts": {
     "build": "turbo run build",
