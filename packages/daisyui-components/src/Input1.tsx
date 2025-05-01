@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * General purpose input field for the application.
+ * Experimental version of Input to explore approaches that do the borders right.
  */
 
 // External Modules ----------------------------------------------------------
@@ -61,68 +61,53 @@ export type InputProps = {
   vertical?: boolean;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export function Input({
-                        children,
-                        className,
-                        disabled,
-                        label,
-                        name,
-                        onBlur,
-                        onChange,
-                        placeholder,
-                        type,
-                        value,
-                        vertical,
-                        ...props
-                      }: InputProps) {
-  const fieldsetClassName = twMerge(
-    "fieldset w-full",
-    vertical ? "grid grid-cols-1" : "flex flex-row gap-1"
-  );
+export function Input1({
+  children,
+  className,
+  disabled,
+  label,
+  name,
+  onBlur,
+  onChange,
+  placeholder,
+  type = "text",
+  value,
+  vertical,
+  ...props
+}: InputProps) {
   return (
-    <fieldset className={fieldsetClassName}>
-      {vertical ? (
-        <legend className="fieldset-legend">
-          <label htmlFor={name}>{label}</label>
-        </legend>
-      ) : (
-        <label className="items-center pr-2" htmlFor={name}>{label}</label>
-      )}
-      <input
-        // Initial experiments
+    <div className={twMerge( // Faked fieldset
+      "w-full gap-1",
+      vertical ? "grid grid-cols-1" : "flex flex-row",
+    )}>
+      <div className={twMerge( // Faked legend
+        "items-center",
+        !vertical ? "pr-2" : null,
+      )}>
+        <label
+          className={twMerge(
+            !vertical ? "gap-1" : null,
+          )}
+          htmlFor={name}>{label}</label>
+      </div>
+      <input // Faked input
         className={twMerge(
-          "input w-full rounded-field",
-          "border-2 focus:ring-2 focus:border-accent focus:ring-primary",
-          className)}
-/*
-        // Based on input components in shopshop.bu5
-        className={twMerge(
-          "w-full disabled:text-blue-500 dark:disabled:text-yellow-300 disabled:opacity-75 border-2 border-gray-500",
-          className
+          "w-full input",
+//          "border-2 border-amber-500 rounded-field",
+//          "input input-border flex w-full items-center gap-2 grow",
+          className,
         )}
-*/
-/*
-        // Best practices from GitHub CoPilot
-        className={twMerge(
-          "w-full p-3 rounded-md",
-          "border-2 border-gray-300 bg-gray-50",
-          "focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
-          "hover:border-gray-400",
-          "disabled:opacity-50 disabled:cursor-not-allowed",
-          "transition duration-200 ease-in-out"
-        )}
-*/
         disabled={disabled ? disabled : undefined}
         id={name}
         name={name}
         onBlur={onBlur ? onBlur : undefined}
         onChange={onChange ? onChange : undefined}
         placeholder={placeholder ? placeholder : undefined}
-        type={type ? type : "text"}
+        type={type}
         value={value ? value : undefined}
         {...props}
       />
       {children}
-    </fieldset>
+    </div>
   );
 }
