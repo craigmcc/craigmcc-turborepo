@@ -2,7 +2,7 @@
   "exports": {
     "./*": "./src/*.tsx"
   },
-  "name": "@craigmcc/ui",
+  "name": "@craigmcc/original-ui",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {

@@ -1,5 +1,5 @@
 import Image, { type ImageProps } from "next/image";
-import { Button } from "@craigmcc/ui/button";
+import { Button } from "@craigmcc/original-ui/button";
 import styles from "./page.module.css";
 import { JSX } from "react";
 
