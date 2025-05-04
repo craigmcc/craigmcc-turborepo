@@ -64,7 +64,6 @@
     "@craigmcc/eslint-config": "workspace:*",
     "@craigmcc/tailwind-config": "workspace:*",
     "@craigmcc/typescript-config": "workspace:*",
-    "@craigmcc/ui": "workspace:*",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
