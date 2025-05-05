@@ -10,7 +10,7 @@ import { Inter } from "next/font/google";
 
 // Internal Modules ----------------------------------------------------------
 
-import "./globals.css";
+import "@craigmcc/ui/globals.css";
 import { NavBar } from "@/components/layout/NavBar";
 import { Providers } from "@/components/layout/Providers";
 
