@@ -4,22 +4,21 @@
 
 // External Modules ----------------------------------------------------------
 
-import { ThemeContextProvider } from "@craigmcc/daisyui-components/ThemeContext";
-import { ThemeWrapper } from "@craigmcc/daisyui-components/ThemeWrapper";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ToastContainer } from "react-toastify";
+//import { ToastContainer } from "react-toastify";
 
 // Internal Modules ----------------------------------------------------------
 
-import "./globals.css";
-import { Header } from "@/components/layout/Header";
+import "@craigmcc/ui/globals.css";
+import { NavBar } from "@/components/layout/NavBar";
+import { Providers } from "@/components/layout/Providers";
 
 // Public Objects ------------------------------------------------------------
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
-  description: "Demonstration of DaisyUI and Tanstack Form components",
+  description: "Demonstration of ShadCN UI and Tanstack Form components",
   title: "Components Showcase",
 };
 
@@ -29,20 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
     <body className={inter.className}>
-    <ThemeContextProvider>
-      <ThemeWrapper>
-        <Header />
-        {children}
-      </ThemeWrapper>
-      <ToastContainer
-        autoClose={5000}
-        hideProgressBar={true}
-        position="bottom-right"
-        theme="colored"
-      />
-    </ThemeContextProvider>
+    <Providers>
+      <NavBar/>
+      {children}
+    </Providers>
     </body>
     </html>
   );
