@@ -41,6 +41,9 @@ importers:
       react-toastify:
         specifier: ^11.0.5
         version: 11.0.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      tw-animate-css:
+        specifier: ^1.2.9
+        version: 1.2.9
     devDependencies:
       '@craigmcc/daisyui-components':
         specifier: workspace:*
@@ -72,9 +75,6 @@ importers:
       eslint:
         specifier: ^9
         version: 9.24.0(jiti@2.4.2)
-      tailwindcss:
-        specifier: ^4
-        version: 4.1.5
       typescript:
         specifier: ^5
         version: 5.8.2
