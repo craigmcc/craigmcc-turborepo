@@ -1,0 +1,20 @@
+{
+  "exports": {
+    "./bootstrap.css": "bootstrap/dist/css/bootstrap.min.css"
+  },
+  "license": "Apache-2.0",
+  "name": "@craigmcc/bootstrap-config",
+  "private": true,
+  "scripts": {
+    "lint": "eslint . --max-warnings 0"
+  },
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap": "^5.3.6",
+    "react-bootstrap": "^2.10.9"
+  },
+  "devDependencies": {
+    "@craigmcc/eslint-config": "workspace:*",
+    "eslint": "^9.24.0"
+  }
+}
