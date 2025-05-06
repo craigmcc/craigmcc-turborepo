@@ -11,6 +11,7 @@ import { Inter } from "next/font/google";
 // Internal Modules ----------------------------------------------------------
 
 //import "./globals.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { MenuBar } from "@/components/layout/MenuBar";
 //import { Providers } from "@/components/layout/Providers";
 

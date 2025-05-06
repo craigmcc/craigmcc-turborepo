@@ -21,52 +21,6 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
-  apps/bootstrap-showcase:
-    dependencies:
-      bootstrap:
-        specifier: ^5.3.6
-        version: 5.3.6(@popperjs/core@2.11.8)
-      lucide-react:
-        specifier: ^0.503.0
-        version: 0.503.0(react@19.1.0)
-      next:
-        specifier: ^15
-        version: 15.3.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      react:
-        specifier: ^19
-        version: 19.1.0
-      react-bootstrap:
-        specifier: ^2.10.9
-        version: 2.10.9(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      react-dom:
-        specifier: ^19
-        version: 19.1.0(react@19.1.0)
-    devDependencies:
-      '@craigmcc/bootstrap-config':
-        specifier: workspace:*
-        version: link:../../packages/bootstrap-config
-      '@craigmcc/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@craigmcc/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
-      '@types/node':
-        specifier: ^22
-        version: 22.14.0
-      '@types/react':
-        specifier: ^19
-        version: 19.1.2
-      '@types/react-dom':
-        specifier: ^19
-        version: 19.1.2(@types/react@19.1.2)
-      eslint:
-        specifier: ^9
-        version: 9.24.0(jiti@2.4.2)
-      typescript:
-        specifier: ^5
-        version: 5.8.2
-
   apps/components-showcase:
     dependencies:
       lucide-react:
