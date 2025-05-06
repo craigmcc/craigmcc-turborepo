@@ -1,6 +1,6 @@
 {
   "exports": {
-    "./bootstrap.css": "bootstrap/dist/css/bootstrap.min.css"
+    "./bootstrap.css": "./bootstrap.css"
   },
   "license": "Apache-2.0",
   "name": "@craigmcc/bootstrap-config",
