@@ -12,12 +12,11 @@
     "build": "tsc",
     "check-types": "tsc --noEmit",
     "dev": "tsc --watch",
-    "lint": "eslint . --max-warnings 0",
-    "test": "jest --watch",
-    "test:ci": "jest"
+    "lint": "eslint . --max-warnings 0"
   },
   "version": "0.0.0",
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
