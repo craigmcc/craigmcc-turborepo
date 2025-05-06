@@ -24,7 +24,7 @@ importers:
   apps/bootstrap-showcase:
     dependencies:
       bootstrap:
-        specifier: ^5
+        specifier: ^5.3.6
         version: 5.3.6(@popperjs/core@2.11.8)
       lucide-react:
         specifier: ^0.503.0
@@ -36,7 +36,7 @@ importers:
         specifier: ^19
         version: 19.1.0
       react-bootstrap:
-        specifier: ^2
+        specifier: ^2.10.9
         version: 2.10.9(@types/react@19.1.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-dom:
         specifier: ^19
