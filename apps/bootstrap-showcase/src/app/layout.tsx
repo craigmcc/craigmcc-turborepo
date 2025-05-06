@@ -11,7 +11,7 @@ import { Inter } from "next/font/google";
 // Internal Modules ----------------------------------------------------------
 
 import "./globals.css";
-//import { NavBar } from "@/components/layout/NavBar";
+//import { MenuBar } from "@/components/layout/MenuBar";
 //import { Providers } from "@/components/layout/Providers";
 
 // Public Objects ------------------------------------------------------------
@@ -30,12 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
     <body className={inter.className}>
-    {/*
-    <Providers>
-      <NavBar/>
-      {children}
-    </Providers>
-*/}
+    {/*<MenuBar/>*/}
     {children}
     </body>
     </html>
