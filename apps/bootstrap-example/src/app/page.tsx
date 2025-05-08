@@ -2,8 +2,8 @@ import React from 'react';
 
 import Container from 'react-bootstrap/Container';
 
-import ButtonsShowcase from './showcases/Buttons';
-import ToastsShowcase from './showcases/Toasts';
+import ButtonsShowcase from '../components/showcases/Buttons';
+import ToastsShowcase from '../components/showcases/Toasts';
 
 const App: React.FC = () => {
   return (
