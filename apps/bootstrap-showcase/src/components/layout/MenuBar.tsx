@@ -6,6 +6,7 @@
 
 // External Modules ----------------------------------------------------------
 
+import { Images } from "lucide-react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -19,7 +20,10 @@ export function MenuBar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="/">React-Bootstrap Showcase</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <Images className="pe-2" size={38}/>
+          React-Bootstrap Showcase
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
