@@ -1,24 +1,24 @@
-import React from 'react';
 
+// External Imports ----------------------------------------------------------
+
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 
-import ButtonsShowcase from '../components/showcases/Buttons';
-import ToastsShowcase from '../components/showcases/Toasts';
+// Internal Imports ----------------------------------------------------------
 
-const App: React.FC = () => {
+// Public Objects ------------------------------------------------------------
+
+export default function RootPage() {
   return (
     <Container className="p-3">
       <Container className="p-5 mb-4 bg-light rounded-3">
         <h1 className="header">
-          Welcome To React-Bootstrap TypeScript Example
+          Welcome To React-Bootstrap Showcase
         </h1>
+        <p className="lead">
+          Click one of the drop-down links above to see components in action.
+        </p>
       </Container>
-      <h2>Buttons</h2>
-      <ButtonsShowcase />
-      <h2>Toasts</h2>
-      <ToastsShowcase />
     </Container>
   );
 };
-
-export default App;

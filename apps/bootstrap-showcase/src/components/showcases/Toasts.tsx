@@ -1,11 +1,20 @@
 "use client";
 
+/**
+ * Showcase for Bootstrap Toasts.
+ */
+
+// External Modules ----------------------------------------------------------
+
 import React, { useState } from 'react';
-
-import Toast from 'react-bootstrap/Toast';
 import Button from 'react-bootstrap/Button';
+import Toast from 'react-bootstrap/Toast';
 
-const ToastsShowcase: React.FC = () => {
+// Internal Modules ----------------------------------------------------------
+
+// Public Objects ------------------------------------------------------------
+
+export function ToastsShowcase() {
   const [show, toggleShow] = useState(true);
 
   return (
@@ -22,5 +31,3 @@ const ToastsShowcase: React.FC = () => {
     </>
   );
 };
-
-export default ToastsShowcase;
