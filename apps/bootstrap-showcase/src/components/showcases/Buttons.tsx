@@ -14,7 +14,7 @@ import Button from 'react-bootstrap/Button';
 export function ButtonsShowcase(){
   return (
     <div className="p-1">
-      <Button variant="primary" className="me-2">
+      <Button variant="" className="me-2">
         Primary
       </Button>
       <Button variant="secondary" className="me-2">

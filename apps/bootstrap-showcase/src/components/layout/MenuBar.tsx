@@ -31,8 +31,11 @@ export function MenuBar() {
             <NavDropdown title="Examples" id="basic-nav-dropdown">
               <NavDropdown.Item href="/buttons">Buttons</NavDropdown.Item>
               <NavDropdown.Item href="/toasts">Toasts</NavDropdown.Item>
+              <NavDropdown.Divider/>
+              <NavDropdown.Item href="/basicFormWithZod">
+                Basic Form with Zod
+              </NavDropdown.Item>
 {/*
-              <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">
                 Separated link
               </NavDropdown.Item>
