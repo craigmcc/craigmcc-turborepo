@@ -36,8 +36,7 @@ export function TanstackFormWithZod() {
 
   return (
     <div>
-      <h1>Form with Zod</h1>
-      <p>This is a form example using react-bootstrap and zod.</p>
+      <p>This is a form example using tanstack-form, react-bootstrap, and zod.</p>
     </div>
   );
 

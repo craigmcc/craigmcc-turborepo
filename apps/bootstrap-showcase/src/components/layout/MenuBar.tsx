@@ -32,8 +32,8 @@ export function MenuBar() {
               <NavDropdown.Item href="/buttons">Buttons</NavDropdown.Item>
               <NavDropdown.Item href="/toasts">Toasts</NavDropdown.Item>
               <NavDropdown.Divider/>
-              <NavDropdown.Item href="/basicFormWithZod">
-                Basic Form with Zod
+              <NavDropdown.Item href="/tanstackFormWithZod">
+                Tanstack Form with Zod
               </NavDropdown.Item>
 {/*
               <NavDropdown.Item href="#action/3.4">

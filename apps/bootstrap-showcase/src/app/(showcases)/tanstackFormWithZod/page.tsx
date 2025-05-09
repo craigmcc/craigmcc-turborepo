@@ -18,7 +18,7 @@ export default function TanstackFormWithZodPage() {
     <Container className="p-3">
 
       <Container className="p-5 mb-4 bg-light rounded-3">
-        <h1 className="header">Form with Zod Validation</h1>
+        <h1 className="header">Tanstack Form with Zod Validation</h1>
       </Container>
 
       <TanstackFormWithZod />
