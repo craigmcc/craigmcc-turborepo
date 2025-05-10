@@ -30,6 +30,7 @@ export function MenuBar() {
             {/*<Nav.Link href="/showcase">Showcase</Nav.Link>*/}
             <NavDropdown title="Examples" id="basic-nav-dropdown">
               <NavDropdown.Item href="/buttons">Buttons</NavDropdown.Item>
+              <NavDropdown.Item href="/inputGroups">Input Groups</NavDropdown.Item>
               <NavDropdown.Item href="/toasts">Toasts</NavDropdown.Item>
               <NavDropdown.Divider/>
               <NavDropdown.Item href="/tanstackFormWithZod">
