@@ -1,0 +1,36 @@
+{
+  "jest": {
+    "preset": "@repo/jest-presets/browser"
+  },
+  "name": "daisyui-alone",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "type": "module",
+  "dependencies": {
+    "lucide-react": "catalog:lucide-react",
+    "next": "catalog:next15",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "catalog:eslint",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/jest-presets": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "catalog:tailwind4",
+    "@types/node": "catalog:node24",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "daisyui": "catalog:daisyui5",
+    "eslint": "catalog:eslint",
+    "eslint-config-next": "catalog:eslint",
+    "tailwindcss": "catalog:tailwind4",
+    "typescript": "catalog:typescript5"
+  }
+}
