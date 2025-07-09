@@ -1,0 +1,26 @@
+{
+  "exports": {
+    "./base": "./base.js",
+    "./nextjs": "./nextjs.js",
+    "./node": "./node.js",
+    "./react-internal": "./react-internal.js"
+  },
+  "license": "Apache-2.0",
+  "name": "@repo/eslint-config",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@eslint/js": "catalog:eslint",
+    "@next/eslint-plugin-next": "catalog:eslint",
+    "eslint": "catalog:eslint",
+    "eslint-config-prettier": "catalog:eslint",
+    "eslint-plugin-only-warn": "catalog:eslint",
+    "eslint-plugin-react": "catalog:eslint",
+    "eslint-plugin-react-hooks": "catalog:eslint",
+    "eslint-plugin-turbo": "catalog:eslint",
+    "globals": "catalog:eslint",
+    "typescript": "catalog:typescript5",
+    "typescript-eslint": "catalog:eslint"
+  }
+}

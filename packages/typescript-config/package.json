@@ -1,0 +1,15 @@
+{
+  "exports": {
+    "./base": "./base.json",
+    "./nextjs": "./nextjs.json",
+    "./node": "./node.json",
+    "./react-library": "./react-library.json"
+  },
+  "license": "Apache-2.0",
+  "name": "@repo/typescript-config",
+  "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "0.0.0"
+}
