@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col items-center justify-center pt-8">
+    <div className="flex flex-col items-center justify-center pt-8 min-h-full">
       <h1 className="text-4xl text-primary pb-8">Welcome to DaisyUI Alone</h1>
       <p className="text-2xl text-secondary pb-8">
         This is a standalone application showcasing DaisyUI components with Next.js.
