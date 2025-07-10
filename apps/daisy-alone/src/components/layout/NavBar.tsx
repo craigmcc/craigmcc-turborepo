@@ -4,7 +4,7 @@
 
 // External Imports ----------------------------------------------------------
 
-// import Image from "next/image";
+import { Flower2 } from "lucide-react";
 import Link from "next/link";
 
 // Internal Imports ----------------------------------------------------------
@@ -17,15 +17,8 @@ export function NavBar() {
     <div className="navbar bg-base-200">
 
       <div className="navbar-start">
-{/*
-        <Image
-          alt="DaisyUI Logo"
-          className="navbar-logo"
-          height={50}
-          src="/daisyui-logo-2000.png"
-          width={50} />
-*/}
-        <Link className="font-semibold p-2" href="/">daisyui-alone</Link>
+        <Flower2 className="navbar-logo" size={32} />
+        <Link className="font-semibold px-2" href="/">daisyui-alone</Link>
       </div>
 
       <div className="navbar-center gap-4">

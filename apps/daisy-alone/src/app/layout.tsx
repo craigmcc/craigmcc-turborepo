@@ -30,7 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NavBar />
-        <main className="min-h-[calc(100vh-80px)]">
+        <main className="h-[calc(100vh-80px)]">
           {children}
         </main>
       </body>
