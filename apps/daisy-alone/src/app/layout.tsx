@@ -11,6 +11,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import "@/app/globals.css";
 import { NavBar } from "@/components/layout/NavBar";
+import { ThemeWrapper } from "@/components/layout/ThemeWrapper";
+import { ThemeContextProvider } from "@/contexts/ThemeContext";
 
 // Public Objects ------------------------------------------------------------
 
@@ -29,10 +31,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NavBar />
-        <main className="h-[calc(100vh-80px)]">
-          {children}
-        </main>
+        <ThemeContextProvider>
+          <ThemeWrapper>
+            <NavBar />
+            <main className="bg-base-100 h-[calc(100vh-80px)]">
+              {children}
+            </main>
+          </ThemeWrapper>
+        </ThemeContextProvider>
       </body>
     </html>
   );

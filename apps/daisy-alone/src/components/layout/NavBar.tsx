@@ -9,6 +9,8 @@ import Link from "next/link";
 
 // Internal Imports ----------------------------------------------------------
 
+import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
+
 // Public Objects ------------------------------------------------------------
 
 export function NavBar() {
@@ -28,7 +30,7 @@ export function NavBar() {
       </div>
 
       <div className="navbar-end">
-        <span>TODO: Theme Switcher</span>
+        <ThemeSwitcher />
       </div>
 
     </div>
