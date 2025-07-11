@@ -27,6 +27,7 @@ export function NavBar() {
         <Link className="btn btn-outline" href="/buttons">Buttons</Link>
         <Link className="btn btn-outline" href="/cards">Cards</Link>
         <Link className="btn btn-outline" href="/forms">Forms</Link>
+        <Link className="btn btn-outline" href="/inputs">Inputs</Link>
       </div>
 
       <div className="navbar-end">

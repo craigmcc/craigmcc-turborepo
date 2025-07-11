@@ -114,7 +114,7 @@ type SimpleCardProps = {
   size?: string;
 }
 
-export function SimpleCard({ border, color, size }: SimpleCardProps) {
+function SimpleCard({ border, color, size }: SimpleCardProps) {
 
   const cardClassNames = clsx(
     "card w-96",
