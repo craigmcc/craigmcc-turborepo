@@ -13,6 +13,7 @@
   },
   "type": "module",
   "dependencies": {
+    "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
     "next": "catalog:next15",
     "react": "catalog:react19",

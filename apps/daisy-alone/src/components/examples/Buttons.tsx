@@ -1,5 +1,5 @@
 /**
- * Buttons example component
+ * Buttons example component.
  */
 
 // External Modules ----------------------------------------------------------
