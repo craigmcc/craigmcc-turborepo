@@ -20,12 +20,13 @@ export function Inputs() {
         </tr>
         </thead>
         <tbody>
-        {Array.from(COLOR_CLASSES.keys()).map((color) => (
+        {Array.from(COLOR_CLASSES.keys()).map((color, index) => (
           <tr key={color}>
             <td>
               <HorizontalInput
                 color={color}
-                label="Input Label"
+                id={`horizontal-${index}`}
+                label={`Horizontal Label ${index}`}
                 message="Error message"
                 placeholder={`${color} placeholder`}
               />
@@ -41,12 +42,13 @@ export function Inputs() {
         </tr>
         </thead>
         <tbody>
-        {Array.from(COLOR_CLASSES.keys()).map((color) => (
+        {Array.from(COLOR_CLASSES.keys()).map((color, index) => (
           <tr key={color}>
             <td>
               <VerticalInput
                 color={color}
-                label="Input Label"
+                id={`vertical-${index}`}
+                label={`Vertical Label ${index}`}
                 message="Error message"
                 placeholder={`${color} placeholder`}
               />
@@ -61,8 +63,8 @@ export function Inputs() {
 
 // Private Objects -----------------------------------------------------------
 
-const COLOR_CLASSES = new Map<string, string>([
-  ["Primary  ", "input-primary"],
+export const COLOR_CLASSES = new Map<string, string>([
+  ["Primary", "input-primary"],
   ["Secondary", "input-secondary"],
   ["Accent", "input-accent"],
   ["Neutral", "neutral"],
@@ -72,7 +74,7 @@ const COLOR_CLASSES = new Map<string, string>([
   ["Error", "input-error"],
 ]);
 
-const SIZE_CLASSES = new Map<string, string>([
+export const SIZE_CLASSES = new Map<string, string>([
   ["XSmall", "input-xs"],
   ["Small", "input-sm"],
   ["Medium", "input-md"],
@@ -80,9 +82,11 @@ const SIZE_CLASSES = new Map<string, string>([
   ["XLarge", "input-xl"],
 ]);
 
-type HorizontalInputProps = {
+export type HorizontalInputProps = {
   // Color name (if any)
   color?: string;
+  // Input field id
+  id: string;
   // Field label
   label: string;
   // Error message (if any)
@@ -93,29 +97,32 @@ type HorizontalInputProps = {
   size?: string;
 }
 
-function HorizontalInput({ color, label, message, placeholder, size }: HorizontalInputProps) {
+export function HorizontalInput({ color, id, label, message, placeholder, size }: HorizontalInputProps) {
+
   const inputClassNames = clsx(
-    "input w-full max-w-xs",
+    "input w-full",
     color ? COLOR_CLASSES.get(color) : null,
     size ? SIZE_CLASSES.get(size) : null,
   );
 
   return (
     <div className="grid grid-cols-2 border border-base-content bg-base-200">
-      <legend className="fieldset-legend p-2">
+      <label className="fieldset-legend px-2" htmlFor={id}>
         {label}
-      </legend>
+      </label>
       <div className="p-2">
-        <input type="text" placeholder={placeholder} className={inputClassNames} />
+        <input id={id} type="text" placeholder={placeholder} className={inputClassNames} />
         {message && <p className="label text-error">{message}</p>}
       </div>
     </div>
   );
 }
 
-type VerticalInputProps = {
+export type VerticalInputProps = {
   // Color name (if any)
   color?: string;
+  // Input field id
+  id: string;
   // Field label
   label: string;
   // Error message (if any)
@@ -126,19 +133,19 @@ type VerticalInputProps = {
   size?: string;
 }
 
-function VerticalInput({ color, label, message, placeholder, size }: VerticalInputProps) {
+export function VerticalInput({ color, id, label, message, placeholder, size }: VerticalInputProps) {
 
   const inputClassNames = clsx(
-    "input w-full max-w-xs",
+    "input w-full",
     color ? COLOR_CLASSES.get(color) : null,
     size ? SIZE_CLASSES.get(size) : null,
     "px-2",
   );
 
   return (
-    <div className="fieldset border border-base-content bg-base-200">
-      {label && <legend className="fieldset-legend p-2">{label}</legend>}
-      <input type="text" placeholder={placeholder} className={inputClassNames} />
+    <div className="fieldset border border-base-content bg-base-200 p-2">
+      {label && <label className="fieldset-legend p-2" htmlFor={id}>{label}</label>}
+      <input id={id} type="text" placeholder={placeholder} className={inputClassNames} />
       {message && <p className="label text-error px-2">{message}</p>}
     </div>
   );
