@@ -6,6 +6,7 @@
 
 // External Modules ----------------------------------------------------------
 
+import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
 import { LoaderCircle } from "lucide-react";
 //import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -17,7 +18,6 @@ import { doSignOutAction } from "@/actions/AuthActions";
 import { ActionResult } from "@/components/tanstack-form/ActionResult";
 import { ServerResult } from "@/components/tanstack-form/ServerResult";
 import { useCurrentProfileContext } from "@/contexts/CurrentProfileContext";
-import { logger } from "@/lib/ClientLogger";
 import { Profile } from "@/types/types";
 
 //const isTesting = process.env.NODE_ENV === "test";

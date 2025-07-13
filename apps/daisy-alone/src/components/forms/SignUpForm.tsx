@@ -8,6 +8,7 @@
 
 // External Modules ----------------------------------------------------------
 
+import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
 //import { useRouter } from "next/navigation";
 import {  useState } from "react";
 import { toast } from "react-toastify";
@@ -19,7 +20,6 @@ import { ActionResult } from "@/components/tanstack-form/ActionResult";
 import { ServerResult } from "@/components/tanstack-form/ServerResult";
 import { useAppForm } from "@/components/tanstack-form/useAppForm";
 import { useCurrentProfileContext } from "@/contexts/CurrentProfileContext";
-import { logger } from "@/lib/ClientLogger";
 import { Profile } from "@/types/types";
 import { SignUpSchema, type SignUpSchemaType } from "@/zod-schemas/SignUpSchema";
 

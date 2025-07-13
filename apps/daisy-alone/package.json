@@ -13,6 +13,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@repo/shared-utils": "workspace:*",
     "@tanstack/react-form": "catalog:tanstack",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",

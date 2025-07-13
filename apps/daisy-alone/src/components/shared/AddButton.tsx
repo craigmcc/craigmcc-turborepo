@@ -6,12 +6,11 @@
 
 // External Modules ----------------------------------------------------------
 
+import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 // Internal Modules ----------------------------------------------------------
-
-import { logger } from "@/lib/ClientLogger";
 
 // Public Objects ------------------------------------------------------------
 

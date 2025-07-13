@@ -7,7 +7,7 @@
 
 // Public Objects ------------------------------------------------------------
 
-const Timestamps = {
+export const Timestamps = {
   /**
    * Return a timestamp string in ISO format (yyyy-mm-ddThh:mm:ss+nn) for the
    * specified JavaScript date.  Based on:
@@ -17,20 +17,14 @@ const Timestamps = {
    * @return {string}                 yyyy-mm-ddThh:mm:ss+nn
    */
   iso(date: Date = new Date()): string {
-    return (
-      date.getFullYear() +
-      "-" +
-      leftPad(date.getMonth() + 1, 2) +
-      "-" +
-      leftPad(date.getDate(), 2) +
-      "T" +
-      leftPad(date.getHours(), 2) +
-      ":" +
-      leftPad(date.getMinutes(), 2) +
-      ":" +
-      leftPad(date.getSeconds(), 2) +
-      localOffset(date)
-    );
+    // prettier-ignore
+    return date.getFullYear()
+      + "-" + leftPad((date.getMonth() + 1), 2)
+      + "-" + leftPad(date.getDate(), 2)
+      + "T" + leftPad(date.getHours(), 2)
+      + ":" + leftPad(date.getMinutes(), 2)
+      + ":" + leftPad(date.getSeconds(), 2)
+      + localOffset(date);
   },
 
   /**
@@ -41,19 +35,17 @@ const Timestamps = {
    * @return {string}                 yyyymmdd-hhmmss
    */
   local(date: Date = new Date()): string {
-    return (
-      date.getFullYear() +
-      leftPad(date.getMonth() + 1, 2) +
-      leftPad(date.getDate(), 2) +
-      "-" +
-      leftPad(date.getHours(), 2) +
-      leftPad(date.getMinutes(), 2) +
-      leftPad(date.getSeconds(), 2)
-    );
+    // prettier-ignore
+    return date.getFullYear()
+      + leftPad(date.getMonth() + 1, 2)
+      + leftPad(date.getDate(), 2)
+      + "-"
+      + leftPad(date.getHours(), 2)
+      + leftPad(date.getMinutes(), 2)
+      + leftPad(date.getSeconds(), 2);
   },
 };
 
-export default Timestamps;
 
 // Private Objects -----------------------------------------------------------
 
@@ -69,10 +61,8 @@ const leftPad = (input: string | number, size: number): string => {
 // Return a local timezone offset string in the format required by ISO 8601.
 const localOffset = (date: Date): string => {
   const offset = date.getTimezoneOffset();
-  return (
-    (offset < 0 ? "+" : "-") +
-    leftPad(Math.floor(Math.abs(offset / 60)), 2) +
-    ":" +
-    leftPad(Math.abs(offset % 60), 2)
-  );
+  // prettier-ignore
+  return (offset < 0 ? "+" : "-")
+    + leftPad(Math.floor(Math.abs(offset / 60)), 2)
+    + ":" + leftPad(Math.abs(offset % 60), 2);
 };

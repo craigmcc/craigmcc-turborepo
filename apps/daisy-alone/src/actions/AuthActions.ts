@@ -6,10 +6,11 @@
 
 // External Modules ----------------------------------------------------------
 
+import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
+
 // Internal Modules ----------------------------------------------------------
 
 import { ActionResult } from "@/components/tanstack-form/ActionResult";
-import { logger } from "@/lib/ServerLogger";
 import { Profile } from "@/types/types";
 import { type SignInSchemaType } from "@/zod-schemas/SignInSchema";
 import { type SignUpSchemaType } from "@/zod-schemas/SignUpSchema";
