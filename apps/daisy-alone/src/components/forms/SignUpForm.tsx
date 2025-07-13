@@ -94,6 +94,7 @@ export function SignUpForm() {
             <form.AppField name="email">
               {(field) =>
                 <field.InputField
+                  autoFocus
                   label="Email"
                   placeholder="Your email address"
                 />}
@@ -103,7 +104,6 @@ export function SignUpForm() {
             <form.AppField name="firstName">
               {(field) =>
                 <field.InputField
-                  autoFocus
                   label="First Name"
                   placeholder="Your First Name"
                 />}
@@ -111,7 +111,6 @@ export function SignUpForm() {
             <form.AppField name="lastName">
               {(field) =>
                 <field.InputField
-                  autoFocus
                   label="Last Name"
                   placeholder="Your Last Name"
                 />}
