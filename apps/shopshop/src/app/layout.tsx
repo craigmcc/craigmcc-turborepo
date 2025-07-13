@@ -18,8 +18,8 @@ import { ThemeContextProvider } from "@/contexts/ThemeContext";
 // Public Objects ------------------------------------------------------------
 
 export const metadata: Metadata = {
-  title: "DaisyUI Alone",
-  description: "Standalone DaisyUI components with Next.js",
+  title: "ShopShop",
+  description: "Online shopping list application",
 };
 
 export default function RootLayout({
