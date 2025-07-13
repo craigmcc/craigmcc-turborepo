@@ -14,10 +14,10 @@ import { toast } from "react-toastify";
 // Internal Modules ----------------------------------------------------------
 
 import { doSignOutAction } from "@/actions/AuthActions";
-import { ActionResult } from "@/lib/ActionResult";
-import { logger } from "@/lib/ClientLogger";
-import { ServerResult } from "@/components/shared/ServerResult";
+import { ActionResult } from "@/components/tanstack-form/ActionResult";
+import { ServerResult } from "@/components/tanstack-form/ServerResult";
 import { useCurrentProfileContext } from "@/contexts/CurrentProfileContext";
+import { logger } from "@/lib/ClientLogger";
 import { Profile } from "@/types/types";
 
 //const isTesting = process.env.NODE_ENV === "test";
@@ -68,9 +68,9 @@ export function SignOutForm() {
     <div className="card bg-info/50 border-2 rounded-2xl w-96">
       <div className="card-body">
         <h2 className="card-title justify-center">
-          <ServerResult result={result}/>
           <p>Sign Out</p>
         </h2>
+        <ServerResult result={result}/>
         <p>Are you sure you want to sign out?</p>
         <div className="card-actions justify-center">
           <button

@@ -1,6 +1,6 @@
 "use client";
 
-import { ActionResult } from "@/lib/ActionResult";
+import { ActionResult } from "@/components/tanstack-form/ActionResult";
 
 /**
  * Display any error contents from an ActionResult.

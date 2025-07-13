@@ -26,6 +26,7 @@ export const ERRORS = {
  * (or both).  For cases where the action failed because of schema validation
  * issues, a set of form errors (individual strings) global to the entire
  * result, and/or a set of field errors (keyed by field name) specific to
+ * this model object are returned.
  *
  * @param M                             The type of model object being returned
  */

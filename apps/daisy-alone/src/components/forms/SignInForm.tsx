@@ -13,10 +13,10 @@ import { toast } from "react-toastify";
 // Internal Modules ----------------------------------------------------------
 
 import { doSignInAction } from "@/actions/AuthActions";
-import { ServerResult } from "@/components/shared/ServerResult";
+import { ActionResult } from "@/components/tanstack-form/ActionResult";
+import { ServerResult } from "@/components/tanstack-form/ServerResult";
 import { useAppForm } from "@/components/tanstack-form/useAppForm";
 import { useCurrentProfileContext } from "@/contexts/CurrentProfileContext";
-import { ActionResult } from "@/lib/ActionResult";
 import { logger } from "@/lib/ClientLogger"
 import { Profile } from "@/types/types";
 import { SignInSchema, type SignInSchemaType } from "@/zod-schemas/SignInSchema";
@@ -84,9 +84,9 @@ export function SignInForm() {
     <div className="card bg-info/50 border-2 rounded-2xl w-96">
       <div className="card-body">
         <h2 className="card-title justify-center">
-          <ServerResult result={result} />
           <p>Sign In</p>
         </h2>
+        <ServerResult result={result}/>
         <form
           className="flex flex-col gap-2"
           name="SignInForm"

@@ -8,7 +8,7 @@
 
 // Internal Modules ----------------------------------------------------------
 
-import { ActionResult } from "@/lib/ActionResult";
+import { ActionResult } from "@/components/tanstack-form/ActionResult";
 import { logger } from "@/lib/ServerLogger";
 import { Profile } from "@/types/types";
 import { type SignInSchemaType } from "@/zod-schemas/SignInSchema";

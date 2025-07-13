@@ -15,10 +15,10 @@ import { toast } from "react-toastify";
 // Internal Modules ----------------------------------------------------------
 
 import { doSignUpAction } from "@/actions/AuthActions";
-import { ServerResult } from "@/components/shared/ServerResult";
+import { ActionResult } from "@/components/tanstack-form/ActionResult";
+import { ServerResult } from "@/components/tanstack-form/ServerResult";
 import { useAppForm } from "@/components/tanstack-form/useAppForm";
 import { useCurrentProfileContext } from "@/contexts/CurrentProfileContext";
-import { ActionResult } from "@/lib/ActionResult";
 import { logger } from "@/lib/ClientLogger";
 import { Profile } from "@/types/types";
 import { SignUpSchema, type SignUpSchemaType } from "@/zod-schemas/SignUpSchema";
@@ -78,9 +78,9 @@ export function SignUpForm() {
     <div className="card bg-info/50 border-2 rounded-2xl w-128">
       <div className="card-body">
         <h2 className="card-title justify-center">
-          <ServerResult result={result} />
           <p>Sign Up</p>
         </h2>
+        <ServerResult result={result}/>
         <form
           className="flex flex-col gap-2"
           name="SignUpForm"
