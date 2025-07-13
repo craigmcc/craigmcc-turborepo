@@ -1,21 +1,24 @@
 {
+  "description": "Online shopping application.",
   "jest": {
     "preset": "@repo/jest-presets/browser"
   },
-  "name": "daisyui-alone",
+  "name": "shopshop",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 4001",
+    "dev": "next dev --turbopack --port 4000",
     "build": "next build",
     "lint": "next lint",
-    "start": "next start --port 4001"
+    "start": "next start --port 4000"
   },
   "type": "module",
   "dependencies": {
+    "@repo/db-shopshop": "workspace:*",
     "@repo/shared-utils": "workspace:*",
     "@repo/tanstack-form": "workspace:*",
     "@tanstack/react-form": "catalog:tanstack",
+    "@tanstack/react-table": "catalog:tanstack",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
     "next": "catalog:next15",
