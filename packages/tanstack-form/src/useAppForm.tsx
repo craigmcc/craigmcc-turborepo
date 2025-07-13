@@ -10,10 +10,10 @@ import { createFormHook } from "@tanstack/react-form";
 
 // Internal Modules ----------------------------------------------------------
 
-import { InputField } from "@/components/tanstack-form/InputField";
-import { ResetButton } from "@/components/tanstack-form/ResetButton";
-import { SubmitButton } from "@/components/tanstack-form/SubmitButton";
-import { fieldContext, formContext } from "@/components/tanstack-form/useAppContexts";
+import { InputField } from "./InputField";
+import { ResetButton } from "./ResetButton";
+import { SubmitButton } from "./SubmitButton";
+import { fieldContext, formContext } from "./useAppContexts";
 
 // Public Objects ------------------------------------------------------------
 

@@ -1,6 +1,5 @@
 "use client";
 
-import { ActionResult } from "@/components/tanstack-form/ActionResult";
 
 /**
  * Display any error contents from an ActionResult.
@@ -16,6 +15,8 @@ import { ActionResult } from "@/components/tanstack-form/ActionResult";
 // External Modules ----------------------------------------------------------
 
 // Internal Modules ----------------------------------------------------------
+
+import { ActionResult } from "./ActionResult";
 
 // Public Objects ------------------------------------------------------------
 

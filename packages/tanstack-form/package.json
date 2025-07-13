@@ -1,44 +1,42 @@
 {
-  "jest": {
-    "preset": "@repo/jest-presets/browser"
+  "exports": {
+    "./*": "./dist/index.js"
   },
-  "name": "daisyui-alone",
-  "version": "0.1.0",
+  "jest": {
+    "preset": "@repo/jest-presets/node"
+  },
+  "license": "Apache-2.0",
+  "name": "@repo/tanstack-form",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "tsc",
+    "check-types": "tsc --noEmit",
+    "dev": "tsc --watch",
+    "lint": "eslint . --max-warnings 0",
+    "test": "jest --watch"
   },
   "type": "module",
+  "version": "0.0.0",
   "dependencies": {
     "@repo/shared-utils": "workspace:*",
-    "@repo/tanstack-form": "workspace:*",
     "@tanstack/react-form": "catalog:tanstack",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
-    "next": "catalog:next15",
-    "pino": "catalog:pino",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
-    "react-toastify": "catalog:react-toastify",
     "zod": "catalog:zod"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "catalog:eslint",
     "@repo/eslint-config": "workspace:*",
     "@repo/jest-presets": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@tailwindcss/postcss": "catalog:tailwind4",
     "@types/jest": "catalog:jest29",
     "@types/node": "catalog:node24",
     "@types/react": "catalog:react19",
     "@types/react-dom": "catalog:react19",
-    "daisyui": "catalog:daisyui5",
     "eslint": "catalog:eslint",
-    "eslint-config-next": "catalog:eslint",
-    "tailwindcss": "catalog:tailwind4",
+    "jest": "catalog:jest29",
+    "ts-jest": "catalog:jest29",
     "typescript": "catalog:typescript5"
   }
 }

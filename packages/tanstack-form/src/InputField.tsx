@@ -10,9 +10,8 @@ import { InputHTMLAttributes } from "react";
 
 // Internal Modules ----------------------------------------------------------
 
-//import { Input } from "@/components/daisyui/Input";
-import { FieldErrors } from "@/components/tanstack-form/FieldErrors";
-import { useFieldContext } from "@/components/tanstack-form/useAppContexts";
+import { FieldErrors } from "./FieldErrors";
+import { useFieldContext } from "./useAppContexts";
 
 // Public Objects ------------------------------------------------------------
 
