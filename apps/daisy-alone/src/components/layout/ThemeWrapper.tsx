@@ -10,18 +10,16 @@
 
 // External Modules ----------------------------------------------------------
 
-import { useContext } from "react";
-
 // Internal Modules ----------------------------------------------------------
 
-import { ThemeContext } from "@/contexts/ThemeContext";
+import { useThemeContext } from "@/contexts/ThemeContext";
 
 // Public Objects ------------------------------------------------------------
 
 export const ThemeWrapper = ({children}: {
   children: React.ReactNode;
 }) => {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useThemeContext();
 
   return (
     <div data-theme={theme}>

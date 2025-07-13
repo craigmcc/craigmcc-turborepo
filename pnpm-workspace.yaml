@@ -60,10 +60,13 @@ catalogs:
   react-csv:
     "react-csv": "^2.2.2"
     "@types/react-csv": "^1.1.10"
+  react-toastify:
+    "react-toastify": "^11.0.5"
   tailwind4:
     "@tailwindcss/postcss": "^4.0.0-alpha.13"
     tailwindcss: "^4.1.11"
   tanstack:
+    "@tanstack/react-form": "^1.14.1"
     "@tanstack/react-table": "^8.21.3"
   tsx:
     tsx: "^4.20.3"
@@ -72,7 +75,7 @@ catalogs:
   uidotdev:
     "@uidotdev/usehooks": "2.4.1"
   zod:
-    zod: "^3.25.76"
+    zod: "^4.0.5"
 packages:
   - "apps/*"
   - "packages/*"

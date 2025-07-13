@@ -3,13 +3,11 @@
 /**
  * Global context for saving and restoring the currently selected theme
  * from local storage.
- *
- * @packageDocumentation
  */
 
 // External Modules ----------------------------------------------------------
 
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -58,4 +56,12 @@ export const ThemeContextProvider = ({children}: {
     </ThemeContext.Provider>
   );
 
+}
+
+export function useThemeContext() {
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error("useThemeContext must be used within a ThemeContextProvider");
+  }
+  return context;
 }

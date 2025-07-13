@@ -11,17 +11,16 @@
 // External Modules ----------------------------------------------------------
 
 import { Palette } from "lucide-react";
-import { useContext } from "react";
 
 // Internal Modules ----------------------------------------------------------
 
-import { ThemeContext } from "@/contexts/ThemeContext";
+import { useThemeContext } from "@/contexts/ThemeContext";
 
 // Public Objects ------------------------------------------------------------
 
 export const ThemeSwitcher = () => {
 
-  const { changeTheme, theme } = useContext(ThemeContext);
+  const { changeTheme, theme } = useThemeContext();
 
   const capitalize = (word: string) => {
     return word.charAt(0).toUpperCase() + word.slice(1);

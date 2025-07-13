@@ -13,11 +13,15 @@
   },
   "type": "module",
   "dependencies": {
+    "@tanstack/react-form": "catalog:tanstack",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
     "next": "catalog:next15",
+    "pino": "catalog:pino",
     "react": "catalog:react19",
-    "react-dom": "catalog:react19"
+    "react-dom": "catalog:react19",
+    "react-toastify": "catalog:react-toastify",
+    "zod": "catalog:zod"
   },
   "devDependencies": {
     "@eslint/eslintrc": "catalog:eslint",
