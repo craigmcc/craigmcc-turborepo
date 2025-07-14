@@ -1,5 +1,3 @@
-"use client";
-
 /**
  * Top-level menu bar component for the daisyui-alone application.
  */
@@ -12,17 +10,15 @@ import Link from "next/link";
 
 // Internal Imports ----------------------------------------------------------
 
+import { SignedInMenu } from "@/components/layout/SignedInMenu";
 import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
+import { findProfile } from "@/lib/ProfileHelpers";
 
 // Public Objects ------------------------------------------------------------
 
-export function NavBar() {
+export async function NavBar() {
 
-/*
-  useEffect(() => {
-    // Trigger a re-render when the current profile changes
-  }, [currentProfile]);
-*/
+  const profile = await findProfile();
 
   return (
     <div className="navbar bg-base-200">
@@ -41,11 +37,7 @@ export function NavBar() {
       </div>
 
       <div className="navbar-end">
-{/*
-        {currentProfile && (
-          <span className="text-secondary p-2">{currentProfile.email}</span>
-        )}
-*/}
+        {profile && <SignedInMenu profile={profile}/>}
         <ThemeSwitcher />
       </div>
 

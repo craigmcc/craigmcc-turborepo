@@ -1,5 +1,5 @@
 /**
- * Export the Prisma client (dbShpShop) and all generated types.
+ * Export the Prisma client (dbShopShop) and all generated types.
  */
 
 // Internal Modules ----------------------------------------------------------
@@ -19,5 +19,5 @@ declare global {
 if (!globalThis.prisma) {
   globalThis.prisma = new PrismaClient();
 }
-export const dbBill = globalThis.prisma;
+export const dbShopShop = globalThis.prisma;
 export * from "../generated/prisma";
