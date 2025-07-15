@@ -7,7 +7,7 @@
 import { SignInError } from "@auth/core/errors";
 import { Profile } from "@repo/db-shopshop/dist";
 import { serverLogger as logger } from "@repo/shared-utils/dist";
-import NextAuth, {DefaultSession, User} from "next-auth";
+import NextAuth, { DefaultSession /*, User*/ } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 // Internal Modules ----------------------------------------------------------

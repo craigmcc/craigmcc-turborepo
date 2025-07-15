@@ -8,7 +8,7 @@
 
 // External Modules ----------------------------------------------------------
 
-import { dbShopShop, Profile } from "@repo/db-shopshop/dist";
+import { Profile } from "@repo/db-shopshop/dist";
 import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
 import { ActionResult } from "@repo/tanstack-form/ActionResult";
 import { ServerResult } from "@repo/tanstack-form/ServerResult";
