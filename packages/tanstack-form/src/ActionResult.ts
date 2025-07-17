@@ -17,6 +17,7 @@ export const ERRORS = {
   AUTHENTICATION: "This Profile is not signed in",
   DATA_VALIDATION: "Request data does not pass validation",
   ID_VALIDATION: "Specified ID does not pass validation",
+  INTERNAL_SERVER_ERROR: "Internal Server Error occurred",
   NOT_ADMIN: "This Profile is not an Admin of the owning List",
   NOT_MEMBER: "This Profile is not a Member of the owning List",
 };

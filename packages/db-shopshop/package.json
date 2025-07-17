@@ -10,7 +10,8 @@
     "build": "tsc",
     "db-shopshop:deploy": "prisma migrate deploy",
     "db-shopshop:generate" : "prisma generate",
-    "db-shopshop:migrate": "prisma migrate dev --skip-generate"
+    "db-shopshop:migrate": "prisma migrate dev --skip-generate",
+    "db-shopshop:migrate:test": "dotenvx run -f .env.test -- prisma migrate dev --skip-generate"
   },
   "type": "module",
   "version": "0.0.0",
@@ -20,6 +21,7 @@
     "prisma": "catalog:prisma6"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "catalog:dotenvx",
     "@prisma/client": "catalog:prisma6"
   }
 }

@@ -10,7 +10,9 @@
     "dev": "next dev --turbopack --port 4000",
     "build": "next build",
     "lint": "next lint",
-    "start": "next start --port 4000"
+    "start": "next start --port 4000",
+    "test": "dotenvx run -f .env.test --quiet -- jest --watch",
+    "test:ci": "dotenvx run -f .env.test --quiet -- jest"
   },
   "type": "module",
   "dependencies": {
@@ -18,6 +20,7 @@
     "@repo/db-shopshop": "workspace:*",
     "@repo/shared-utils": "workspace:*",
     "@repo/tanstack-form": "workspace:*",
+    "@repo/tanstack-table": "workspace:*",
     "@tanstack/react-form": "catalog:tanstack",
     "@tanstack/react-table": "catalog:tanstack",
     "bcrypt-edge": "catalog:bcrypt",
@@ -32,6 +35,7 @@
     "zod": "catalog:zod"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "catalog:dotenvx",
     "@eslint/eslintrc": "catalog:eslint",
     "@repo/eslint-config": "workspace:*",
     "@repo/jest-presets": "workspace:*",
@@ -44,7 +48,9 @@
     "daisyui": "catalog:daisyui5",
     "eslint": "catalog:eslint",
     "eslint-config-next": "catalog:eslint",
+    "jest": "catalog:jest30",
     "tailwindcss": "catalog:tailwind4",
+    "ts-jest": "catalog:jest30",
     "typescript": "catalog:typescript5"
   }
 }
