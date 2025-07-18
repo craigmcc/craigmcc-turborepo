@@ -6,7 +6,7 @@
 
 // External Modules ----------------------------------------------------------
 
-import { dbShopShop, Profile } from "@repo/db-shopshop/dist";
+import { dbShopShop as db, Profile } from "@repo/db-shopshop/dist";
 import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
 import { ActionResult } from "@repo/tanstack-form/ActionResult";
 
@@ -105,9 +105,9 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Action
     password: "*REDACTED*",
   });
 
-  // Check authenication - not required for sign up
+  // Check authentication - not required for signup
 
-  // Check authorization - not required for sign up
+  // Check authorization - not required for signup
 
   // Check data validity
   try {
@@ -117,7 +117,7 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Action
   }
 
   // Check uniqueness constraint violation
-  const existing = await dbShopShop.profile.findUnique({
+  const existing = await db.profile.findUnique({
     where: {
       email: formData.email,
     },
@@ -129,7 +129,7 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Action
   // Create and return the new Profile
   try {
 
-    const created = await dbShopShop.profile.create({
+    const created = await db.profile.create({
       data: {
         email: formData.email,
         // TODO - imageUrl when supported

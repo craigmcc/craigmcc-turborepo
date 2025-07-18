@@ -6,7 +6,7 @@
 
 // External Modules ----------------------------------------------------------
 
-import { dbShopShop, List, MemberRole } from "@repo/db-shopshop/dist";
+import { dbShopShop as db, List, MemberRole } from "@repo/db-shopshop/dist";
 import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
 import { ActionResult, ValidationActionResult, ERRORS } from "@repo/tanstack-form/ActionResult";
 import { ZodError } from "zod";
@@ -48,7 +48,7 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
   // Perform the action
   try {
 
-    const list = await dbShopShop.list.create({
+    const list = await db.list.create({
       data: {
         imageUrl: data.imageUrl,
         name: data.name,
@@ -94,7 +94,7 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
   }
 
   // Check authorization - must be an ADMIN member of the List to remove it
-  const member = await dbShopShop.member.findFirst({
+  const member = await db.member.findFirst({
     where: {
       listId: listId,
       profileId: profile.id,
@@ -115,7 +115,7 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
   // Perform the action
   try {
 
-    const list = await dbShopShop.list.delete({
+    const list = await db.list.delete({
       where: {id: listId},
     });
 
@@ -150,7 +150,7 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
   }
 
   // Check authorization - must be an ADMIN member of the List to update it
-  const member = await dbShopShop.member.findFirst({
+  const member = await db.member.findFirst({
     where: {
       listId: listId,
       profileId: profile.id,
@@ -176,7 +176,7 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
   // Perform the action
   try {
 
-    const list = await dbShopShop.list.update({
+    const list = await db.list.update({
       where: {id: listId},
       data: {
         imageUrl: data.imageUrl || undefined,
