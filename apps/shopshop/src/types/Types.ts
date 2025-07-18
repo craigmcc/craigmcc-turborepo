@@ -17,26 +17,26 @@ import {
 // Public Objects ------------------------------------------------------------
 
 export type CategoryPlus = Category & {
-  items: ItemPlus[];
-  list: List;
+  items?: ItemPlus[];
+  list?: List;
 }
 
 export type ItemPlus = Item & {
-  category: CategoryPlus;
-  list: ListPlus;
+  category?: CategoryPlus;
+  list?: ListPlus;
 }
 
 export type ListPlus = List & {
-  categories: CategoryPlus[];
-  members: MemberPlus[];
+  categories?: CategoryPlus[];
+  members?: MemberPlus[];
 }
 
 export type MemberPlus = Member & {
-  profile: ProfilePlus;
-  list: ListPlus;
+  profile?: ProfilePlus;
+  list?: ListPlus;
 }
 
 export type ProfilePlus = Profile & {
-  lists: ListPlus[];
-  members: MemberPlus[];
+  lists?: ListPlus[];
+  members?: MemberPlus[];
 }

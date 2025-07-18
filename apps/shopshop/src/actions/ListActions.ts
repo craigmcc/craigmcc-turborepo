@@ -13,7 +13,9 @@ import { ZodError } from "zod";
 
 // Internal Modules ----------------------------------------------------------
 
+import { populateList } from "@/lib/ListHelpers";
 import { findProfile } from "@/lib/ProfileHelpers";
+import { ListPlus } from "@/types/Types";
 import { IdSchema } from "@/zod-schemas/IdSchema";
 import {
   ListCreateSchema,
@@ -28,7 +30,7 @@ import {
  * Handle request to create a List. The currently signed in Profile will be
  * added as an ADMIN member of the new List.
  */
-export async function createList(data: ListCreateSchemaType): Promise<ActionResult<List>> {
+export async function createList(data: ListCreateSchemaType): Promise<ActionResult<ListPlus>> {
 
   // Check authentication
   const profile = await findProfile();
@@ -59,6 +61,9 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
             role: MemberRole.ADMIN,
           },
         },
+      },
+      include: {
+        members: true,
       },
     });
 
@@ -141,7 +146,7 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
 /**
  * Handle request to update a List.
  */
-export async function updateList(listId: string, data: ListUpdateSchemaType): Promise<ActionResult<List>> {
+export async function updateList(listId: string, data: ListUpdateSchemaType): Promise<ActionResult<ListPlus>> {
 
   // Check authentication
   const profile = await findProfile();
@@ -184,6 +189,8 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
         private: data.private || undefined,
       },
     });
+
+    await populateList(list.id, true, true);
 
     logger.info({
       context: "updateList",
