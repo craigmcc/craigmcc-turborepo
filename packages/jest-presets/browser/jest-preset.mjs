@@ -3,7 +3,6 @@ const config = {
   roots: ["<rootDir>"],
   testEnvironment: "jsdom",
   transform: {
-//    "^.+\\.tsx?$": "ts-jest",
     "^.+\\.[tj]sx?$": [
       "ts-jest",
       {
@@ -14,6 +13,9 @@ const config = {
   },
   extensionsToTreatAsEsm: [".jsx", ".ts", ".tsx"],
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
   modulePathIgnorePatterns: [
     "<rootDir>/test/__fixtures__",
     "<rootDir>/node_modules",
