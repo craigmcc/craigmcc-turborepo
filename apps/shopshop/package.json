@@ -53,6 +53,7 @@
     "jest": "catalog:jest30",
     "tailwindcss": "catalog:tailwind4",
     "ts-jest": "catalog:jest30",
+    "ts-node": "catalog:jest30",
     "typescript": "catalog:typescript5"
   }
 }
