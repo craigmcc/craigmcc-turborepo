@@ -18,9 +18,11 @@
   "dependencies": {
     "@auth/core": "catalog:next-auth5",
     "@repo/db-shopshop": "workspace:*",
+    "@repo/jest-presets": "workspace:*",
     "@repo/shared-utils": "workspace:*",
     "@repo/tanstack-form": "workspace:*",
     "@repo/tanstack-table": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@tanstack/react-form": "catalog:tanstack",
     "@tanstack/react-table": "catalog:tanstack",
     "bcrypt-edge": "catalog:bcrypt",
