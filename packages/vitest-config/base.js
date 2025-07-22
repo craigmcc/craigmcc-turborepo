@@ -13,12 +13,8 @@ export const baseConfig = defineConfig({
     coverage: {
       provider: "v8",
       reporter: [
-        [
-          "json",
-          {
-            file: `../coverage.json`,
-          },
-        ],
+        ["html", {dir: `../coverage`}],
+//        ["json", {file: `../coverage.json`}],
       ],
       enabled: true,
     },
