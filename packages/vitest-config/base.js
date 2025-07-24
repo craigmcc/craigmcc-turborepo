@@ -5,10 +5,12 @@
 // External Dependencies -----------------------------------------------------
 
 import { defineConfig } from "vitest/config";
+import tsConfigPaths from "vite-tsconfig-paths";
 
 // Internal Dependencies -----------------------------------------------------
 
 export const baseConfig = defineConfig({
+  plugins: [tsConfigPaths({ loose: true })],
   test: {
     coverage: {
       provider: "v8",

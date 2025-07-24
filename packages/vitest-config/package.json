@@ -11,6 +11,7 @@
   "devDependencies": {
     "@vitest/coverage-v8": "catalog:vitest",
     "@vitest/ui": "catalog:vitest",
-    "vitest": "catalog:vitest"
+    "vitest": "catalog:vitest",
+    "vite-tsconfig-paths": "catalog:vitest"
   }
 }
