@@ -1,17 +1,17 @@
 {
-  "description": "Prisma client and generated models for the ShopShop application database",
+  "description": "Prisma client and generated models for the BetterAuth application database",
   "exports": {
     "./*": "./dist/index.js"
   },
   "license": "Apache-2.0",
-  "name": "@repo/db-shopshop",
+  "name": "@repo/db-betterauth",
   "private": true,
   "scripts": {
     "build": "tsc",
-    "db-shopshop:deploy": "prisma migrate deploy",
-    "db-shopshop:generate" : "prisma generate",
-    "db-shopshop:migrate": "prisma migrate dev --skip-generate",
-    "db-shopshop:migrate:test": "dotenvx run -f .env.test -- prisma migrate dev --skip-generate"
+    "db-betterauth:deploy": "prisma migrate deploy",
+    "db-betterauth:generate" : "prisma generate",
+    "db-betterauth:migrate": "prisma migrate dev --skip-generate",
+    "db-betterauth:migrate:test": "dotenvx run -f .env.test -- prisma migrate dev --skip-generate"
   },
   "type": "module",
   "version": "0.0.0",

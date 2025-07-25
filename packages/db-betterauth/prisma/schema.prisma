@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ----- AUTHENTICATION MODELS (better-auth.com) -----------------------------
+
+model Account {
+  /// Primary key for this Account
+  id                    String    @id
+  /// The access token of the account, returned by the provider
+  accessToken           String?   @db.Text
+  /// The time when the access token expires
+  accessTokenExpiresAt  DateTime?
+  /// The ID of the account as provided by the SSO or equal to userId for credential accounts
+  accountId             String    @db.Text
+  /// Timestamp when this Account was created
+  createdAt             DateTime  @default(now())
+  /// The ID token returned by the provider
+  idToken               String?   @db.Text
+  /// The password of the account, used for email and password authentication
+  password              String?   @db.Text
+  /// The ID of the provider
+  providerId            String    @db.Text
+  /// The refresh token of the account, returned by the provider
+  refreshToken          String?   @db.Text
+  /// The time when the refresh token expires
+  refreshTokenExpiresAt DateTime?
+  /// The scope of the account, returned by the provider
+  scope                 String?   @db.Text
+  /// Timestamp when this Account was last updated
+  updatedAt             DateTime  @updatedAt
+
+  /// User ID of the User this Account belongs to
+  userId String
+  /// User this Session belongs to
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("account")
+}
+
+model Session {
+  /// Primary key for this Session
+  id        String   @id
+  /// Created at timestamp
+  createdAt DateTime @default(now())
+  /// The time when the session expires
+  expiresAt DateTime
+  /// The IP address of the device
+  ipAddress String?  @db.Text
+  /// The unique session token
+  token     String   @db.Text
+  /// Updated at timestamp
+  updatedAt DateTime @updatedAt
+  /// User agent information of a device
+  userAgent String?  @db.Text
+
+  /// User ID of the User this Session belongs to
+  userId String
+  /// User this Session belongs to
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model User {
+  /// Primary key for this User
+  id            String   @id
+  /// Created at timestamp
+  createdAt     DateTime @default(now())
+  /// Email address for this User
+  email         String   @db.Text
+  /// Has this email address been verified?
+  emailVerified Boolean  @default(false)
+  /// Optional avatar image URL for this User
+  image         String?  @db.Text
+  /// User's name
+  name          String   @db.Text
+  /// Updated at timestamp
+  updatedAt     DateTime @updatedAt
+
+  /// The accounts for this User
+  accounts Account[]
+  /// The sessions for this User
+  sessions Session[]
+
+  @@map("user")
+}
+
+model Verification {
+  /// Primary key for this verification request
+  id         String   @id
+  /// Created at timestamp
+  createdAt  DateTime @default(now())
+  /// Timestamp when the verification request expires
+  expiresAt  DateTime
+  /// Identifier for this Verification request
+  identifier String   @db.Text
+  /// Updated at timestamp
+  updatedAt  DateTime @updatedAt
+  /// The value to be verified
+  value      String   @db.Text
+
+  @@map("verification")
+}

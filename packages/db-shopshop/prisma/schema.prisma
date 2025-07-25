@@ -163,5 +163,3 @@ model Profile {
 
   @@map("profiles")
 }
-
-// ----- AUTHENTICATION MODELS -----------------------------------------------
