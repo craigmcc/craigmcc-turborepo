@@ -20,5 +20,10 @@ export const baseConfig = defineConfig({
       ],
       enabled: true,
     },
+    server: {
+      deps: {
+        inline: [ "next-auth" ],
+      },
+    }
   },
 });
