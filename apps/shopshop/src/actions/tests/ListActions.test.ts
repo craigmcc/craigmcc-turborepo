@@ -50,7 +50,7 @@ describe("ListActions", () => {
 
     });
 
-    it("should fail on unauthenticated user", async () => {
+    it("should fail on unauthenticated Profile", async () => {
 
       setTestProfile(null);
       const list: ListCreateSchemaType = {
@@ -112,7 +112,7 @@ describe("ListActions", () => {
 
     });
 
-    it("should fail on unauthenticated user", async () => {
+    it("should fail on unauthenticated Profile", async () => {
 
       const profile = await UTILS.lookupProfile(PROFILES[0].email!);
       setTestProfile(null); // This is deliberate
@@ -187,7 +187,7 @@ describe("ListActions", () => {
 
     });
 
-    it("should fail on unauthenticated user", async () => {
+    it("should fail on unauthenticated Profile", async () => {
 
       const profile = await UTILS.lookupProfile(PROFILES[0].email!);
       setTestProfile(null); // This is deliberate
