@@ -11,7 +11,9 @@
     "db-betterauth:deploy": "prisma migrate deploy",
     "db-betterauth:generate" : "prisma generate",
     "db-betterauth:migrate": "prisma migrate dev --skip-generate",
-    "db-betterauth:migrate:test": "dotenvx run -f .env.test -- prisma migrate dev --skip-generate"
+    "db-betterauth:migrate:test": "dotenvx run -f .env.test -- prisma migrate dev --skip-generate",
+    "db-betterauth:studio": "prisma studio",
+    "db-betterauth:studio:test": "dotenvx run -f .env.test -- prisma studio"
   },
   "type": "module",
   "version": "0.0.0",

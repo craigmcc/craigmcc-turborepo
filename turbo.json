@@ -25,6 +25,16 @@
         "^check-types"
       ]
     },
+    "db-shopshop:studio": {
+        "dependsOn": [
+            "^build"
+        ]
+    },
+    "db-shopshop:studio:test": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true
