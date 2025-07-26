@@ -50,7 +50,7 @@ describe("ListActions", () => {
 
     });
 
-    it("should fail on not authenticated", async () => {
+    it("should fail on unauthenticated user", async () => {
 
       setTestProfile(null);
       const list: ListCreateSchemaType = {
@@ -81,6 +81,152 @@ describe("ListActions", () => {
       expect(result.model!.members!.length).toBe(1);
       expect(result.model!.members![0].profileId).toBe(profile.id);
       expect(result.model!.members![0].role).toBe(MemberRole.ADMIN);
+
+    });
+
+  });
+
+  describe("removeList", () => {
+
+    it("should fail on GUEST Member", async () => {
+
+      const profile = await UTILS.lookupProfile(PROFILES[0].email!);
+      setTestProfile(profile);
+      const list = await UTILS.lookupListByRole(profile, MemberRole.GUEST);
+
+      const result = await removeList(list.id);
+
+      expect(result.message).toBe(ERRORS.NOT_ADMIN);
+
+    });
+
+    it("should fail on non-Member user", async () => {
+
+      const profile = await UTILS.lookupProfile(PROFILES[0].email!);
+      setTestProfile(profile);
+      const list = await UTILS.lookupListByName(LISTS[2].name!);
+
+      const result = await removeList(list.id);
+
+      expect(result.message).toBe(ERRORS.NOT_ADMIN);
+
+    });
+
+    it("should fail on unauthenticated user", async () => {
+
+      const profile = await UTILS.lookupProfile(PROFILES[0].email!);
+      setTestProfile(null); // This is deliberate
+      const list = await UTILS.lookupListByRole(profile, MemberRole.ADMIN);
+
+      const result = await removeList(list.id);
+
+      expect(result.message).toBe(ERRORS.AUTHENTICATION);
+
+    });
+
+    it("should pass on ADMIN Member with valid data", async () => {
+
+      const profile = await UTILS.lookupProfile(PROFILES[0].email!);
+      setTestProfile(profile);
+      const list = await UTILS.lookupListByRole(profile, MemberRole.ADMIN);
+
+      const result = await removeList(list.id);
+
+      expect(result.model).toBeDefined();
+      expect(result.model!.id).toBe(list.id);
+      expect(result.model!.name).toBe(list.name);
+
+    });
+
+  });
+
+  describe("updateList", () => {
+
+    it("should fail on GUEST Member with valid data", async () => {
+
+      const profile = await UTILS.lookupProfile(PROFILES[0].email!);
+      setTestProfile(profile);
+      const list = await UTILS.lookupListByRole(profile, MemberRole.GUEST);
+
+      const update: ListUpdateSchemaType = {
+        name: "Updated List",
+      }
+      const result = await updateList(list.id, update);
+
+      expect(result.message).toBe(ERRORS.NOT_ADMIN);
+
+    });
+
+    it("should fail on invalid data", async () => {
+
+      const profile = await UTILS.lookupProfile(PROFILES[0].email!);
+      setTestProfile(profile);
+      const list = await UTILS.lookupListByRole(profile, MemberRole.ADMIN);
+
+      const update: ListUpdateSchemaType = {
+        name: "",
+      }
+      const result = await updateList(list.id, update);
+
+      expect(result.message).toBe(ERRORS.DATA_VALIDATION);
+
+    });
+
+    it("should fail on non-Member with valid data", async () => {
+
+      const profile = await UTILS.lookupProfile(PROFILES[0].email!);
+      setTestProfile(profile);
+      const list = await UTILS.lookupListByRole(profile, null);
+
+      const update: ListUpdateSchemaType = {
+        name: "Updated List",
+      }
+      const result = await updateList(list.id, update);
+
+      expect(result.message).toBe(ERRORS.NOT_ADMIN);
+
+    });
+
+    it("should fail on unauthenticated user", async () => {
+
+      const profile = await UTILS.lookupProfile(PROFILES[0].email!);
+      setTestProfile(null); // This is deliberate
+      const list = await UTILS.lookupListByRole(profile, MemberRole.ADMIN);
+
+      const update: ListUpdateSchemaType = {
+        name: "Updated List",
+      }
+      const result = await updateList(list.id, update);
+
+      expect(result.message).toBe(ERRORS.AUTHENTICATION);
+
+    });
+
+    it("should pass on ADMIN member with empty update", async () => {
+
+      const profile = await UTILS.lookupProfile(PROFILES[0].email!);
+      setTestProfile(profile);
+      const list = await UTILS.lookupListByRole(profile, MemberRole.ADMIN);
+
+      const update: ListUpdateSchemaType = {};
+      const result = await updateList(list.id, update);
+
+      expect(result.model!.name).toBe(list.name);
+
+    });
+
+    it("should pass on ADMIN member with valid data", async () => {
+
+      const profile = await UTILS.lookupProfile(PROFILES[0].email!);
+      setTestProfile(profile);
+      const list = await UTILS.lookupListByRole(profile, MemberRole.ADMIN);
+
+      const update: ListUpdateSchemaType = {
+        name: "Updated List",
+      }
+      const result = await updateList(list.id, update);
+
+      expect(result.model!.name).toBe(update.name);
 
     });
 
