@@ -59,7 +59,7 @@ export async function createProfile(data: ProfileCreateSchemaType): Promise<Acti
     });
 
     logger.info({
-      context: "createProfile",
+      context: "ProfileActions.createProfile",
       message: "Profile created successfully",
       profileId: created.id,
     });
@@ -68,7 +68,7 @@ export async function createProfile(data: ProfileCreateSchemaType): Promise<Acti
   } catch (error) {
 
     logger.error({
-      context: "createProfile",
+      context: "ProfileActions.createProfile",
       message: "Error creating Profile",
       error,
     });
@@ -108,7 +108,7 @@ export async function removeProfile(profileId: string): Promise<ActionResult<Pro
     });
 
     logger.info({
-      context: "removeProfile",
+      context: "ProfileActions.removeProfile",
       message: "Profile removed successfully",
       profileId: removed.id,
     });
@@ -117,7 +117,7 @@ export async function removeProfile(profileId: string): Promise<ActionResult<Pro
   } catch (error) {
 
     logger.error({
-      context: "removeProfile",
+      context: "ProfileActions.removeProfile",
       message: "Failed to remove Profile",
       profileId,
       error,
@@ -140,16 +140,16 @@ export async function updateProfile(profileId: string, data: ProfileUpdateSchema
   }
 
   // Check authorization - only the Profile owner can update it
-  try {
-    IdSchema.parse(profileId);
-  } catch (error) {
-    return ValidationActionResult(error as ZodError);
-  }
   if (profile.id !== profileId) {
     return ({ message: "You can only update your own Profile" });
   }
 
   // Check data validity
+  try {
+    IdSchema.parse(profileId);
+  } catch (error) {
+    return ValidationActionResult(error as ZodError);
+  }
   try {
     ProfileUpdateSchema.parse(data);
   } catch (error) {
@@ -184,7 +184,7 @@ export async function updateProfile(profileId: string, data: ProfileUpdateSchema
     });
 
     logger.info({
-      context: "updateProfile",
+      context: "ProfileActions.updateProfile",
       message: "Profile updated successfully",
       profileId: updated.id,
     });
@@ -193,7 +193,7 @@ export async function updateProfile(profileId: string, data: ProfileUpdateSchema
   } catch (error) {
 
     logger.error({
-      context: "updateProfile",
+      context: "ProfileActions.updateProfile",
       message: "Error updating Profile",
       profileId,
       error,

@@ -67,7 +67,7 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
     await populateList(created.id, true, true);
 
     logger.info({
-      context: "createList",
+      context: "ListActions.createList",
       message: "List created successfully",
       listId: created.id,
     });
@@ -76,7 +76,7 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
   } catch (error) {
 
     logger.error({
-      context: "createList",
+      context: "ListActions.createList",
       message: "Error creating List",
       error,
     });
@@ -124,7 +124,7 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
     });
 
     logger.info({
-      context: "removeList",
+      context: "ListActions.removeList",
       message: "List removed successfully",
       listId: removed.id,
     });
@@ -133,7 +133,7 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
   } catch (error) {
 
     logger.error({
-      context: "removeList",
+      context: "ListActions.removeList",
       message: "Failed to remove List",
       listId,
       error,
@@ -191,7 +191,7 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
     });
 
     logger.info({
-      context: "updateList",
+      context: "ListActions.updateList",
       message: "List updated successfully",
       listId: updated.id,
     });
@@ -200,7 +200,7 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
   } catch (error) {
 
     logger.error({
-      context: "updateList",
+      context: "ListActions.updateList",
       message: "Failed to update List",
       listId,
       error,

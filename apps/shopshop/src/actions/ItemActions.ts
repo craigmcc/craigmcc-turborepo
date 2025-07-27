@@ -1,12 +1,12 @@
-"use server"
+"use server";
 
 /**
- *  Actions for Category models.
+ *  Actions for Item models.
  */
 
 // External Modules ----------------------------------------------------------
 
-import { dbShopShop as db, Category, MemberRole } from "@repo/db-shopshop/dist";
+import {dbShopShop as db, Item, MemberRole} from "@repo/db-shopshop/dist";
 import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
 import { ActionResult, ValidationActionResult, ERRORS } from "@repo/tanstack-form/ActionResult";
 import { ZodError } from "zod";
@@ -16,18 +16,18 @@ import { ZodError } from "zod";
 import { findProfile } from "@/lib/ProfileHelpers";
 import { IdSchema, type IdSchemaType } from "@/zod-schemas/IdSchema";
 import {
-  CategoryCreateSchema,
-  type CategoryCreateSchemaType,
-  CategoryUpdateSchema,
-  type CategoryUpdateSchemaType,
-} from "@/zod-schemas/CategorySchema";
+  ItemCreateSchema,
+  type ItemCreateSchemaType,
+  ItemUpdateSchema,
+  type ItemUpdateSchemaType,
+} from "@/zod-schemas/ItemSchema";
 
 // Public Objects ------------------------------------------------------------
 
 /**
- * Handle request to create a Category.
+ * Handle request to create an Item.
  */
-export async function createCategory(data: CategoryCreateSchemaType): Promise<ActionResult<Category>> {
+export async function createItem(data: ItemCreateSchemaType): Promise<ActionResult<Item>> {
 
   // Check authentication
   const profile = await findProfile();
@@ -36,23 +36,28 @@ export async function createCategory(data: CategoryCreateSchemaType): Promise<Ac
   }
 
   // Check authorization
-  const list = await db.list.findFirst({
+  const member = await db.member.findFirst({
     where: {
-      id: data.listId,
-      members: {
-        some: {
-          profileId: profile.id,
-        },
-      },
+      listId: data.listId,
+      profileId: profile.id,
     },
   });
-  if (!list) {
+  if (!member) {
     return ({ message: ERRORS.NOT_MEMBER });
   }
+  const category = await db.category.findFirst({
+    where: {
+      id: data.categoryId,
+      listId: data.listId,
+    },
+  });
+  if (!category) {
+    return ({ message: "This Category does not exist on this List" });
+  }
 
-  // Check data validity
+  // Validate input data
   try {
-    data = CategoryCreateSchema.parse(data);
+    data = ItemCreateSchema.parse(data);
   } catch (error) {
     return ValidationActionResult(error as ZodError);
   }
@@ -60,22 +65,22 @@ export async function createCategory(data: CategoryCreateSchemaType): Promise<Ac
   // Perform the action
   try {
 
-    const created = await db.category.create({
+    const created = await db.item.create({
       data,
     });
 
     logger.info({
-      context: "CategoryActions.createCategory",
-      message: "Category created successfully",
-      categoryId: created.id,
+      context: "ItemActions.createItem",
+      message: "Item created successfully",
+      itemId: created.id,
     });
     return ({ model: created });
 
   } catch (error) {
 
     logger.error({
-      context: "CategoryActions.createCategory",
-      message: "Error creating Category",
+      context: "ItemActions.createItem",
+      message: "Error creating item",
       error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
@@ -85,9 +90,9 @@ export async function createCategory(data: CategoryCreateSchemaType): Promise<Ac
 }
 
 /**
- * Handle request to remove a Category.
+ * Handle request to remove an Item.
  */
-export async function removeCategory(categoryId: IdSchemaType): Promise<ActionResult<Category>> {
+export async function removeItem(itemId: IdSchemaType): Promise<ActionResult<Item>> {
 
   // Check authentication
   const profile = await findProfile();
@@ -95,18 +100,18 @@ export async function removeCategory(categoryId: IdSchemaType): Promise<ActionRe
     return ({ message: ERRORS.AUTHENTICATION });
   }
 
-  // Check authorization and Category existence
-  const category = await db.category.findUnique({
+  // Check authorization
+  const item = await db.item.findUnique({
     where: {
-      id: categoryId,
+      id: itemId,
     },
   });
-  if (!category) {
-    return ({ message: "That Category does not exist" });
+  if (!item) {
+    return ({ message: "This Item does not exist" });
   }
   const member = await db.member.findFirst({
     where: {
-      listId: category.listId,
+      listId: item.listId,
       profileId: profile.id,
     }
   });
@@ -116,7 +121,7 @@ export async function removeCategory(categoryId: IdSchemaType): Promise<ActionRe
 
   // Check data validity
   try {
-    IdSchema.parse(categoryId);
+    IdSchema.parse(itemId);
   } catch (error) {
     return ValidationActionResult(error as ZodError);
   }
@@ -124,23 +129,23 @@ export async function removeCategory(categoryId: IdSchemaType): Promise<ActionRe
   // Perform the action
   try {
 
-    const removed = await db.category.delete({
-      where: { id: categoryId },
+    const removed = await db.item.delete({
+      where: { id: itemId },
     });
 
     logger.info({
-      context: "CategoryActions.removeCategory",
-      message: "Category removed successfully",
-      categoryId: removed.id,
+      context: "ItemActions.removeItem",
+      message: "Item removed successfully",
+      itemId: removed.id,
     });
-    return ({ model: removed });
+    return ({ model: item });
 
   } catch (error) {
 
     logger.error({
-      context: "CategoryActions.removeCategory",
-      message: "Failed to remove Category",
-      categoryId,
+      context: "ItemActions.removeItem",
+      message: "Failed to remove Item",
+      itemId,
       error
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
@@ -150,9 +155,9 @@ export async function removeCategory(categoryId: IdSchemaType): Promise<ActionRe
 }
 
 /**
- * Handle request to update a Category.
+ * Handle request to update an Item.
  */
-export async function updateCategory(categoryId: IdSchemaType, data: CategoryUpdateSchemaType): Promise<ActionResult<Category>> {
+export async function updateItem(itemId: IdSchemaType, data: ItemUpdateSchemaType): Promise<ActionResult<Item>> {
 
   // Check authentication
   const profile = await findProfile();
@@ -160,20 +165,20 @@ export async function updateCategory(categoryId: IdSchemaType, data: CategoryUpd
     return ({ message: ERRORS.AUTHENTICATION });
   }
 
-  // Check authorization and Category existence
-  const category = await db.category.findUnique({
+  // Check authorization and Item existence
+  const item = await db.item.findUnique({
     where: {
-      id: categoryId,
+      id: itemId,
     },
   });
-  if (!category) {
-    return ({ message: "That Category does not exist" });
+  if (!item) {
+    return ({ message: "This Item does not exist" });
   }
   const member = await db.member.findFirst({
     where: {
-      listId: category.listId,
+      listId: item.listId,
       profileId: profile.id,
-    }
+    },
   });
   if (!member) {
     return ({ message: ERRORS.NOT_MEMBER });
@@ -181,12 +186,12 @@ export async function updateCategory(categoryId: IdSchemaType, data: CategoryUpd
 
   // Check data validity
   try {
-    IdSchema.parse(categoryId);
+    IdSchema.parse(itemId);
   } catch (error) {
-    return ValidationActionResult(error as ZodError);
+    ValidationActionResult(error as ZodError)
   }
   try {
-    CategoryUpdateSchema.parse(data);
+    ItemUpdateSchema.parse(data);
   } catch (error) {
     return ValidationActionResult(error as ZodError);
   }
@@ -194,27 +199,27 @@ export async function updateCategory(categoryId: IdSchemaType, data: CategoryUpd
   // Perform the action
   try {
 
-    const updated = await db.category.update({
+    const updated = await db.item.update({
       data: {
         ...data,
-        id: categoryId, // No cheating allowed
+        id: itemId,   // No cheating allowed
       },
-      where: { id: categoryId },
+      where: { id: itemId },
     });
 
     logger.info({
-      context: "CategoryActions.updateCategory",
-      message: "Category updated successfully",
-      categoryId: updated.id,
+      context: "ItemActions.updateItem",
+      message: "Item updated successfully",
+      itemId: updated.id,
     });
     return ({ model: updated });
 
   } catch (error) {
 
     logger.error({
-      context: "CategoryActions.updateCategory",
-      message: "Failed to update Category",
-      categoryId,
+      context: "ItemActions.updateItem",
+      message: "Failed to update Item",
+      itemId,
       error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
@@ -222,3 +227,4 @@ export async function updateCategory(categoryId: IdSchemaType, data: CategoryUpd
   }
 
 }
+
