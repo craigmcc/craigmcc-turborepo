@@ -12,8 +12,8 @@
     "db-shopshop:generate" : "prisma generate",
     "db-shopshop:migrate": "prisma migrate dev --skip-generate",
     "db-shopshop:migrate:test": "dotenvx run -f .env.test -- prisma migrate dev --skip-generate",
-    "db-shopshop:studio": "prisma studio",
-    "db-shopshop:studio:test": "dotenvx run -f .env.test -- prisma studio"
+    "db-shopshop:studio": "prisma studio --port 4100",
+    "db-shopshop:studio:test": "dotenvx run -f .env.test -- prisma studio --port 4101"
   },
   "type": "module",
   "version": "0.0.0",
