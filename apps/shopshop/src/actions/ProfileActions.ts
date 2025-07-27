@@ -47,9 +47,8 @@ export async function createProfile(data: ProfileCreateSchemaType): Promise<Acti
       email: data.email,
     },
   });
-
   if (existing) {
-    return ({ message: "A Profile with the email address already exists" });
+    return ({ message: "That email address is already in use" });
   }
 
   // Perform the action
@@ -158,6 +157,21 @@ export async function updateProfile(profileId: string, data: ProfileUpdateSchema
     ProfileUpdateSchema.parse(data);
   } catch (error) {
     return ValidationActionResult(error as ZodError);
+  }
+
+  // Check for uniqueness constraint violation
+  if (data.email) {
+    const existing = await db.profile.findUnique({
+      where: {
+        email: data.email,
+        NOT: {
+          id: profileId,
+        }
+      },
+    });
+    if (existing) {
+      return ({ message: "That email address is already in use" });
+    }
   }
 
   // Perform the action

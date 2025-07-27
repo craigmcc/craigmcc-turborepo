@@ -20,6 +20,11 @@ export const baseConfig = defineConfig({
       ],
       enabled: true,
     },
+    fileParallelism: false,
+    globals: true,
+    sequence: {
+      hooks: "list",
+    },
     server: {
       deps: {
         inline: [ "next-auth" ],
