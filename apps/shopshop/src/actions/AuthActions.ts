@@ -113,7 +113,7 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Action
   try {
     SignUpSchema.parse(formData);
   } catch (error) {
-    return ({message: (error as Error).message});
+    return ({ message: (error as Error).message });
   }
 
   // Check uniqueness constraint violation
@@ -123,7 +123,7 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Action
     },
   });
   if (existing) {
-    return ({message: "That email address is already in use"});
+    return ({ message: "That email address is already in use" });
   }
 
   // Create and return the new Profile
@@ -156,7 +156,7 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Action
       password: "*REDACTED*",
       updatedAt: new Date(),
     };
-    return ({model: profile});
+    return ({ model: profile });
 
   } catch (error) {
 
@@ -165,7 +165,7 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Action
       error: error,
       message: (error as Error).message,
     });
-    return ({message: (error as Error).message});
+    return ({ message: (error as Error).message });
 
   }
 

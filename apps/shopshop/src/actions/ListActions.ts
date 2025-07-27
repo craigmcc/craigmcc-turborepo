@@ -72,16 +72,16 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
       message: "List created successfully",
       listId: list.id,
     });
-    return ({model: list});
+    return ({ model: list });
 
   } catch (error) {
 
     logger.error({
       context: "createList",
+      message: "Error creating List",
       error: error,
-      message: "Failed to create List",
     });
-    return ({message: ERRORS.INTERNAL_SERVER_ERROR});
+    return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
 
   }
 
@@ -107,7 +107,7 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
     },
   });
   if (!member) {
-    return ({message: ERRORS.NOT_ADMIN});
+    return ({ message: ERRORS.NOT_ADMIN });
   }
 
   // Check data validity
@@ -120,27 +120,28 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
   // Perform the action
   try {
 
-    const list = await db.list.delete({
+    const removed = await db.list.delete({
       where: {id: listId},
     });
 
     logger.info({
       context: "removeList",
       message: "List removed successfully",
-      listId: list.id,
+      listId: removed.id,
     });
-    return ({model: list});
+    return ({ model: removed });
 
   } catch (error) {
 
     logger.error({
       context: "removeList",
-      error: error,
       message: "Failed to remove List",
+      error: error,
     });
-    return ({message: ERRORS.INTERNAL_SERVER_ERROR});
+    return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
 
   }
+
 }
 
 /**
@@ -163,7 +164,7 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
     },
   });
   if (!member) {
-    return ({message: ERRORS.NOT_ADMIN});
+    return ({ message: ERRORS.NOT_ADMIN });
   }
 
   // Check data validity
@@ -181,7 +182,7 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
   // Perform the action
   try {
 
-    const list = await db.list.update({
+    const updated = await db.list.update({
       where: {id: listId},
       data: {
         imageUrl: data.imageUrl || undefined,
@@ -190,23 +191,23 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
       },
     });
 
-    await populateList(list.id, true, true);
+    await populateList(updated.id, true, true);
 
     logger.info({
       context: "updateList",
       message: "List updated successfully",
-      listId: list.id,
+      listId: updated.id,
     });
-    return ({model: list});
+    return ({ model: updated });
 
   } catch (error) {
 
     logger.error({
       context: "updateList",
-      error: error,
       message: "Failed to update List",
+      error: error,
     });
-    return ({message: ERRORS.INTERNAL_SERVER_ERROR});
+    return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
 
   }
 

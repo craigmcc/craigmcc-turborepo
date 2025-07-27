@@ -1,0 +1,194 @@
+/**
+ * Server actions for Profile models.
+ */
+
+// External Modules ----------------------------------------------------------
+
+import { dbShopShop as db, Profile } from "@repo/db-shopshop/dist";
+import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
+import { ActionResult, ValidationActionResult, ERRORS } from "@repo/tanstack-form/ActionResult";
+import { ZodError } from "zod";
+
+// Internal Modules ----------------------------------------------------------
+
+import { hashPassword } from "@/lib/Encryption";
+import { findProfile } from "@/lib/ProfileHelpers";
+import { IdSchema } from "@/zod-schemas/IdSchema";
+import {
+  ProfileCreateSchema,
+  ProfileCreateSchemaType,
+  ProfileUpdateSchema,
+  ProfileUpdateSchemaType
+} from "@/zod-schemas/ProfileSchema";
+
+// Public Objects ------------------------------------------------------------
+
+/**
+ * Handle request to create a Profile.
+ */
+export async function createProfile(data: ProfileCreateSchemaType): Promise<ActionResult<Profile>> {
+
+  // Check authentication
+  // Not needed - signing up is open to all
+
+  // Check authorization
+  // Not needed - signing up is open to all
+
+  // Check data validity
+  try {
+    ProfileCreateSchema.parse(data);
+  } catch (error) {
+    return ValidationActionResult(error as ZodError);
+  }
+
+  // Check for uniqueness constraint violation
+  const existing = await db.profile.findUnique({
+    where: {
+      email: data.email,
+    },
+  });
+
+  if (existing) {
+    return ({ message: "A Profile with the email address already exists" });
+  }
+
+  // Perform the action
+  try {
+
+    const profile = await db.profile.create({
+      data: {
+        email: data.email,
+        name: data.name,
+        password: hashPassword(data.password),
+      },
+    });
+
+    logger.info({
+      context: "createProfile",
+      message: "Profile created successfully",
+      profileId: profile.id,
+    });
+    return ({ model: profile });
+
+  } catch (error) {
+
+    logger.error({
+      context: "createProfile",
+      message: "Error creating Profile",
+      error: error,
+    });
+    return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
+
+  }
+
+}
+
+/**
+ * Handle request to remove a Profile.
+ */
+export async function removeProfile(profileId: string): Promise<ActionResult<Profile>> {
+
+  // Check authentication
+  const profile = await findProfile();
+  if (!profile) {
+    return ({ message: ERRORS.AUTHENTICATION });
+  }
+
+  // Check authorization - only the Profile owner can remove it
+  try {
+    IdSchema.parse(profileId);
+  } catch (error) {
+    return ValidationActionResult(error as ZodError);
+  }
+
+  if (profile.id !== profileId) {
+    return ({ message: "You can only remove your own Profile" });
+  }
+
+  // Perform the action
+  try {
+
+    const removed = await db.profile.delete({
+      where: { id: profileId },
+    });
+
+    logger.info({
+      context: "removeProfile",
+      message: "Profile removed successfully",
+      profileId: removed.id,
+    });
+    return ({ model: removed });
+
+  } catch (error) {
+
+    logger.error({
+      context: "removeProfile",
+      message: "Error removing Profile",
+      error: error,
+    });
+    return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
+
+  }
+
+}
+
+/**
+ * Handle request to update a Profile.
+ */
+export async function updateProfile(profileId: string, data: ProfileUpdateSchemaType): Promise<ActionResult<Profile>> {
+
+  // Check authentication
+  const profile = await findProfile();
+  if (!profile) {
+    return ({ message: ERRORS.AUTHENTICATION });
+  }
+
+  // Check authorization - only the Profile owner can update it
+  try {
+    IdSchema.parse(profileId);
+  } catch (error) {
+    return ValidationActionResult(error as ZodError);
+  }
+  if (profile.id !== profileId) {
+    return ({ message: "You can only update your own Profile" });
+  }
+
+  // Check data validity
+  try {
+    ProfileUpdateSchema.parse(data);
+  } catch (error) {
+    return ValidationActionResult(error as ZodError);
+  }
+
+  // Perform the action
+  try {
+
+    const updated = await db.profile.update({
+      where: { id: profileId },
+      data: {
+        name: data.name,
+        email: data.email,
+        password: data.password ? hashPassword(data.password) : undefined,
+      },
+    });
+
+    logger.info({
+      context: "updateProfile",
+      message: "Profile updated successfully",
+      profileId: updated.id,
+    });
+    return ({ model: updated });
+
+  } catch (error) {
+
+    logger.error({
+      context: "updateProfile",
+      message: "Error updating Profile",
+      error: error,
+    });
+    return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
+
+  }
+
+}
+
