@@ -62,7 +62,7 @@ describe("ListActions", () => {
 
     });
 
-    it("should pass on create a new List", async () => {
+    it("should pass with valid data", async () => {
 
       const profile = await UTILS.lookupProfile(PROFILES[1].email!);
       setTestProfile(profile);

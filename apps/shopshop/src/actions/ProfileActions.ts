@@ -54,27 +54,23 @@ export async function createProfile(data: ProfileCreateSchemaType): Promise<Acti
   // Perform the action
   try {
 
-    const profile = await db.profile.create({
-      data: {
-        email: data.email,
-        name: data.name,
-        password: hashPassword(data.password),
-      },
+    const created = await db.profile.create({
+      data,
     });
 
     logger.info({
       context: "createProfile",
       message: "Profile created successfully",
-      profileId: profile.id,
+      profileId: created.id,
     });
-    return ({ model: profile });
+    return ({ model: created });
 
   } catch (error) {
 
     logger.error({
       context: "createProfile",
       message: "Error creating Profile",
-      error: error,
+      error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
 
@@ -122,8 +118,9 @@ export async function removeProfile(profileId: string): Promise<ActionResult<Pro
 
     logger.error({
       context: "removeProfile",
-      message: "Error removing Profile",
-      error: error,
+      message: "Failed to remove Profile",
+      profileId,
+      error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
 
@@ -198,7 +195,8 @@ export async function updateProfile(profileId: string, data: ProfileUpdateSchema
     logger.error({
       context: "updateProfile",
       message: "Error updating Profile",
-      error: error,
+      profileId,
+      error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
 

@@ -50,11 +50,9 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
   // Perform the action
   try {
 
-    const list = await db.list.create({
+    const created = await db.list.create({
       data: {
-        imageUrl: data.imageUrl,
-        name: data.name,
-        private: data.private ?? false,
+        ...data,
         members: {
           create: {
             profileId: profile.id,
@@ -66,20 +64,21 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
         members: true,
       },
     });
+    await populateList(created.id, true, true);
 
     logger.info({
       context: "createList",
       message: "List created successfully",
-      listId: list.id,
+      listId: created.id,
     });
-    return ({ model: list });
+    return ({ model: created });
 
   } catch (error) {
 
     logger.error({
       context: "createList",
       message: "Error creating List",
-      error: error,
+      error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
 
@@ -136,7 +135,8 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
     logger.error({
       context: "removeList",
       message: "Failed to remove List",
-      error: error,
+      listId,
+      error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
 
@@ -183,15 +183,12 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
   try {
 
     const updated = await db.list.update({
-      where: {id: listId},
       data: {
-        imageUrl: data.imageUrl || undefined,
-        name: data.name || undefined,
-        private: data.private || undefined,
+        ...data,
+        id: listId, // No cheating allowed
       },
+      where: { id: listId },
     });
-
-    await populateList(updated.id, true, true);
 
     logger.info({
       context: "updateList",
@@ -205,7 +202,8 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
     logger.error({
       context: "updateList",
       message: "Failed to update List",
-      error: error,
+      listId,
+      error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
 
