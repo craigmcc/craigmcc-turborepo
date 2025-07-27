@@ -23,6 +23,7 @@
     "@tanstack/react-form": "catalog:tanstack",
     "@tanstack/react-table": "catalog:tanstack",
     "bcrypt-edge": "catalog:bcrypt",
+    "better-auth": "catalog:better-auth1",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
     "next": "catalog:next15",
