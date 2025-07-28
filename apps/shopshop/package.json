@@ -15,6 +15,7 @@
   "type": "module",
   "dependencies": {
     "@auth/core": "catalog:next-auth5",
+    "@repo/db-betterauth": "workspace:*",
     "@repo/db-shopshop": "workspace:*",
     "@repo/shared-utils": "workspace:*",
     "@repo/tanstack-form": "workspace:*",

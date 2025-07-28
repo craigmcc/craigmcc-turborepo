@@ -270,6 +270,9 @@ importers:
       '@auth/core':
         specifier: catalog:next-auth5
         version: 0.40.0
+      '@repo/db-betterauth':
+        specifier: workspace:*
+        version: link:../../packages/db-betterauth
       '@repo/db-shopshop':
         specifier: workspace:*
         version: link:../../packages/db-shopshop
