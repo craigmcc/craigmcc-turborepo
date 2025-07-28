@@ -7,6 +7,7 @@
 import { dbBetterAuth } from "@repo/db-betterauth/dist";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { nextCookies } from "better-auth/next-js";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -19,6 +20,9 @@ const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  plugins: [
+    nextCookies(), // Recognizes when a server action creates/updates a cookie.
+  ],
 });
 
 export default auth;
