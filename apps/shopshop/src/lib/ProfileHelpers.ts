@@ -7,11 +7,12 @@
 // External Modules ----------------------------------------------------------
 
 import { Profile } from "@repo/db-shopshop/dist";
-import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
+//import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
 
 // Internal Modules ----------------------------------------------------------
 
-import { auth } from "@/auth";
+import { type Session } from "@/lib/BetterAuthServer";
+import { findSession } from "@/lib/SessionHelpers";
 
 const isTest = process.env.NODE_ENV === "test";
 let testProfile: Profile | null = null;
@@ -38,17 +39,9 @@ export async function findProfile(): Promise<Profile | null> {
     }
   }
 
-  // PRODUCTION MODE: Returned the signed in Profile from the Session (if any)
-  const session = await auth();
-  if (!session || !session.user || !session.user.profile) {
-    return null;
-  }
-  logger.trace({
-    context: "findProfile",
-    profile: session.user.profile,
-  });
-
-  return session.user.profile;
+  // PRODUCTION MODE: Return the Profile associated with the current session (if any)
+  const session: Session | null = await findSession();
+  return session?.profile || null;
 
 }
 

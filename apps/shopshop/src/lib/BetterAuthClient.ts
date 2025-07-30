@@ -15,3 +15,5 @@ const authClient = createAuthClient({
 });
 
 export default authClient;
+export type Session = typeof authClient.$Infer.Session;
+

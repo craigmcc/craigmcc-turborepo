@@ -5,12 +5,14 @@
 
 // External Modules ----------------------------------------------------------
 
-import { Session } from "@repo/db-betterauth/dist";
+//import { Session, User } from "@repo/db-betterauth/dist";
 import { headers } from "next/headers";
+import "server-only";
 
 // Internal Modules ----------------------------------------------------------
 
 import auth from "@/lib/BetterAuthServer";
+import { type Session } from "@/lib/BetterAuthServer";
 
 // Public Objects ------------------------------------------------------------
 
@@ -19,6 +21,8 @@ export async function findSession(): Promise<Session | null> {
   const response  = await auth.api.getSession({
     headers: await headers(),
   });
+  return response || null;
+/*
   if (!response || !response.session) {
     return null;
   } else {
@@ -31,6 +35,8 @@ export async function findSession(): Promise<Session | null> {
       updatedAt: response.session.updatedAt,
       userAgent: response.session.userAgent || null,
       userId: response.session.userId,
+      profile: response.session.profile,
     };
   }
+*/
 }

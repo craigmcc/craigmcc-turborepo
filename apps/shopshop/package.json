@@ -33,6 +33,7 @@
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "react-toastify": "catalog:react-toastify",
+    "server-only": "catalog:server-only",
     "zod": "catalog:zod"
   },
   "devDependencies": {

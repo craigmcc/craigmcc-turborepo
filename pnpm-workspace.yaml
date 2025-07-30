@@ -75,6 +75,8 @@ catalogs:
     '@types/react-csv': ^1.1.10
   react-toastify:
     react-toastify: ^11.0.5
+  server-only:
+    server-only: ^0.0.1
   tailwind4:
     '@tailwindcss/postcss': ^4.0.0-alpha.13
     tailwindcss: ^4.1.11
