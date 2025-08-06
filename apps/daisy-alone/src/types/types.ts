@@ -27,3 +27,20 @@ export type SignUp = {
   // The password of the profile. (not encrypted because this is a demo)
   password: string;
 }
+
+// Types from jsonplaceholder.typicode.com -----------------------------------
+
+export type User = {
+  // The unique identifier for the user.
+  id: number;
+  // The name of the user.
+  name: string;
+  // The username of the user.
+  username: string;
+  // The email address of the user.
+  email: string;
+  // The phone number of the user.
+  phone: string;
+  // The website of the user.
+  website: string;
+}

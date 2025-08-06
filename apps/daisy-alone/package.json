@@ -15,7 +15,9 @@
   "dependencies": {
     "@repo/shared-utils": "workspace:*",
     "@repo/tanstack-form": "workspace:*",
+    "@repo/tanstack-table": "workspace:*",
     "@tanstack/react-form": "catalog:tanstack",
+    "@tanstack/react-table": "catalog:tanstack",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
     "next": "catalog:next15",

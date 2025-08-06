@@ -194,9 +194,15 @@ importers:
       '@repo/tanstack-form':
         specifier: workspace:*
         version: link:../../packages/tanstack-form
+      '@repo/tanstack-table':
+        specifier: workspace:*
+        version: link:../../packages/tanstack-table
       '@tanstack/react-form':
         specifier: catalog:tanstack
         version: 1.14.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@tanstack/react-table':
+        specifier: catalog:tanstack
+        version: 8.21.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       clsx:
         specifier: catalog:clsx
         version: 2.1.1

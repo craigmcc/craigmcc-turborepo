@@ -38,6 +38,7 @@ export function NavBar() {
         <Link className="btn btn-outline" href="/cards">Cards</Link>
         <Link className="btn btn-outline" href="/forms">Forms</Link>
         <Link className="btn btn-outline" href="/inputs">Inputs</Link>
+        <Link className="btn btn-outline" href="/tables">Tables</Link>
       </div>
 
       <div className="navbar-end">

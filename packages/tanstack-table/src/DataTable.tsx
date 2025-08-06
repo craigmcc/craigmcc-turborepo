@@ -10,7 +10,15 @@ import {
   flexRender,
   Table,
 } from "@tanstack/react-table";
-import { ArrowDownAZ, ArrowUpAZ, ArrowDownUp } from "lucide-react";
+import {
+  ArrowDownAZ,
+  ArrowDownUp,
+  ArrowLeft,
+  ArrowLeftToLine,
+  ArrowRight,
+  ArrowRightToLine,
+  ArrowUpAZ,
+} from "lucide-react";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -28,7 +36,7 @@ export function DataTable<TData>({ showPagination, table }: DataTableProps<TData
   const pageCount = table.getPageCount();
 
   return (
-    <table className="table border table-zebra">
+    <table className="table table-zebra w-full">
 
       <thead>
       {table.getHeaderGroups().map(headerGroup => (
@@ -77,46 +85,47 @@ export function DataTable<TData>({ showPagination, table }: DataTableProps<TData
         <tr>
           <th colSpan={table.getCenterLeafColumns().length}>
             <div className="text-center">
-              <div className="tooltip" data-tip="First Page">
+              <span className="tooltip" data-tip="First Page">
                 <button
-                  className="btn btn-info"
+                  className="btn btn-info pe-3"
                   disabled={!table.getCanPreviousPage()}
                   onClick={() => table.firstPage()}
                 >
-                  {'<<'}
+                  <ArrowLeftToLine/>
                 </button>
-              </div>
-              <span>&nbsp;</span>
-              <div className="tooltip" data-tip="Previous Page">
+              </span>
+              <span>&nbsp;&nbsp;</span>
+              <span className="tooltip" data-tip="Previous Page">
                 <button
-                  className="btn btn-info"
+                  className="btn btn-info pe-3"
                   disabled={!table.getCanPreviousPage()}
                   onClick={() => table.previousPage()}
                 >
-                  {'<'}
+                  <ArrowLeft/>
                 </button>
-              </div>
-              <span>&nbsp;</span>
-              <div className="tooltip" data-tip="Next Page">
+              </span>
+              <span>&nbsp;&nbsp;</span>
+              <span className="tooltip" data-tip="Next Page">
                 <button
-                  className="btn btn-info"
+                  className="btn btn-info pe-3"
                   disabled={!table.getCanNextPage()}
                   onClick={() => table.nextPage()}
                 >
-                  {'>'}
+                  <ArrowRight/>
                 </button>
-              </div>
-              <span>&nbsp;</span>
-              <div className="tooltip" data-tip="Last Page">
+              </span>
+              <span>&nbsp;&nbsp;</span>
+              <span className="tooltip" data-tip="Last Page">
                 <button
-                  className="btn btn-info"
+                  className="btn btn-info pe-3"
                   disabled={!table.getCanNextPage()}
                   onClick={() => table.lastPage()}
                 >
-                  {'>>'}
+                  <ArrowRightToLine/>
                 </button>
-              </div>
-              <span className="p-1">
+              </span>
+              <span>&nbsp;&nbsp;</span>
+              <span>
                 Page {table.getState().pagination.pageIndex + 1} of{" "}
                 {pageCount > 0 ? pageCount : `1`}{" "}| Total of{" "}
                 {table.getRowCount().toLocaleString()} Rows
