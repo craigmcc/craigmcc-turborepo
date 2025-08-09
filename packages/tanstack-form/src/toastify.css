@@ -1,8 +1,3 @@
-@import "tailwindcss";
-@plugin "daisyui" {
-    themes: all;
-}
-
 :root {
     /* Make react-toastify colors look like those from Daisy UI */
     --toastify-color-error: var(--color-error);

@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "./toastify.css";
+
+@plugin "daisyui" {
+    themes: all;
+}
