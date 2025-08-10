@@ -20,6 +20,7 @@
     "@tanstack/react-table": "catalog:tanstack",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
+    "postcss": "catalog:postcss",
     "next": "catalog:next15",
     "pino": "catalog:pino",
     "react": "catalog:react19",

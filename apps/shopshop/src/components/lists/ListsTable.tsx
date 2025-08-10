@@ -8,6 +8,7 @@
 
 import { DataTable } from "@repo/tanstack-table/DataTable";
 import {
+  CellContext,
 //  ColumnFiltersState,
   createColumnHelper,
   getCoreRowModel,
@@ -18,6 +19,7 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import Link from "next/link";
 import { /*useEffect,*/ useMemo, useState } from "react";
 
 // Internal Imports ----------------------------------------------------------
@@ -65,9 +67,32 @@ export function ListsTable({ allLists, profile }: ListsTableProps) {
   // Define columns for the table
   const columns = useMemo(() => [
     columnHelper.accessor("name", {
-      header: "List Name",
       cell: info => info.getValue(),
+      header: "List Name",
       id: "name",
+    }),
+    columnHelper.display({
+      cell: (info: CellContext<ListPlus, unknown>) => {
+        const list = info.row.original;
+        return (
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/lists/${list.id}`}
+              className="btn btn-primary btn-sm"
+            >
+              View
+            </Link>
+            <Link
+                href={`/lists/${list.id}/edit`}
+                className="btn btn-secondary btn-sm"
+              >
+                Edit
+            </Link>
+          </div>
+        );
+      },
+      header: "Actions",
+      id: "actions",
     }),
   ], [columnHelper]);
 

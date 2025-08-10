@@ -30,6 +30,7 @@
     "next": "catalog:next15",
     "next-auth": "catalog:next-auth5",
     "pino": "catalog:pino",
+    "postcss": "catalog:postcss",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "react-toastify": "catalog:react-toastify",

@@ -19,7 +19,9 @@ import {
 //  flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   PaginationState,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 import { User } from "@/types/types";
@@ -37,9 +39,13 @@ export function TanstackTable({ users }: TanstackTableProps) {
     pageIndex: 0,
     pageSize: 5,
   });
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: "id", desc: false },
+  ]);
 
   const columns = useMemo(() => [
     columnHelper.accessor("id", {
+      enableSorting: true,
       header: "Id",
       cell: (info: CellContext<User, number>) => info.getValue(),
     }),
@@ -63,8 +69,13 @@ export function TanstackTable({ users }: TanstackTableProps) {
     enableSorting: false,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    state: { pagination },
+    getSortedRowModel: getSortedRowModel(),
     onPaginationChange: setPagination,
+    onSortingChange: setSorting,
+    state: {
+      pagination,
+      sorting
+    },
   });
 
   return (

@@ -84,47 +84,43 @@ export function DataTable<TData>({ showPagination, table }: DataTableProps<TData
         <tfoot>
         <tr>
           <th colSpan={table.getCenterLeafColumns().length}>
-            <div className="text-center">
+            <div className="text-center space-x-4">
               <span className="tooltip" data-tip="First Page">
                 <button
-                  className="btn btn-info pe-3"
+                  className="btn btn-info"
                   disabled={!table.getCanPreviousPage()}
                   onClick={() => table.firstPage()}
                 >
                   <ArrowLeftToLine/>
                 </button>
               </span>
-              <span>&nbsp;&nbsp;</span>
               <span className="tooltip" data-tip="Previous Page">
                 <button
-                  className="btn btn-info pe-3"
+                  className="btn btn-info"
                   disabled={!table.getCanPreviousPage()}
                   onClick={() => table.previousPage()}
                 >
                   <ArrowLeft/>
                 </button>
               </span>
-              <span>&nbsp;&nbsp;</span>
               <span className="tooltip" data-tip="Next Page">
                 <button
-                  className="btn btn-info pe-3"
+                  className="btn btn-info"
                   disabled={!table.getCanNextPage()}
                   onClick={() => table.nextPage()}
                 >
                   <ArrowRight/>
                 </button>
               </span>
-              <span>&nbsp;&nbsp;</span>
               <span className="tooltip" data-tip="Last Page">
                 <button
-                  className="btn btn-info pe-3"
+                  className="btn btn-info"
                   disabled={!table.getCanNextPage()}
                   onClick={() => table.lastPage()}
                 >
                   <ArrowRightToLine/>
                 </button>
               </span>
-              <span>&nbsp;&nbsp;</span>
               <span>
                 Page {table.getState().pagination.pageIndex + 1} of{" "}
                 {pageCount > 0 ? pageCount : `1`}{" "}| Total of{" "}
