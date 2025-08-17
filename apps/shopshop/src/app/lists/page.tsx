@@ -38,8 +38,7 @@ export default async function ListsPage() {
   members.map((member) => { allLists.push(member.list); });
 
   return (
-    <div className="flex flex-col items-center justify-center pt-8 min-h-full">
-      <h1 className="text-4xl text-primary pb-8">Your Shopping Lists</h1>
+    <div className="flex mt-4 justify-center w-full">
       <ListsTable allLists={allLists} profile={profile} />
     </div>
   )

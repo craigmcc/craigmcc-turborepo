@@ -50,6 +50,7 @@ export function TanstackTable({ users }: TanstackTableProps) {
       cell: (info: CellContext<User, number>) => info.getValue(),
     }),
     columnHelper.accessor("name", {
+      enableSorting: true,
       header: "Name",
       cell: (info: CellContext<User, string>) => info.getValue(),
     }),

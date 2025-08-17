@@ -115,10 +115,17 @@ export function ListsTable({ allLists, profile }: ListsTableProps) {
   });
 
   return (
-    <DataTable
-      showPagination={true}
-      table={table}
-    />
+  <div className="card bg-info/50 border-2 rounded-2xl">
+    <div className="card-body">
+      <h2 className="card-title justify-center">
+        Your Shopping Lists
+      </h2>
+      <DataTable
+        showPagination={true}
+        table={table}
+      />
+    </div>
+  </div>
   )
 
 }
