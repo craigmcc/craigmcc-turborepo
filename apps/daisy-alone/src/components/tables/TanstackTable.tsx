@@ -67,7 +67,7 @@ export function TanstackTable({ users }: TanstackTableProps) {
   const table = useReactTable<User>({
     columns,
     data: users,
-    enableSorting: false,
+    enableSorting: true,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
