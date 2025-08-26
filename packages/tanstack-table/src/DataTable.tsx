@@ -19,36 +19,83 @@ import {
   ArrowRightToLine,
   ArrowUpAZ,
 } from "lucide-react";
+import { createElement, useState } from "react";
 
 // Internal Modules ----------------------------------------------------------
 
 // Public Objects ------------------------------------------------------------
 
+export type MutationFormProps<TData> = {
+  // The data model we are editing or removing (or null if creating)
+  data: TData | null;
+  // Are we removing (true) or creating/updating (false)?
+  isRemoving: boolean | null;
+}
+
 type DataTableProps<TData> = {
-  // Handler for create action
-  onCreate?: () => void;
-  // Handler for remove action
-  onRemove?: (data: TData) => void;
-  // Handler for update action
-  onUpdate?: (data: TData) => void;
+  // React component that implements the CRUD behaviors for TData
+  mutators?: (props: MutationFormProps<TData>) => React.JSX.Element | undefined;
   // Show pagination controls
   showPagination?: boolean;
+  // If we have mutators, support creating new rows
+  supportsCreating?: boolean;
+  // If we have mutators, support removing rows
+  supportsRemoving?: boolean;
+  // If we have mutators, support updating rows
+  supportsUpdating?: boolean;
   // The Tanstack Table we are displaying
   table: Table<TData>,
 }
 
-export function DataTable<TData>({ onCreate, onRemove, onUpdate, showPagination, table }: DataTableProps<TData>) {
+export function DataTable<TData>(
+  {
+    mutators,
+    showPagination,
+    supportsCreating,
+    supportsRemoving,
+    supportsUpdating,
+    table
+  }: DataTableProps<TData>) {
+
+  const [creatingRow, setCreatingRow] = useState<TData | null>(null);
+  const [removingRow, setRemovingRow] = useState<TData | null>(null);
+  const [updatingRow, setUpdatingRow] = useState<TData | null>(null);
 
   const pageCount = table.getPageCount();
 
   return (
     <>
 
-      {onCreate && (
+      {mutators && (creatingRow || updatingRow || removingRow) && (
+        <div className="modal modal-open">
+          <div className="modal-box">
+            {createElement(mutators, {
+              data: updatingRow || removingRow, // NOTE: not passing creatingRow
+              isRemoving: !!removingRow,
+            })}
+            <div className="modal-action">
+              <button
+                className="btn"
+                onClick={() => {
+                  setCreatingRow(null);
+                  setUpdatingRow(null);
+                  setRemovingRow(null);
+                }}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {mutators && supportsCreating && (
         <div className="p-2">
           <button
-            onClick={onCreate}
             className="btn btn-primary btn-sm"
+            onClick={() => {
+              setCreatingRow({} as TData);
+            }}
           >
             Add New
           </button>
@@ -83,7 +130,7 @@ export function DataTable<TData>({ onCreate, onRemove, onUpdate, showPagination,
                 }
               </th>
             ))}
-            {(onRemove || onUpdate) && (
+            {(mutators && (supportsRemoving || supportsUpdating)) && (
               <th className="p-2">Actions</th>
             )}
           </tr>
@@ -98,21 +145,25 @@ export function DataTable<TData>({ onCreate, onRemove, onUpdate, showPagination,
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </td>
             ))}
-            {(onRemove || onUpdate) && (
+            {(mutators && (supportsRemoving || supportsUpdating)) && (
               <td className="p-2">
                 <div className="flex gap-2">
-                  {onUpdate && (
+                  {supportsUpdating && (
                     <button
-                      onClick={() => onUpdate(row.original)}
                       className="btn btn-secondary btn-sm"
+                      onClick={() => {
+                        setUpdatingRow(row.original);
+                      }}
                     >
                       Update
                     </button>
                   )}
-                  {onRemove && (
+                  {supportsRemoving && (
                     <button
-                      onClick={() => onRemove(row.original)}
                       className="btn btn-error btn-sm"
+                      onClick={() => {
+                        setRemovingRow(row.original);
+                      }}
                     >
                       Remove
                     </button>
