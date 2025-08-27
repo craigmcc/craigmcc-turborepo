@@ -45,10 +45,14 @@ export async function findProfile(): Promise<Profile | null> {
   }
   logger.trace({
     context: "findProfile",
-    profile: session.user.profile,
+    user: session.user,
   });
 
-  return session.user.profile;
+  // For some weird reason, profile is nested again inside the session.user.profile object
+  // @ts-ignore
+  const profile = session.user.profile["profile"] as Profile;
+
+  return profile;
 
 }
 

@@ -18,6 +18,10 @@ import {
   ArrowRight,
   ArrowRightToLine,
   ArrowUpAZ,
+  Pencil,
+  Plus,
+  Trash,
+  X,
 } from "lucide-react";
 import { createElement, useState } from "react";
 
@@ -60,45 +64,52 @@ export function DataTable<TData>(
   const [creatingRow, setCreatingRow] = useState<TData | null>(null);
   const [removingRow, setRemovingRow] = useState<TData | null>(null);
   const [updatingRow, setUpdatingRow] = useState<TData | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const pageCount = table.getPageCount();
 
   return (
     <>
 
-      {mutators && (creatingRow || updatingRow || removingRow) && (
-        <div className="modal modal-open">
+      {showModal && mutators && (creatingRow || updatingRow || removingRow) && (
+        <dialog className="modal modal-open">
           <div className="modal-box">
-            {createElement(mutators, {
-              data: updatingRow || removingRow, // NOTE: not passing creatingRow
-              isRemoving: !!removingRow,
-            })}
-            <div className="modal-action">
+            <div className="flex flex-row w-full">
+              <span className="tooltip" data-tip="Close">
               <button
-                className="btn"
+                className="btn btn-sm btn-ghost justify-end"
                 onClick={() => {
                   setCreatingRow(null);
                   setUpdatingRow(null);
                   setRemovingRow(null);
+                  setShowModal(false);
                 }}
               >
-                Close
+                <X size={16}/>
               </button>
+              </span>
             </div>
+            {createElement(mutators, {
+              data: updatingRow || removingRow, // NOTE: not passing creatingRow
+              isRemoving: !!removingRow,
+            })}
           </div>
-        </div>
+        </dialog>
       )}
 
       {mutators && supportsCreating && (
         <div className="p-2">
+          <span className="tooltip" data-tip="Add">
           <button
             className="btn btn-primary btn-sm"
             onClick={() => {
               setCreatingRow({} as TData);
+              setShowModal(true);
             }}
           >
-            Add New
+            <Plus size={16}/>
           </button>
+          </span>
         </div>
       )}
 
@@ -149,24 +160,30 @@ export function DataTable<TData>(
               <td className="p-2">
                 <div className="flex gap-2">
                   {supportsUpdating && (
+                    <span className="tooltip" data-tip="Update">
                     <button
                       className="btn btn-secondary btn-sm"
                       onClick={() => {
                         setUpdatingRow(row.original);
+                        setShowModal(true);
                       }}
                     >
-                      Update
+                      <Pencil size={16}/>
                     </button>
+                    </span>
                   )}
                   {supportsRemoving && (
+                    <span className="tooltip" data-tip="Remove">
                     <button
                       className="btn btn-error btn-sm"
                       onClick={() => {
                         setRemovingRow(row.original);
+                        setShowModal(true);
                       }}
                     >
-                      Remove
+                      <Trash size={16}/>
                     </button>
+                    </span>
                   )}
                 </div>
               </td>

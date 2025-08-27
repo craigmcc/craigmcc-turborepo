@@ -37,6 +37,11 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
   if (!profile) {
     return ({ message: ERRORS.AUTHENTICATION });
   }
+  logger.trace({
+    context: "ListActions.createList.profile",
+    message: "Authenticated Profile",
+    profile,
+  });
 
   // Check authorization - not required - every Profile can create a List
 
@@ -50,6 +55,13 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
   // Perform the action
   try {
 
+    // Create the new List, with the current Profile as an ADMIN member
+    logger.trace({
+      context: "ListActions.createList.list",
+      message: "Creating List",
+      list: data,
+      profile,
+    })
     const created = await db.list.create({
       data: {
         ...data,
@@ -57,16 +69,37 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
           create: {
             profileId: profile.id,
             role: MemberRole.ADMIN,
-          },
-        },
-      },
-      include: {
-        members: true,
-      },
+          }
+        }
+      }
     });
-    await populateList(created.id, true, true);
 
-    logger.info({
+/*
+    logger.trace({
+      context: "ListActions.createList.member",
+      message: "Creating Member",
+      list: created,
+      profile,
+      role: MemberRole.ADMIN,
+    })
+    const member = await db.member.create({
+      data: {
+        listId: created.id,
+        profileId: profile.id,
+        role: MemberRole.ADMIN,
+      }
+    });
+*/
+
+    // Create initial Categories and Items for this List
+    logger.trace({
+      context: "ListActions.createList.populate",
+      message: "Populating List",
+      listId: created.id,
+    });
+    await populateList(created.id, true, true)
+
+    logger.trace({
       context: "ListActions.createList",
       message: "List created successfully",
       listId: created.id,
@@ -123,7 +156,7 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
       where: {id: listId},
     });
 
-    logger.info({
+    logger.trace({
       context: "ListActions.removeList",
       message: "List removed successfully",
       listId: removed.id,
@@ -190,7 +223,7 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
       where: { id: listId },
     });
 
-    logger.info({
+    logger.trace({
       context: "ListActions.updateList",
       message: "List updated successfully",
       listId: updated.id,

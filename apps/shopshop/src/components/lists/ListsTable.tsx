@@ -24,6 +24,7 @@ import { /*useEffect,*/ useMemo, useState } from "react";
 
 // Internal Imports ----------------------------------------------------------
 
+import { ListMutationForm } from "@/components/lists/ListMutationForm";
 import { ListPlus, ProfilePlus } from "@/types/Types";
 
 // Public Objects ------------------------------------------------------------
@@ -71,29 +72,6 @@ export function ListsTable({ allLists, profile }: ListsTableProps) {
       header: "List Name",
       id: "name",
     }),
-    columnHelper.display({
-      cell: (info: CellContext<ListPlus, unknown>) => {
-        const list = info.row.original;
-        return (
-          <div className="flex items-center gap-2">
-            <Link
-              href={`/lists/${list.id}`}
-              className="btn btn-primary btn-sm"
-            >
-              View
-            </Link>
-            <Link
-                href={`/lists/${list.id}/edit`}
-                className="btn btn-secondary btn-sm"
-              >
-                Edit
-            </Link>
-          </div>
-        );
-      },
-      header: "Actions",
-      id: "actions",
-    }),
   ], [columnHelper]);
 
   // Create the table instance
@@ -121,7 +99,11 @@ export function ListsTable({ allLists, profile }: ListsTableProps) {
         Your Shopping Lists
       </h2>
       <DataTable
+        mutators={ListMutationForm}
         showPagination={true}
+        supportsCreating={true}
+        supportsRemoving={true}
+        supportsUpdating={true}
         table={table}
       />
     </div>
