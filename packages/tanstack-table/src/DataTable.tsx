@@ -74,8 +74,8 @@ export function DataTable<TData>(
       {showModal && mutators && (creatingRow || updatingRow || removingRow) && (
         <dialog className="modal modal-open">
           <div className="modal-box">
-            <div className="flex flex-row w-full">
-              <span className="tooltip" data-tip="Close">
+            <div className="flex flex-row w-full justify-end">
+              <span className="tooltip tooltip-left" data-tip="Close" >
               <button
                 className="btn btn-sm btn-ghost justify-end"
                 onClick={() => {
