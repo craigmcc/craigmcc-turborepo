@@ -49,7 +49,7 @@ export async function findProfile(): Promise<Profile | null> {
   });
 
   // For some weird reason, profile is nested again inside the session.user.profile object
-  // @ts-ignore
+  // @ts-expect-error next-auth nested the profile object inside another "profile" property
   const profile = session.user.profile["profile"] as Profile;
 
   return profile;

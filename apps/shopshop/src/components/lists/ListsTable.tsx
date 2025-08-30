@@ -8,7 +8,6 @@
 
 import { DataTable } from "@repo/tanstack-table/DataTable";
 import {
-  CellContext,
 //  ColumnFiltersState,
   createColumnHelper,
   getCoreRowModel,
@@ -19,7 +18,6 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import Link from "next/link";
 import { /*useEffect,*/ useMemo, useState } from "react";
 
 // Internal Imports ----------------------------------------------------------
@@ -36,7 +34,7 @@ export type ListsTableProps = {
   profile: ProfilePlus;
 }
 
-export function ListsTable({ allLists, profile }: ListsTableProps) {
+export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
 
 //  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
@@ -72,7 +70,7 @@ export function ListsTable({ allLists, profile }: ListsTableProps) {
       header: "List Name",
       id: "name",
     }),
-  ], [columnHelper]);
+  ], []);
 
   // Create the table instance
   const table = useReactTable({

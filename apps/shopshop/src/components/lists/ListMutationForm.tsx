@@ -24,17 +24,12 @@ export function ListMutationForm<List>({ data, isRemoving }: MutationFormProps<L
   const isUpdating = !!data && !isRemoving;
   const [result, setResult] = useState<ActionResult<ListPlus> | null>(null);
 
-  if (isRemoving && !data) {
-    toast.error("Cannot delete a List without data!");
-    return (<>ListMutationForm: No data to delete!</>);
-  };
-
   const defaultValuesCreate: ListCreateSchemaType = {
     name: "",
     private: false,
   }
   const defaultValuesUpdate: ListUpdateSchemaType = {
-    name: data ? (data as any).name : "",
+    name: data? (data as any).name : "",
     private: data ? (data as any).private : false,
   }
   const form = useAppForm({
@@ -101,12 +96,17 @@ export function ListMutationForm<List>({ data, isRemoving }: MutationFormProps<L
     }
   }
 
+  if (isRemoving && !data) {
+    toast.error("Cannot delete a List without data!");
+    return (<>ListMutationForm: No data to delete!</>);
+  };
+
   return (
     <>
       {isRemoving && (
         <div className="card bg-base-300/50 shadow-xl">
           <div className="card-body">
-            <h2 className="card-title">Confirm Deletion of List '{(data as any).name}'</h2>
+            <h2 className="card-title">Confirm Deletion of List &apos;{(data as any).name}&apos;</h2>
           </div>
           <p>Are you sure you want to delete this List? This action cannot be undone.</p>
           <button
