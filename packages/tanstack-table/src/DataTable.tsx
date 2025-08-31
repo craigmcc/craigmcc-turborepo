@@ -10,6 +10,7 @@ import {
   flexRender,
   Table,
 } from "@tanstack/react-table";
+import clsx from "clsx";
 import {
   ArrowDownAZ,
   ArrowDownUp,
@@ -53,6 +54,10 @@ type DataTableProps<TData> = {
   supportsUpdating?: boolean;
   // The Tanstack Table we are displaying
   table: Table<TData>,
+  // Optional title for the table
+  title?: string;
+  // Optional CSS classes to apply to the table title ["card-title justify-center"]
+  titleClassName?: string;
 }
 
 export function DataTable<TData>(
@@ -62,7 +67,9 @@ export function DataTable<TData>(
     supportsCreating,
     supportsRemoving,
     supportsUpdating,
-    table
+    table,
+    title,
+    titleClassName = "card-title justify-center",
   }: DataTableProps<TData>) {
 
   const [creatingRow, setCreatingRow] = useState<TData | null>(null);
@@ -82,7 +89,7 @@ export function DataTable<TData>(
     setUpdatingRow(null);
     setShowModal(false);
     router.refresh();
-}
+  }
 
   return (
     <>
@@ -115,9 +122,14 @@ export function DataTable<TData>(
         </dialog>
       )}
 
-      {mutators && supportsCreating && (
-        <div className="p-2">
-          <span className="tooltip" data-tip="Add">
+      {mutators && (supportsCreating || title) && (
+
+        <div className={clsx(titleClassName, "p-2")}>
+         {title && (
+            <span>{title}</span>
+          )}
+          {supportsCreating && (
+            <span className="tooltip tooltip-right" data-tip="Add">
           <button
             className="btn btn-primary btn-sm"
             onClick={() => {
@@ -128,6 +140,7 @@ export function DataTable<TData>(
             <Plus size={16}/>
           </button>
           </span>
+          )}
         </div>
       )}
 
