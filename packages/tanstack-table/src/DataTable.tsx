@@ -23,6 +23,7 @@ import {
   Trash,
   X,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { createElement, useState } from "react";
 
 // Internal Modules ----------------------------------------------------------
@@ -34,6 +35,9 @@ export type MutationFormProps<TData> = {
   data: TData | null;
   // Are we removing (true) or creating/updating (false)?
   isRemoving: boolean | null;
+  // A cleanup function to call when the mutation is complete
+  // (either successfully or not)
+  onComplete?: () => void;
 }
 
 type DataTableProps<TData> = {
@@ -66,7 +70,19 @@ export function DataTable<TData>(
   const [updatingRow, setUpdatingRow] = useState<TData | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  const router = useRouter();
+
+  // Pagination state
   const pageCount = table.getPageCount();
+
+  // A cleanup function to reset all mutation state, and refresh the current page.
+  function onComplete() {
+    setCreatingRow(null);
+    setRemovingRow(null);
+    setUpdatingRow(null);
+    setShowModal(false);
+    router.refresh();
+}
 
   return (
     <>
@@ -83,6 +99,7 @@ export function DataTable<TData>(
                   setUpdatingRow(null);
                   setRemovingRow(null);
                   setShowModal(false);
+                  // No revalidate on modal close without a mutation
                 }}
               >
                 <X size={16}/>
@@ -92,6 +109,7 @@ export function DataTable<TData>(
             {createElement(mutators, {
               data: updatingRow || removingRow, // NOTE: not passing creatingRow
               isRemoving: !!removingRow,
+              onComplete: onComplete,
             })}
           </div>
         </dialog>

@@ -18,11 +18,13 @@ import {ListCreateSchema, ListCreateSchemaType, ListUpdateSchema, ListUpdateSche
 
 // Public Objects ------------------------------------------------------------
 
-export function ListMutationForm<List>({ data, isRemoving }: MutationFormProps<List>) {
+export function ListMutationForm<List>({ data, isRemoving, onComplete }: MutationFormProps<List>) {
 
   const isCreating = !data && !isRemoving;
   const isUpdating = !!data && !isRemoving;
   const [result, setResult] = useState<ActionResult<ListPlus> | null>(null);
+
+  // Set up form
 
   const defaultValuesCreate: ListCreateSchemaType = {
     name: "",
@@ -52,10 +54,11 @@ export function ListMutationForm<List>({ data, isRemoving }: MutationFormProps<L
       } else {
         setResult(null);
         toast.success(`List '${response.model!.name}' created`);
+        onComplete ? onComplete() : null;
       }
     } catch (error) {
       toast.error(`Error creating List: ${error}`);
-    };
+    }
   }
 
   async function confirmedRemove(listId: string) {
@@ -67,10 +70,11 @@ export function ListMutationForm<List>({ data, isRemoving }: MutationFormProps<L
       } else {
         setResult(null);
         toast.success(`List '${response.model!.name}' removed`);
+        onComplete ? onComplete() : null;
       }
     } catch (error) {
       toast.error(`Error removing List: ${error}`);
-    };
+    }
   }
 
   async function confirmedUpdate(listId: string, formData: ListUpdateSchemaType) {
@@ -82,6 +86,7 @@ export function ListMutationForm<List>({ data, isRemoving }: MutationFormProps<L
       } else {
         setResult(null);
         toast.success(`List '${response.model!.name}' updated`);
+        onComplete ? onComplete() : null;
       }
     } catch (error) {
       toast.error(`Error updating List: ${error}`);
