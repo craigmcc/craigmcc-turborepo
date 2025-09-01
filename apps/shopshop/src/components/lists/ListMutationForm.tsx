@@ -4,7 +4,6 @@
 
 // External Modules ----------------------------------------------------------
 
-//import { List } from "@repo/db-shopshop/dist";
 import { ActionResult, ServerResult, useAppForm } from "@repo/tanstack-form/useAppForm";
 import { MutationFormProps } from "@repo/tanstack-table/DataTable";
 import { useState } from "react";
@@ -44,6 +43,8 @@ export function ListMutationForm<List>({ data, isRemoving, onComplete }: Mutatio
       onChange: isCreating ? ListCreateSchema : ListUpdateSchema,
     },
   });
+
+  // Invoke the appropriate server action
 
   async function confirmedCreate(formData: ListCreateSchemaType) {
     try {
@@ -109,7 +110,7 @@ export function ListMutationForm<List>({ data, isRemoving, onComplete }: Mutatio
   return (
     <>
       {isRemoving && (
-        <div className="card bg-base-300/50 shadow-xl">
+        <div className="card bg-base-300/30 shadow-xl">
           <div className="card-body">
             <h2 className="card-title">Confirm Deletion of List &apos;{(data as any).name}&apos;</h2>
           </div>

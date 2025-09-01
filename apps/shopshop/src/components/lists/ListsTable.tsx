@@ -7,18 +7,19 @@
 // External Imports ----------------------------------------------------------
 
 import { DataTable } from "@repo/tanstack-table/DataTable";
+import { TextFieldFilter } from "@repo/tanstack-table/TextFieldFilter";
 import {
-//  ColumnFiltersState,
+  ColumnFiltersState,
   createColumnHelper,
   getCoreRowModel,
-//  getFilteredRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   PaginationState,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { /*useEffect,*/ useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 // Internal Imports ----------------------------------------------------------
 
@@ -36,7 +37,7 @@ export type ListsTableProps = {
 
 export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
 
-//  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
@@ -44,24 +45,22 @@ export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
   const [sorting, setSorting] = useState<SortingState>([
     {id: "name", desc: false},
   ]);
-//  const [nameFilter, setNameFilter] = useState<string>("");
+  const [nameFilter, setNameFilter] = useState<string>("");
 
   // Apply selection filters whenever they change
-  /*
-    useEffect(() => {
+  useEffect(() => {
 
-      const filters: ColumnFiltersState = [];
+    const filters: ColumnFiltersState = [];
 
-      if (nameFilter.length > 0) {
-        filters.push({
-          id: "name",
-          value: nameFilter,
-        });
-      }
+    if (nameFilter.length > 0) {
+      filters.push({
+        id: "name",
+        value: nameFilter,
+      });
+    }
 
-      setColumnFilters(filters);
-    }, [nameFilter]);
-  */
+    setColumnFilters(filters);
+  }, [nameFilter]);
 
   // Define columns for the table
   const columns = useMemo(() => [
@@ -77,33 +76,42 @@ export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
     data: allLists,
     columns,
     state: {
-//      columnFilters,
+      columnFilters,
       pagination,
       sorting,
     },
-//    onColumnFiltersChange: setColumnFilters,
+    onColumnFiltersChange: setColumnFilters,
     onPaginationChange: setPagination,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
-//    getFilteredRowModel: getFilteredRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
 
   return (
-  <div className="card bg-info/50 border-2 rounded-2xl">
-    <div className="card-body">
-      <DataTable
-        mutators={ListMutationForm}
-        showPagination={true}
-        supportsCreating={true}
-        supportsRemoving={true}
-        supportsUpdating={true}
-        table={table}
-        title="Your Shopping Lists"
-      />
+    <div className="card bg-info/50 border-2 rounded-2xl">
+      <div className="card-body">
+        <DataTable
+          mutators={ListMutationForm}
+          showPagination={true}
+          supportsCreating={true}
+          supportsRemoving={true}
+          supportsUpdating={true}
+          table={table}
+          title="Your Shopping Lists"
+        />
+      </div>
+      <div className="card-actions justify-center px-6 pb-2">
+        <TextFieldFilter
+          controlId="nameFilter"
+          label="Filter by List Name"
+          placeholder="List Name..."
+          setTextFieldFilter={setNameFilter}
+          textFieldFilter={nameFilter}
+        />
+      </div>
     </div>
-  </div>
   )
 
 }

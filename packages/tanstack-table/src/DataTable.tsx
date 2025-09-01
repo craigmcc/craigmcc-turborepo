@@ -151,7 +151,7 @@ export function DataTable<TData>(
           <tr key={headerGroup.id}>
             {headerGroup.headers.map(header => (
               <th key={header.id} colSpan={header.colSpan}>
-                <div  className="flex flex-row w-full justify-center">
+                <div  className="flex flex-row w-full justify-center fieldset-legend">
                 {flexRender(header.column.columnDef.header, header.getContext())}
                 { header.column.getCanSort() ? (
                     <>
@@ -175,7 +175,7 @@ export function DataTable<TData>(
               </th>
             ))}
             {(mutators && (supportsRemoving || supportsUpdating)) && (
-              <th className="flex flex-row w-full justify-center">Actions</th>
+              <th className="flex flex-row w-full justify-center fieldset-legend">Actions</th>
             )}
           </tr>
         ))}
