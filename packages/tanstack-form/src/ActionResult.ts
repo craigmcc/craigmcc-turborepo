@@ -4,7 +4,7 @@
 
 // External Modules ----------------------------------------------------------
 
-import { ZodError } from "zod";
+import { z, ZodError } from "zod";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -54,7 +54,7 @@ export type ActionResult<M> = {
  * @param message                       Optional message to include in the result
  */
 export function ValidationActionResult<M>(error: ZodError, message?: string): ActionResult<M> {
-  const flattened = error.flatten();
+  const flattened = z.flattenError(error);
   return {
     fieldErrors: flattened.fieldErrors || undefined,
     formErrors: flattened.formErrors || undefined,

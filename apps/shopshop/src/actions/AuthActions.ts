@@ -1,20 +1,21 @@
 "use server";
 
 /**
- * Utility methods to interact with AuthJS, and to set up a new Profile.
+ * Utility methods to interact with AuthJS, Sign In, Sign Out, and Sign Up.
  */
 
 // External Modules ----------------------------------------------------------
 
 import { dbShopShop as db, Profile } from "@repo/db-shopshop/dist";
 import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
-import { ActionResult } from "@repo/tanstack-form/ActionResult";
+import { ActionResult, ValidationActionResult } from "@repo/tanstack-form/ActionResult";
+import { ZodError } from "zod";
 
 // Internal Modules ----------------------------------------------------------
 
 import { signIn, signOut } from "@/auth";
 import { hashPassword } from "@/lib/Encryption";
-import { SignInSchemaType } from "@/zod-schemas/SignInSchema";
+import { SignInSchema, SignInSchemaType } from "@/zod-schemas/SignInSchema";
 import { SignUpSchema, SignUpSchemaType } from "@/zod-schemas/SignUpSchema";
 
 // Public Objects ------------------------------------------------------------
@@ -30,6 +31,27 @@ export async function doSignInAction(formData: SignInSchemaType): Promise<Action
     password: "*REDACTED*",
   });
 
+  // Check authentication - not required for signin
+
+  // Check authorization - not required for signin
+
+  // Check data validity
+  try {
+    SignInSchema.parse(formData);
+  } catch (error) {
+    const result = ValidationActionResult<Profile>(error as ZodError);
+    logger.error({
+      context: "doSignInAction.validation",
+      formData: {
+        ...formData,
+        password: "*REDACTED*",
+      },
+      result,
+    });
+    return (result);
+  }
+
+  // Perform the action
   try {
 
     const response = await signIn("credentials", {
@@ -88,6 +110,11 @@ export async function doSignOutAction(): Promise<ActionResult<Profile>> {
 
   } catch (error) {
 
+    logger.error({
+      context: "doSignOutAction.error",
+      error: error,
+      message: (error as Error).message,
+    });
     return ({ message: (error as Error).message });
 
   }
@@ -113,7 +140,16 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Action
   try {
     SignUpSchema.parse(formData);
   } catch (error) {
-    return ({ message: (error as Error).message });
+    const result = ValidationActionResult<Profile>(error as ZodError);
+    logger.error({
+      context: "doSignUpAction.validation",
+      formData: {
+        ...formData,
+        password: "*REDACTED*",
+      },
+      result,
+    });
+    return (result);
   }
 
   // Check uniqueness constraint violation
@@ -150,8 +186,8 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Action
     const profile: Profile = {
       createdAt: new Date(),
       email: formData.email,
-      id: "",
-      imageUrl: "",
+      id: created.id,
+      imageUrl: null,
       name: formData.name,
       password: "*REDACTED*",
       updatedAt: new Date(),
@@ -160,7 +196,7 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Action
 
   } catch (error) {
 
-    logger.trace({
+    logger.error({
       context: "doSignUpAction.error",
       error: error,
       message: (error as Error).message,

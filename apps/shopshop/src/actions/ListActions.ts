@@ -49,7 +49,13 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
   try {
     ListCreateSchema.parse(data);
   } catch (error) {
-    return ValidationActionResult(error as ZodError);
+    const result = ValidationActionResult<ListPlus>(error as ZodError);
+    logger.error({
+      context: "ListActions.createList.validation",
+      data,
+      result,
+    })
+    return (result);
   }
 
   // Perform the action
@@ -59,7 +65,7 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
     logger.trace({
       context: "ListActions.createList.list",
       message: "Creating List",
-      list: data,
+      data,
       profile,
     })
     const created = await db.list.create({
@@ -74,23 +80,6 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
       }
     });
 
-/*
-    logger.trace({
-      context: "ListActions.createList.member",
-      message: "Creating Member",
-      list: created,
-      profile,
-      role: MemberRole.ADMIN,
-    })
-    const member = await db.member.create({
-      data: {
-        listId: created.id,
-        profileId: profile.id,
-        role: MemberRole.ADMIN,
-      }
-    });
-*/
-
     // Create initial Categories and Items for this List
     logger.trace({
       context: "ListActions.createList.populate",
@@ -101,16 +90,34 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
 
     logger.trace({
       context: "ListActions.createList",
-      message: "List created successfully",
+      message: "List created and populated successfully",
       listId: created.id,
     });
-    return ({ model: created });
+
+    const populated = await db.list.findUnique({
+      where: { id: created.id },
+      include: {
+        members: true,
+      }
+    });
+    if (populated) {
+      return {model: populated};
+    } else {
+      const message = "Failed to retrieve newly created List with Members";
+      logger.error({
+        context: "ListActions.createList",
+        message,
+        created,
+      })
+      return { message };
+    }
 
   } catch (error) {
 
     logger.error({
       context: "ListActions.createList",
-      message: "Error creating List",
+      message: "Error creating or populating List",
+      data,
       error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
@@ -127,7 +134,7 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
   // Check authentication
   const profile = await findProfile();
   if (!profile) {
-    return ({message: ERRORS.AUTHENTICATION});
+    return ({ message: ERRORS.AUTHENTICATION });
   }
 
   // Check authorization - must be an ADMIN member of the List to remove it
@@ -146,6 +153,11 @@ export async function removeList(listId: string): Promise<ActionResult<List>> {
   try {
     IdSchema.parse(listId);
   } catch (error) {
+    logger.error({
+      context: "ListActions.removeList.validation",
+      listId,
+      error,
+    });
     return ValidationActionResult(error as ZodError);
   }
 
@@ -204,11 +216,21 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
   try {
     IdSchema.parse(listId);
   } catch (error) {
+    logger.error({
+      context: "ListActions.updateList.validation.id",
+      listId,
+      error,
+    });
     return ValidationActionResult(error as ZodError);
   }
   try {
     ListUpdateSchema.parse(data);
   } catch (error) {
+    logger.error({
+      context: "ListActions.updateList.validation.data",
+      data,
+      error,
+    });
     return ValidationActionResult(error as ZodError);
   }
 
@@ -236,6 +258,7 @@ export async function updateList(listId: string, data: ListUpdateSchemaType): Pr
       context: "ListActions.updateList",
       message: "Failed to update List",
       listId,
+      data,
       error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });

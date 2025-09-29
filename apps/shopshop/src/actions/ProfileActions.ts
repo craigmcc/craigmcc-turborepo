@@ -13,6 +13,7 @@ import { ZodError } from "zod";
 
 import { hashPassword } from "@/lib/Encryption";
 import { findProfile } from "@/lib/ProfileHelpers";
+import { ProfilePlus } from "@/types/Types";
 import { IdSchema } from "@/zod-schemas/IdSchema";
 import {
   ProfileCreateSchema,
@@ -26,7 +27,7 @@ import {
 /**
  * Handle request to create a Profile.
  */
-export async function createProfile(data: ProfileCreateSchemaType): Promise<ActionResult<Profile>> {
+export async function createProfile(data: ProfileCreateSchemaType): Promise<ActionResult<ProfilePlus>> {
 
   // Check authentication
   // Not needed - signing up is open to all
@@ -38,7 +39,16 @@ export async function createProfile(data: ProfileCreateSchemaType): Promise<Acti
   try {
     ProfileCreateSchema.parse(data);
   } catch (error) {
-    return ValidationActionResult(error as ZodError);
+    const result =  ValidationActionResult<ProfilePlus>(error as ZodError);
+    logger.error({
+      context: "ProfileActions.createProfile.validation",
+      data: {
+        ...data,
+        password: data.password ? "*REDACTED*" : undefined,
+      },
+      result,
+    });
+    return (result);
   }
 
   // Check for uniqueness constraint violation
@@ -48,6 +58,10 @@ export async function createProfile(data: ProfileCreateSchemaType): Promise<Acti
     },
   });
   if (existing) {
+    logger.error({
+      context: "ProfileActions.createProfile.uniqueness",
+      email: data.email,
+    })
     return ({ message: "That email address is already in use" });
   }
 
@@ -70,6 +84,10 @@ export async function createProfile(data: ProfileCreateSchemaType): Promise<Acti
     logger.error({
       context: "ProfileActions.createProfile",
       message: "Error creating Profile",
+      data: {
+        ...data,
+        password: "*REDACTED*",
+      },
       error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
@@ -93,10 +111,20 @@ export async function removeProfile(profileId: string): Promise<ActionResult<Pro
   try {
     IdSchema.parse(profileId);
   } catch (error) {
+    logger.error({
+      context: "ListActions.removeProfile.validation",
+      profileId,
+      error,
+    });
     return ValidationActionResult(error as ZodError);
   }
 
   if (profile.id !== profileId) {
+    logger.error({
+      context: "ProfileActions.removeProfile.ownership",
+      callerId: profile.id,
+      removeId: profileId,
+    });
     return ({ message: "You can only remove your own Profile" });
   }
 
@@ -107,7 +135,7 @@ export async function removeProfile(profileId: string): Promise<ActionResult<Pro
       where: { id: profileId },
     });
 
-    logger.info({
+    logger.trace({
       context: "ProfileActions.removeProfile",
       message: "Profile removed successfully",
       profileId: removed.id,
@@ -148,6 +176,11 @@ export async function updateProfile(profileId: string, data: ProfileUpdateSchema
   try {
     IdSchema.parse(profileId);
   } catch (error) {
+    logger.error({
+      context: "ProfileActions.updateList.validation.id",
+      profileId,
+      error,
+    });
     return ValidationActionResult(error as ZodError);
   }
   try {
@@ -175,15 +208,15 @@ export async function updateProfile(profileId: string, data: ProfileUpdateSchema
   try {
 
     const updated = await db.profile.update({
-      where: { id: profileId },
       data: {
         name: data.name,
         email: data.email,
         password: data.password ? hashPassword(data.password) : undefined,
       },
+      where: { id: profileId },
     });
 
-    logger.info({
+    logger.trace({
       context: "ProfileActions.updateProfile",
       message: "Profile updated successfully",
       profileId: updated.id,
@@ -196,6 +229,10 @@ export async function updateProfile(profileId: string, data: ProfileUpdateSchema
       context: "ProfileActions.updateProfile",
       message: "Error updating Profile",
       profileId,
+      data: {
+        ...data,
+        password: data.password ? "*REDACTED*" : undefined,
+      },
       error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
