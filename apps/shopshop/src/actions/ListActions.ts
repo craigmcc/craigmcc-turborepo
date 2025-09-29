@@ -37,11 +37,6 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
   if (!profile) {
     return ({ message: ERRORS.AUTHENTICATION });
   }
-  logger.trace({
-    context: "ListActions.createList.profile",
-    message: "Authenticated Profile",
-    profile,
-  });
 
   // Check authorization - not required - every Profile can create a List
 
@@ -66,8 +61,11 @@ export async function createList(data: ListCreateSchemaType): Promise<ActionResu
       context: "ListActions.createList.list",
       message: "Creating List",
       data,
-      profile,
-    })
+      profile: {
+        ...profile,
+        password: "*REDACTED*",
+      },
+    });
     const created = await db.list.create({
       data: {
         ...data,

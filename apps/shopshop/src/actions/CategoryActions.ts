@@ -47,24 +47,45 @@ export async function createCategory(data: CategoryCreateSchemaType): Promise<Ac
     },
   });
   if (!list) {
+    logger.error({
+      context: "CategoryActions.createCategory.authorization",
+      message: "Not authorized to create Category for that List",
+      profileId: profile.id,
+      listId: data.listId,
+    });
     return ({ message: ERRORS.NOT_MEMBER });
   }
 
   // Check data validity
   try {
-    data = CategoryCreateSchema.parse(data);
+    CategoryCreateSchema.parse(data);
   } catch (error) {
-    return ValidationActionResult(error as ZodError);
+    const result = ValidationActionResult<Category>(error as ZodError);
+    logger.error({
+      context: "CategoryActions.createCategory.validation",
+      data,
+      result,
+    })
+    return (result);
   }
 
   // Perform the action
   try {
 
+    logger.trace({
+      context: "CategoryActions.createCategory.category",
+      message: "Creating Category",
+      data,
+      profile: {
+        ...profile,
+        password: "*REDACTED*",
+      },
+    });
     const created = await db.category.create({
       data,
     });
 
-    logger.info({
+    logger.trace({
       context: "CategoryActions.createCategory",
       message: "Category created successfully",
       categoryId: created.id,
@@ -76,6 +97,7 @@ export async function createCategory(data: CategoryCreateSchemaType): Promise<Ac
     logger.error({
       context: "CategoryActions.createCategory",
       message: "Error creating Category",
+      data,
       error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
@@ -102,6 +124,13 @@ export async function removeCategory(categoryId: IdSchemaType): Promise<ActionRe
     },
   });
   if (!category) {
+    const message = "That Category does not exist";
+    logger.error({
+      context: "CategoryActions.removeCategory.existence",
+      message,
+      categoryId,
+      profileId: profile.id,
+    });
     return ({ message: "That Category does not exist" });
   }
   const member = await db.member.findFirst({
@@ -111,6 +140,12 @@ export async function removeCategory(categoryId: IdSchemaType): Promise<ActionRe
     }
   });
   if (!member || member.role !== MemberRole.ADMIN) {
+    logger.error({
+      context: "CategoryActions.removeCategory.authorization",
+      message: "Not authorized to remove that Category",
+      categoryId,
+      profileId: profile.id,
+    });
     return ({ message: ERRORS.NOT_ADMIN });
   }
 
@@ -118,6 +153,11 @@ export async function removeCategory(categoryId: IdSchemaType): Promise<ActionRe
   try {
     IdSchema.parse(categoryId);
   } catch (error) {
+    logger.error({
+      context: "CategoryActions.removeCategory.validation",
+      categoryId,
+      error,
+    });
     return ValidationActionResult(error as ZodError);
   }
 
@@ -128,7 +168,7 @@ export async function removeCategory(categoryId: IdSchemaType): Promise<ActionRe
       where: { id: categoryId },
     });
 
-    logger.info({
+    logger.trace({
       context: "CategoryActions.removeCategory",
       message: "Category removed successfully",
       categoryId: removed.id,
@@ -141,7 +181,7 @@ export async function removeCategory(categoryId: IdSchemaType): Promise<ActionRe
       context: "CategoryActions.removeCategory",
       message: "Failed to remove Category",
       categoryId,
-      error
+      error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
 
@@ -167,6 +207,12 @@ export async function updateCategory(categoryId: IdSchemaType, data: CategoryUpd
     },
   });
   if (!category) {
+    logger.error({
+      context: "CategoryActions.updateCategory.existence",
+      message: "That Category does not exist",
+      categoryId,
+      profileId: profile.id,
+    });
     return ({ message: "That Category does not exist" });
   }
   const member = await db.member.findFirst({
@@ -176,6 +222,12 @@ export async function updateCategory(categoryId: IdSchemaType, data: CategoryUpd
     }
   });
   if (!member) {
+    logger.error({
+      context: "CategoryActions.updateCategory.membership",
+      message: ERRORS.NOT_MEMBER,
+      categoryId,
+      profileId: profile.id,
+    });
     return ({ message: ERRORS.NOT_MEMBER });
   }
 
@@ -183,11 +235,21 @@ export async function updateCategory(categoryId: IdSchemaType, data: CategoryUpd
   try {
     IdSchema.parse(categoryId);
   } catch (error) {
+    logger.error({
+      context: "CategoryActions.updateCategory.validation.id",
+      categoryId,
+      error,
+    });
     return ValidationActionResult(error as ZodError);
   }
   try {
     CategoryUpdateSchema.parse(data);
   } catch (error) {
+    logger.error({
+      context: "CategoryActions.updateCategory.validation.data",
+      data,
+      error,
+    });
     return ValidationActionResult(error as ZodError);
   }
 
@@ -202,7 +264,7 @@ export async function updateCategory(categoryId: IdSchemaType, data: CategoryUpd
       where: { id: categoryId },
     });
 
-    logger.info({
+    logger.trace({
       context: "CategoryActions.updateCategory",
       message: "Category updated successfully",
       categoryId: updated.id,
@@ -215,6 +277,7 @@ export async function updateCategory(categoryId: IdSchemaType, data: CategoryUpd
       context: "CategoryActions.updateCategory",
       message: "Failed to update Category",
       categoryId,
+      data,
       error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });

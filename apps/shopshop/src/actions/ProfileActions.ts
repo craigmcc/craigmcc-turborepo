@@ -72,7 +72,7 @@ export async function createProfile(data: ProfileCreateSchemaType): Promise<Acti
       data,
     });
 
-    logger.info({
+    logger.trace({
       context: "ProfileActions.createProfile",
       message: "Profile created successfully",
       profileId: created.id,

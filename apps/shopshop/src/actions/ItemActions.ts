@@ -6,7 +6,7 @@
 
 // External Modules ----------------------------------------------------------
 
-import {dbShopShop as db, Item, MemberRole} from "@repo/db-shopshop/dist";
+import {Category, dbShopShop as db, Item, MemberRole} from "@repo/db-shopshop/dist";
 import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
 import { ActionResult, ValidationActionResult, ERRORS } from "@repo/tanstack-form/ActionResult";
 import { ZodError } from "zod";
@@ -43,6 +43,12 @@ export async function createItem(data: ItemCreateSchemaType): Promise<ActionResu
     },
   });
   if (!member) {
+    logger.error({
+      context: "ItemActions.createItem.authorization",
+      message: "Not authorized to create Item for that List",
+      profileId: profile.id,
+      listId: data.listId,
+    });
     return ({ message: ERRORS.NOT_MEMBER });
   }
   const category = await db.category.findFirst({
@@ -52,24 +58,46 @@ export async function createItem(data: ItemCreateSchemaType): Promise<ActionResu
     },
   });
   if (!category) {
+    logger.error({
+      context: "ItemActions.createItem.authorization",
+      message: "That Category does not exist on this List",
+      profileId: profile.id,
+      listId: data.listId,
+      categoryId: data.categoryId,
+    });
     return ({ message: "This Category does not exist on this List" });
   }
 
-  // Validate input data
+  // Check data validity
   try {
-    data = ItemCreateSchema.parse(data);
+    ItemCreateSchema.parse(data);
   } catch (error) {
-    return ValidationActionResult(error as ZodError);
+    const result = ValidationActionResult<Item>(error as ZodError);
+    logger.error({
+      context: "ItemActions.createItem.validation",
+      data,
+      result,
+    })
+    return (result);
   }
 
   // Perform the action
   try {
 
+    logger.trace({
+      context: "ItemActions.createItem.Item",
+      message: "Creating Item",
+      data,
+      profile: {
+        ...profile,
+        password: "*REDACTED*",
+      },
+    });
     const created = await db.item.create({
       data,
     });
 
-    logger.info({
+    logger.trace({
       context: "ItemActions.createItem",
       message: "Item created successfully",
       itemId: created.id,
@@ -80,7 +108,8 @@ export async function createItem(data: ItemCreateSchemaType): Promise<ActionResu
 
     logger.error({
       context: "ItemActions.createItem",
-      message: "Error creating item",
+      message: "Error creating Item",
+      data,
       error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
@@ -100,14 +129,21 @@ export async function removeItem(itemId: IdSchemaType): Promise<ActionResult<Ite
     return ({ message: ERRORS.AUTHENTICATION });
   }
 
-  // Check authorization
+  // Check authorization and Item existence
   const item = await db.item.findUnique({
     where: {
       id: itemId,
     },
   });
   if (!item) {
-    return ({ message: "This Item does not exist" });
+    const message = "That Item does not exist";
+    logger.error({
+      context: "ItemActions.removeItem.existence",
+      message,
+      itemId,
+      profileId: profile.id,
+    });
+    return ({ message: "That Item does not exist" });
   }
   const member = await db.member.findFirst({
     where: {
@@ -116,6 +152,12 @@ export async function removeItem(itemId: IdSchemaType): Promise<ActionResult<Ite
     }
   });
   if (!member || member.role !== MemberRole.ADMIN) {
+    logger.error({
+      context: "ItemActions.removeItem.authorization",
+      message: "Not authorized to remove that Item",
+      itemId,
+      profileId: profile.id,
+    });
     return ({ message: ERRORS.NOT_ADMIN });
   }
 
@@ -123,6 +165,11 @@ export async function removeItem(itemId: IdSchemaType): Promise<ActionResult<Ite
   try {
     IdSchema.parse(itemId);
   } catch (error) {
+    logger.error({
+      context: "ItemActions.removeItem.validation",
+      itemId,
+      error,
+    });
     return ValidationActionResult(error as ZodError);
   }
 
@@ -133,7 +180,7 @@ export async function removeItem(itemId: IdSchemaType): Promise<ActionResult<Ite
       where: { id: itemId },
     });
 
-    logger.info({
+    logger.trace({
       context: "ItemActions.removeItem",
       message: "Item removed successfully",
       itemId: removed.id,
@@ -172,7 +219,13 @@ export async function updateItem(itemId: IdSchemaType, data: ItemUpdateSchemaTyp
     },
   });
   if (!item) {
-    return ({ message: "This Item does not exist" });
+    logger.error({
+      context: "ItemActions.updateItem.existence",
+      message: "That Item does not exist",
+      itemId,
+      profileId: profile.id,
+    });
+    return ({ message: "That Item does not exist" });
   }
   const member = await db.member.findFirst({
     where: {
@@ -181,6 +234,12 @@ export async function updateItem(itemId: IdSchemaType, data: ItemUpdateSchemaTyp
     },
   });
   if (!member) {
+    logger.error({
+      context: "ItemActions.updateItem.membership",
+      message: ERRORS.NOT_MEMBER,
+      itemId,
+      profileId: profile.id,
+    });
     return ({ message: ERRORS.NOT_MEMBER });
   }
 
@@ -188,11 +247,21 @@ export async function updateItem(itemId: IdSchemaType, data: ItemUpdateSchemaTyp
   try {
     IdSchema.parse(itemId);
   } catch (error) {
+    logger.error({
+      context: "ItemActions.updateItem.validation.id",
+      itemId,
+      error,
+    });
     ValidationActionResult(error as ZodError)
   }
   try {
     ItemUpdateSchema.parse(data);
   } catch (error) {
+    logger.error({
+      context: "ItemActions.updateItem.validation.data",
+      data,
+      error,
+    });
     return ValidationActionResult(error as ZodError);
   }
 
@@ -207,7 +276,7 @@ export async function updateItem(itemId: IdSchemaType, data: ItemUpdateSchemaTyp
       where: { id: itemId },
     });
 
-    logger.info({
+    logger.trace({
       context: "ItemActions.updateItem",
       message: "Item updated successfully",
       itemId: updated.id,
@@ -220,6 +289,7 @@ export async function updateItem(itemId: IdSchemaType, data: ItemUpdateSchemaTyp
       context: "ItemActions.updateItem",
       message: "Failed to update Item",
       itemId,
+      data,
       error,
     });
     return ({ message: ERRORS.INTERNAL_SERVER_ERROR });
