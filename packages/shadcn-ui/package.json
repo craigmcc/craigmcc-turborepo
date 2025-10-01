@@ -1,0 +1,48 @@
+{
+  "exports": {
+
+  },
+  "jest": {
+    "preset": "@repo/jest-presets/node"
+  },
+  "license": "Apache-2.0",
+  "name": "@repo/shadcn-ui",
+  "private": true,
+  "scripts": {
+    "build": "pnpm run build:tsc && pnpm run build:styles",
+    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/styles.css",
+    "build:tsc": "tsc",
+    "check-types": "tsc --noEmit",
+    "dev": "pnpm run dev:tsc && pnpm run dev:styles",
+    "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch",
+    "dev:tsc": "tsc --watch",
+    "lint": "eslint . --max-warnings 0",
+    "test": "jest --watch"
+  },
+  "type": "module",
+  "version": "0.0.0",
+  "dependencies": {
+    "clsx": "catalog:clsx",
+    "lucide-react": "catalog:lucide-react",
+    "postcss": "catalog:postcss",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
+    "zod": "catalog:zod"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/jest-presets": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@tailwindcss/cli": "catalog:tailwind4",
+    "@tailwindcss/postcss": "catalog:tailwind4",
+    "@types/jest": "catalog:jest29",
+    "@types/node": "catalog:node24",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "eslint": "catalog:eslint",
+    "jest": "catalog:jest29",
+    "tailwindcss": "catalog:tailwind4",
+    "ts-jest": "catalog:jest29",
+    "typescript": "catalog:typescript5"
+  }
+}
