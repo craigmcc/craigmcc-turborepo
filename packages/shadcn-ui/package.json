@@ -1,5 +1,10 @@
 {
-  "exports": {},
+  "exports": {
+    "./globals.css": "./dist/globals.css",
+    "./components/*": "./dist/components/*.js",
+    "./hooks/*": "./dist/hooks/*.js",
+    "./lib/*": "./dist/lib/*.js"
+  },
   "jest": {
     "preset": "@repo/jest-presets/node"
   },
@@ -8,11 +13,11 @@
   "private": true,
   "scripts": {
     "build": "pnpm run build:tsc && pnpm run build:styles",
-    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/styles.css",
+    "build:styles": "tailwindcss -i ./src/styles/globals.css -o ./dist/globals.css",
     "build:tsc": "tsc",
     "check-types": "tsc --noEmit",
     "dev": "pnpm run dev:tsc && pnpm run dev:styles",
-    "dev:styles": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch",
+    "dev:styles": "tailwindcss -i ./src/styles/globals.css -o ./dist/globals.css --watch",
     "dev:tsc": "tsc --watch",
     "lint": "eslint . --max-warnings 0",
     "test": "jest --watch"
@@ -48,12 +53,12 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "catalog:clsx",
-    "cmdk": "^1.1.1",
-    "date-fns": "^4.1.0",
+    "cmdk": "catalog:cmdk",
+    "date-fns": "catalog:date-fns",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
     "lucide-react": "catalog:lucide-react",
-    "next-themes": "^0.4.6",
+    "next-themes": "catalog:next15",
     "postcss": "catalog:postcss",
     "react": "catalog:react19",
     "react-day-picker": "^9.11.0",
