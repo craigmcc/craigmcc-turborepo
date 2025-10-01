@@ -1,9 +1,13 @@
 {
   "extends": "@repo/typescript-config/react-library",
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "dist",
+    "paths": {
+      "@repo/shadcn-ui/*": ["./src/*"]
+    },
     "rootDir": "src",
   },
   "exclude": ["node_modules", "dist"],
-  "include": ["src"],
+  "include": ["."],
 }

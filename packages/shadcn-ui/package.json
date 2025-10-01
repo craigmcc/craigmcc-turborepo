@@ -1,7 +1,5 @@
 {
-  "exports": {
-
-  },
+  "exports": {},
   "jest": {
     "preset": "@repo/jest-presets/node"
   },
@@ -22,6 +20,7 @@
   "type": "module",
   "version": "0.0.0",
   "dependencies": {
+    "@radix-ui/react-accordion": "^1.2.12",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
     "postcss": "catalog:postcss",
