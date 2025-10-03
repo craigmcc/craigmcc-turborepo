@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col items-center justify-center pt-8 h-[calc(100vh-80px)]">
+    <div className="flex flex-col items-center justify-center pt-8 h-full">
       <h1 className="text-4xl text-primary pb-8">Welcome to ShadCN Alone</h1>
       <p className="text-2xl text-secondary pb-8">
         This is a standalone application showcasing ShadCN components with Next.js.

@@ -53,14 +53,14 @@ export function NavBar() {
 
     </div>
 */
-    <div className="w-full h-[20px]">
+    <div className="flex w-full h-[20px] bg-slate-200 items-center justify-evenly">
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 justify-start">
         <Slash size={16} />
         <Link className="font-semibold" href="/">shadcn-alone</Link>
       </div>
 
-      <NavigationMenu className="flex">
+      <NavigationMenu className="flex justify-center">
         <NavigationMenuList className="ml-8">
           <NavigationMenuItem>
             <NavigationMenuLink asChild>
