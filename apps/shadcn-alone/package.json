@@ -1,0 +1,44 @@
+{
+  "jest": {
+    "preset": "@repo/jest-presets/browser"
+  },
+  "name": "shadcn-alone",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack --port 4002",
+    "build": "next build",
+    "lint": "next lint",
+    "start": "next start --port 4001"
+  },
+  "type": "module",
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "@repo/shared-utils": "workspace:*",
+    "clsx": "catalog:clsx",
+    "lucide-react": "catalog:lucide-react",
+    "postcss": "catalog:postcss",
+    "next": "catalog:next15",
+    "next-themes": "catalog:next15",
+    "pino": "catalog:pino",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
+    "react-toastify": "catalog:react-toastify",
+    "zod": "catalog:zod"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "catalog:eslint",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/jest-presets": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "catalog:tailwind4",
+    "@types/jest": "catalog:jest29",
+    "@types/node": "catalog:node24",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
+    "eslint": "catalog:eslint",
+    "eslint-config-next": "catalog:eslint",
+    "tailwindcss": "catalog:tailwind4",
+    "typescript": "catalog:typescript5"
+  }
+}
