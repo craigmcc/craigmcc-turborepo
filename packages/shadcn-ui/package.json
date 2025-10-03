@@ -1,6 +1,6 @@
 {
   "exports": {
-    "./globals.css": "./dist/globals.css",
+    "./globals.css": "./src/styles/globals.css",
     "./components/*": "./dist/components/*.js",
     "./hooks/*": "./dist/hooks/*.js",
     "./lib/*": "./dist/lib/*.js"
