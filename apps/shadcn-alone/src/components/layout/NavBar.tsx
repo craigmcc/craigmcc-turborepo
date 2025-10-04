@@ -6,7 +6,7 @@
 
 // External Imports ----------------------------------------------------------
 
-import { Slash } from "lucide-react";
+import { Component } from "lucide-react";
 import Link from "next/link";
 import {
   NavigationMenu,
@@ -53,10 +53,10 @@ export function NavBar() {
 
     </div>
 */
-    <div className="flex w-full h-[20px] bg-slate-200 items-center justify-evenly">
+    <div className="flex w-full h-[50px] bg-slate-200 items-center justify-between px-2">
 
       <div className="flex gap-2 justify-start">
-        <Slash size={16} />
+        <Component size={24} />
         <Link className="font-semibold" href="/">shadcn-alone</Link>
       </div>
 

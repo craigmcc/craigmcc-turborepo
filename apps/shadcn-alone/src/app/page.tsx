@@ -12,13 +12,15 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col items-center justify-center pt-8 h-full">
+    <div className="flex flex-col items-center justify-center gap-8 h-full">
       <h1 className="text-4xl text-primary pb-8">Welcome to ShadCN Alone</h1>
       <p className="text-2xl text-secondary pb-8">
         This is a standalone application showcasing ShadCN components with Next.js.
       </p>
       <p className="text-2xl text-info">
-        Learn more about <Link className="link" href="https://ui.shadcn.com">ShadCN</Link> here.
+        Learn more about&nbsp;
+        <Link className="underline" href="https://ui.shadcn.com">ShadCN</Link>
+        &nbsp;here.
       </p>
 
     </div>
