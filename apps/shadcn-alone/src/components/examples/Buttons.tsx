@@ -30,9 +30,9 @@ import {
 
 export function Buttons() {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="flex justify-evenly gap-4">
 
-      <Card className="w-70">
+      <Card className="w-70 border border-2 bg-stone-100">
         <CardHeader>
           <CardTitle className="items-center justify-center">Variants</CardTitle>
         </CardHeader>
@@ -58,7 +58,7 @@ export function Buttons() {
         </CardContent>
       </Card>
 
-      <Card className="w-70">
+      <Card className="w-70 border border-2 bg-slate-100">
         <CardHeader>
           <CardTitle>Sizes</CardTitle>
         </CardHeader>
