@@ -43,7 +43,7 @@ export default function RootLayout({
       enableSystem
     >
       <NavBar />
-      <main className="bg-base-100 h-[calc(100vh-50px)]">
+      <main className="bg-base-100 h-[calc(100vh-60px)]">
         {children}
       </main>
     </ThemeProvider>

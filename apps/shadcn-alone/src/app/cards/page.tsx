@@ -1,19 +1,19 @@
 /**
- * Buttons page.
+ * Cards page.
  */
 
 // External Imports ----------------------------------------------------------
 
 // Internal Imports ----------------------------------------------------------
 
-import { Buttons } from "@/components/examples/Buttons";
+import { Cards } from "@/components/examples/Cards";
 
 // Public Objects ------------------------------------------------------------
 
-export default function ButtonsPage() {
+export default function CardsPage() {
   return (
     <div className="h-full p-4">
-      <Buttons/>
+      <Cards/>
     </div>
   );
 }
