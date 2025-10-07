@@ -14,9 +14,9 @@ catalogs:
   clsx:
     clsx: ^2.1.1
   cmdk:
-    cmdk: ^1.1.1
+    cmdk: 1.1.1
   date-fns:
-    date-fns: ^4.1.0
+    date-fns: 4.1.0
   daisyui5:
     daisyui: ^5.0.46
   dotenvx:
@@ -106,7 +106,7 @@ catalogs:
     vitest: ^3.2.4
     vite-tsconfig-paths: ^5.1.4
   zod:
-    zod: ^4.0.5
+    zod: 4.0.5
 
 ignoredBuiltDependencies:
   - bcrypt
