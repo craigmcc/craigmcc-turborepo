@@ -131,6 +131,7 @@ function Fields({ data, messages, orientation }: FieldsProps) {
   const zipMessage = messages?.find((message) => message.name === "zip");
 
   return (
+    <div className="bg-stone-100 m-2">
     <FieldSet className="p-4">
       <FieldLegend>Address Information</FieldLegend>
       <FieldDescription>
@@ -156,5 +157,6 @@ function Fields({ data, messages, orientation }: FieldsProps) {
         </div>
       </FieldGroup>
     </FieldSet>
+    </div>
   );
 }
