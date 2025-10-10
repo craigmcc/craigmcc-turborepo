@@ -6,7 +6,7 @@
 
 import {
   Field,
-//  FieldContent,
+  FieldContent,
   FieldDescription,
   FieldError,
   FieldGroup,
@@ -39,7 +39,7 @@ export function Inputs() {
               <Fields {...fieldProps}/>
             </td>
           </tr>
-          ))}
+        ))}
         </tbody>
       </table>
 
@@ -132,31 +132,43 @@ function Fields({ data, messages, orientation }: FieldsProps) {
 
   return (
     <div className="bg-stone-100 m-2">
-    <FieldSet className="p-4">
-      <FieldLegend>Address Information</FieldLegend>
-      <FieldDescription>
-        We need your address to deliver your order.
-      </FieldDescription>
-      <FieldGroup>
-        <Field orientation={orientation || "vertical"}>
-          <FieldLabel htmlFor="street">Street Address</FieldLabel>
-          <Input id="street" type="text" defaultValue={data.street}/>
-          {streetMessage && <FieldError>{streetMessage.message}</FieldError>}
-        </Field>
-        <div className="grid grid-cols-2 gap-4">
+      <FieldSet className="p-4">
+        <FieldLegend>Address Information</FieldLegend>
+        <FieldDescription>
+          We need your address to deliver your order.
+        </FieldDescription>
+        <FieldGroup>
           <Field orientation={orientation || "vertical"}>
-            <FieldLabel htmlFor="city">City</FieldLabel>
-            <Input id="city" type="text" defaultValue={data.city}/>
-            {cityMessage && <FieldError>{cityMessage.message}</FieldError>}
+            <FieldContent>
+              <FieldLabel htmlFor="street">Street Address</FieldLabel>
+            </FieldContent>
+            <FieldContent>
+              <Input id="street" type="text" defaultValue={data.street}/>
+              {streetMessage && <FieldError>{streetMessage.message}</FieldError>}
+            </FieldContent>
           </Field>
-          <Field orientation={orientation || "vertical"}>
-            <FieldLabel htmlFor="zip">Postal Code</FieldLabel>
-            <Input id="zip" type="text" defaultValue={data.zip}/>
-            {zipMessage && <FieldError>{zipMessage.message}</FieldError>}
-          </Field>
-        </div>
-      </FieldGroup>
-    </FieldSet>
+          <div className="grid grid-cols-2 gap-4">
+            <Field orientation={orientation || "vertical"}>
+              <FieldContent>
+              <FieldLabel htmlFor="city">City</FieldLabel>
+              </FieldContent>
+              <FieldContent className="content-start">
+              <Input id="city" type="text" defaultValue={data.city}/>
+              {cityMessage && <FieldError>{cityMessage.message}</FieldError>}
+              </FieldContent>
+            </Field>
+            <Field orientation={orientation || "vertical"}>
+              <FieldContent>
+              <FieldLabel htmlFor="zip">Postal Code</FieldLabel>
+              </FieldContent>
+              <FieldContent className="content-start">
+              <Input id="zip" type="text" defaultValue={data.zip}/>
+              {zipMessage && <FieldError>{zipMessage.message}</FieldError>}
+              </FieldContent>
+            </Field>
+          </div>
+        </FieldGroup>
+      </FieldSet>
     </div>
   );
 }
