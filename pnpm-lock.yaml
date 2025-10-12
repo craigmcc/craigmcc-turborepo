@@ -306,6 +306,9 @@ importers:
 
   apps/shadcn-alone:
     dependencies:
+      '@repo/shadcn-tanstack-form':
+        specifier: workspace:*
+        version: link:../../packages/shadcn-tanstack-form
       '@repo/shadcn-ui':
         specifier: workspace:*
         version: link:../../packages/shadcn-ui

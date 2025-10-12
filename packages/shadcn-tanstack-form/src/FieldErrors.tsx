@@ -20,9 +20,9 @@ type Props = {
 export function FieldErrors({ field }: Props) {
   return (
     <>
-    {field.state.meta.errors && (
+    {!field.state.meta.isPristine && field.state.meta.errors && (
       <div className="label">
-        <span className="bg-destructive text-destructive">
+        <span className="text-destructive">
           {field.state.meta.errors.map((e => e.message)).join(', ')}
         </span>
       </div>

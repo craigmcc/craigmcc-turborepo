@@ -36,7 +36,7 @@ export function InputField({ className, label, placeholder, type, ...props }: Pr
 
 
   return (
-    <div className="grid grid-cols-1 w-full">
+    <div className="grid grid-cols-1 w-full gap-2">
       <legend>
         <Label htmlFor={field.name}>{label}</Label>
       </legend>

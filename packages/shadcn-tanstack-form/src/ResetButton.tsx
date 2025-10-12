@@ -33,9 +33,9 @@ export function ResetButton({ className, label, ...props }: Props) {
         e.preventDefault();
         form.reset();
       }}
-      className={clsx("bg-accent text-accent", className)}
       role="button"
       type="button"
+      variant="destructive"
       {...props}
     >
       <span>{label ? label : "Reset"}</span>

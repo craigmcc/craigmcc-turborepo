@@ -13,6 +13,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@repo/shadcn-tanstack-form": "workspace:*",
     "@repo/shadcn-ui": "workspace:*",
     "@repo/shared-utils": "workspace:*",
     "clsx": "catalog:clsx",

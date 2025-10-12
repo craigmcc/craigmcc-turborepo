@@ -36,7 +36,6 @@ export function SubmitButton({ className, label, ...props }: Props) {
     >
       {([canSubmit, isSubmitting]) => (
         <Button
-          className={clsx("bg-primary text-primary",  className)}
           disabled={!canSubmit || isSubmitting}
           role="button"
           type="submit"

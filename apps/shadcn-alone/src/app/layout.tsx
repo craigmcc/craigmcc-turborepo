@@ -10,13 +10,13 @@ import "@repo/shadcn-ui/globals.css";
 import { ThemeProvider } from "@repo/shadcn-ui/components/theme-provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-//import { ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 // Internal Imports ----------------------------------------------------------
 
 import { NavBar } from "@/components/layout/NavBar";
 // import { ThemeWrapper } from "@/components/layout/ThemeWrapper";
-// import { CurrentProfileContextProvider } from "@/contexts/CurrentProfileContext";
+import { CurrentProfileContextProvider } from "@/contexts/CurrentProfileContext";
 // import { ThemeContextProvider } from "@/contexts/ThemeContext";
 
 // Public Objects ------------------------------------------------------------
@@ -36,17 +36,25 @@ export default function RootLayout({
     <body
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      disableTransitionOnChange
-      enableSystem
-    >
-      <NavBar />
-      <main className="bg-base-100 h-[calc(100vh-60px)]">
-        {children}
-      </main>
-    </ThemeProvider>
+    <CurrentProfileContextProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        disableTransitionOnChange
+        enableSystem
+      >
+        <NavBar />
+        <main className="bg-base-100 h-[calc(100vh-60px)]">
+          {children}
+        </main>
+      </ThemeProvider>
+      <ToastContainer
+        autoClose={5000}
+        hideProgressBar={true}
+        position="bottom-right"
+        theme="colored"
+      />
+    </CurrentProfileContextProvider>
     </body>
     </html>
   );
