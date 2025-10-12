@@ -18,7 +18,8 @@
   "version": "0.0.0",
   "dependencies": {
     "date-fns": "catalog:date-fns",
-    "pino": "catalog:pino"
+    "pino": "catalog:pino",
+    "zod": "catalog:zod"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
