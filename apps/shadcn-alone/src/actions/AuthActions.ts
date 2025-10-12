@@ -25,7 +25,7 @@ export async function doSignInAction(formData: SignInSchemaType): Promise<Result
   logger.info({
     context: "doSignInAction.input",
     email: formData.email,
-    password: formData.password,
+    password: "*REDACTED*",
   });
 
   const profile = database.get(formData.email);
@@ -61,7 +61,7 @@ export async function doSignUpAction(formData: SignUpSchemaType): Promise<Result
     email: formData.email,
     firstName: formData.firstName,
     lastName: formData.lastName,
-    password: formData.password,
+    password: "*REDACTED*",
   });
 
   if (database.has(formData.email)) {

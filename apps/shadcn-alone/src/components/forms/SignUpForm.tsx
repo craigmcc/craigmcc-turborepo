@@ -8,9 +8,18 @@
 
 // External Modules ----------------------------------------------------------
 
-import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
+import {
+  Card,
+//  CardAction,
+  CardContent,
+  CardDescription,
+//  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@repo/shadcn-ui/components/card"
 import { ServerResult } from "@repo/shadcn-tanstack-form/ServerResult";
 import { useAppForm } from "@repo/shadcn-tanstack-form/useAppForm";
+import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
 import { Result } from "@repo/shared-utils/Result";
 //import { useRouter } from "next/navigation";
 import {  useState } from "react";
@@ -61,28 +70,42 @@ export function SignUpForm() {
       }
     });
 
-    const response = await doSignUpAction(formData);
-    if (response.model) {
+    const result = await doSignUpAction(formData);
+    if (result.model) {
+
+      logger.trace({
+        context: "SignUpForm.submitForm.success",
+        email: formData.email,
+      })
       setResult(null);
-      setCurrentProfile(response.model);
+      setCurrentProfile(result.model);
       toast.success(`Profile for '${formData.firstName} ${formData.lastName}' was successfully created`);
       // In a real application, we would redirect the user to the home page
 //      router.push("/");
+
     } else {
-      setResult(response);
+
+      logger.trace({
+        context: "SignUpForm.submitForm.error",
+        error: result.message,
+      })
+      setResult(result);
     }
 
   }
 
   return (
-    <div className="card bg-info/50 border-2 rounded-2xl w-128">
-      <div className="card-body">
-        <h2 className="card-title justify-center">
-          <p>Sign Up</p>
-        </h2>
+    <Card className="w-128 bg-secondary border-2 rounded-2xl">
+      <CardHeader>
+        <CardTitle className="w-full text-center">Sign Up</CardTitle>
+        <CardDescription className="text-center">
+          Enter your details to create your account.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <ServerResult result={result}/>
         <form
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-4"
           name="SignUpForm"
           onSubmit={(e) => {
             e.preventDefault();
@@ -90,16 +113,14 @@ export function SignUpForm() {
             form.handleSubmit();
           }}
         >
-          <div className="flex gap-2">
-            <form.AppField name="email">
-              {(field) =>
-                <field.InputField
-                  autoFocus
-                  label="Email"
-                  placeholder="Your email address"
-                />}
-            </form.AppField>
-          </div>
+          <form.AppField name="email">
+            {(field) =>
+              <field.InputField
+                autoFocus
+                label="Email"
+                placeholder="Your email address"
+              />}
+          </form.AppField>
           <div className="flex flex-row gap-2">
             <form.AppField name="firstName">
               {(field) =>
@@ -116,7 +137,7 @@ export function SignUpForm() {
                 />}
             </form.AppField>
           </div>
-          <div className="flex flex-row 2-full gap-2">
+          <div className="flex flex-row gap-2">
             <form.AppField name="password">
               {(field) =>
                 <field.InputField
@@ -134,15 +155,15 @@ export function SignUpForm() {
                 />}
             </form.AppField>
           </div>
-            <form.AppForm>
-              <div className="flex flex-row justify-center pt-2 gap-4">
-                <form.SubmitButton label="Sign Up" />
-                <form.ResetButton/>
-                </div>
-            </form.AppForm>
+          <form.AppForm>
+            <div className="flex flex-row justify-center pt-2 gap-4">
+              <form.SubmitButton label="Sign Up" />
+              <form.ResetButton/>
+            </div>
+          </form.AppForm>
         </form>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 
 }

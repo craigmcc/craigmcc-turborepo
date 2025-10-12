@@ -15,10 +15,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/shadcn-ui/components/card"
-import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
-import { Result } from "@repo/shared-utils/Result";
 import { ServerResult } from "@repo/shadcn-tanstack-form/ServerResult";
 import { useAppForm } from "@repo/shadcn-tanstack-form/useAppForm";
+import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
+import { Result } from "@repo/shared-utils/Result";
 //import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -83,7 +83,7 @@ export function SignInForm() {
         context: "SignInForm.submitForm.error",
         error: result.message,
       });
-      setResult({ message: result.message });
+      setResult(result);
 
     }
 
@@ -133,48 +133,6 @@ export function SignInForm() {
         </form>
       </CardContent>
     </Card>
-/*
-    <div className="card bg-info/50 border-2 rounded-2xl w-96">
-      <div className="card-body">
-        <h2 className="card-title justify-center">
-          <p>Sign In</p>
-        </h2>
-        <ServerResult result={result}/>
-        <form
-          className="flex flex-col gap-2"
-          name="SignInForm"
-          onSubmit={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            form.handleSubmit();
-          }}
-        >
-          <form.AppField name="email">
-            {(field) =>
-              <field.InputField
-                autoFocus
-                label="Email"
-                placeholder="Your email address"
-              />}
-          </form.AppField>
-          <form.AppField name="password">
-            {(field) =>
-              <field.InputField
-                label="Password"
-                placeholder="Your Password"
-                type="password"
-              />}
-          </form.AppField>
-          <form.AppForm>
-            <div className="flex flex-row justify-center pt-2 gap-4">
-              <form.SubmitButton label="Sign In"/>
-              <form.ResetButton/>
-            </div>
-          </form.AppForm>
-        </form>
-      </div>
-    </div>
-*/
   )
 
 }
