@@ -6,8 +6,18 @@
 
 // External Modules ----------------------------------------------------------
 
-import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
+import { Button } from "@repo/shadcn-ui/components/button";
+import {
+  Card,
+//  CardAction,
+  CardContent,
+  CardDescription,
+//  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@repo/shadcn-ui/components/card";
 import { ServerResult } from "@repo/shadcn-tanstack-form/ServerResult";
+import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
 import { Result } from "@repo/shared-utils/Result";
 import { LoaderCircle } from "lucide-react";
 //import { useRouter } from "next/navigation";
@@ -65,29 +75,30 @@ export function SignOutForm() {
   }
 
   return (
-    <div className="card bg-info/50 border-2 rounded-2xl w-96">
-      <div className="card-body">
-        <h2 className="card-title justify-center">
-          <p>Sign Out</p>
-        </h2>
+    <Card className="w-96 bg-secondary text-secondary-foreground border-2 rounded-2xl">
+      <CardHeader>
+        <CardTitle className="w-full text-center">Sign Out</CardTitle>
+        <CardDescription className="w-full text-center">
+          Are you sure you want to sign out?
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <ServerResult result={result}/>
-        <p>Are you sure you want to sign out?</p>
-        <div className="card-actions justify-center">
-          <button
-            className="btn btn-primary justify-center gap-2"
+        <div className="flex flex-row justify-center">
+          <Button
+            className="justify-center"
+            disabled={isSigningOut}
             onClick={performSignOut}
-            type="button"
           >
             {isSigningOut ? (
               <>
                 <LoaderCircle className="animate-spin"/>Signing Out
               </>
             ): "Sign Out" }
-          </button>
+          </Button>
         </div>
-      </div>
-
-    </div>
+      </CardContent>
+    </Card>
   )
 
 }

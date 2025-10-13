@@ -14,7 +14,7 @@ import {
 //  CardFooter,
   CardHeader,
   CardTitle,
-} from "@repo/shadcn-ui/components/card"
+} from "@repo/shadcn-ui/components/card";
 import { ServerResult } from "@repo/shadcn-tanstack-form/ServerResult";
 import { useAppForm } from "@repo/shadcn-tanstack-form/useAppForm";
 import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
@@ -90,7 +90,7 @@ export function SignInForm() {
   }
 
   return (
-    <Card className="w-96 bg-secondary border-2 rounded-2xl">
+    <Card className="w-96 bg-secondary text-secondary-foreground border-2 rounded-2xl">
       <CardHeader>
         <CardTitle className="w-full text-center">Sign In</CardTitle>
         <CardDescription className="text-center">
