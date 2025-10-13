@@ -1,5 +1,5 @@
 {
-  "description": "Tanstack Form components built with shadcn/ui and TailwindCSS",
+  "description": "Tanstack Table components built with shadcn/ui and TailwindCSS",
   "exports": {
     "./*": "./dist/*.js",
     "./styles.css": "./src/styles.css"
@@ -8,7 +8,7 @@
     "preset": "@repo/jest-presets/node"
   },
   "license": "Apache-2.0",
-  "name": "@repo/shadcn-tanstack-form",
+  "name": "@repo/tanstack-table",
   "private": true,
   "scripts": {
     "build": "tsc",
@@ -22,7 +22,7 @@
   "dependencies": {
     "@repo/shadcn-ui": "workspace:*",
     "@repo/shared-utils": "workspace:*",
-    "@tanstack/react-form": "catalog:tanstack",
+    "@tanstack/react-table": "catalog:tanstack",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
     "postcss": "catalog:postcss",
