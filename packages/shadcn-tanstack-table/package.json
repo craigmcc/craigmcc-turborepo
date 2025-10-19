@@ -8,7 +8,7 @@
     "preset": "@repo/jest-presets/node"
   },
   "license": "Apache-2.0",
-  "name": "@repo/tanstack-table",
+  "name": "@repo/shadcn-tanstack-table",
   "private": true,
   "scripts": {
     "build": "tsc",

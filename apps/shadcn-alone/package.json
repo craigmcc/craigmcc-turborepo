@@ -14,8 +14,11 @@
   "type": "module",
   "dependencies": {
     "@repo/shadcn-tanstack-form": "workspace:*",
+    "@repo/shadcn-tanstack-table": "workspace:*",
     "@repo/shadcn-ui": "workspace:*",
     "@repo/shared-utils": "workspace:*",
+    "@tanstack/react-form": "catalog:tanstack",
+    "@tanstack/react-table": "catalog:tanstack",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
     "postcss": "catalog:postcss",

@@ -14,12 +14,17 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@repo/shadcn-ui/components/table"
+} from "@repo/shadcn-ui/components/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@repo/shadcn-ui/components/tooltip";
 import {
   flexRender,
   Table as TanstackTable,
 } from "@tanstack/react-table";
-import clsx from "clsx";
+//import clsx from "clsx";
 import {
   ArrowDownAZ,
   ArrowDownUp,
@@ -57,18 +62,12 @@ type DataTableProps<TData> = {
   showPagination?: boolean;
   // The Tanstack Table we are displaying
   table: TanstackTable<TData>,
-  // Optional title for the table
-  title?: string;
-  // Optional CSS classes to apply to the table title ["card-title justify-center"]
-  titleClassName?: string;
 }
 
 export function DataTable<TData>(
   {
     showPagination,
     table,
-    title,
-    titleClassName = "w-full justify-center",
   }: DataTableProps<TData>) {
 
   // Pagination state
@@ -131,7 +130,7 @@ export function DataTable<TData>(
       )}
 */}
 
-      <Table>
+      <Table className="border border-4 rounded-md">
 
         <TableHeader>
           {table.getHeaderGroups().map(headerGroup => (
@@ -142,16 +141,17 @@ export function DataTable<TData>(
                     {flexRender(header.column.columnDef.header, header.getContext())}
                     { header.column.getCanSort() ? (
                         <>
+                          <span>&nbsp;</span>
                     <span
                       onClick={header.column.getToggleSortingHandler()}
                       style={{ cursor: "pointer" }}
                     >
                       {header.column.getIsSorted() === "asc" ? (
-                        <ArrowUpAZ className="ms-2 text-info" size={24}/>
+                        <ArrowUpAZ className="text-info" size={24}/>
                       ) : header.column.getIsSorted() === "desc" ? (
-                        <ArrowDownAZ className="ms-2 text-info" size={24}/>
+                        <ArrowDownAZ className="text-info" size={24}/>
                       ) : (
-                        <ArrowDownUp className="ms-2 text-info" size={24}/>
+                        <ArrowDownUp className="text-info" size={24}/>
                       )}
                     </span>
                         </>
@@ -167,7 +167,7 @@ export function DataTable<TData>(
 
         <TableBody>
           {table.getRowModel().rows.map(row => (
-            <TableRow key={row.id}>
+            <TableRow key={row.id} className="odd:bg-muted/50 odd:hover:bg-muted/50">
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -181,48 +181,60 @@ export function DataTable<TData>(
           <TableFooter>
             <TableRow>
               <TableHead colSpan={table.getCenterLeafColumns().length}>
-                <div className="text-center space-x-4">
-              <span className="tooltip" data-tip="First Page">
-                <button
-                  className="btn btn-info"
-                  disabled={!table.getCanPreviousPage()}
-                  onClick={() => table.firstPage()}
-                >
-                  <ArrowLeftToLine/>
-                </button>
-              </span>
-                  <span className="tooltip" data-tip="Previous Page">
-                <button
-                  className="btn btn-info"
-                  disabled={!table.getCanPreviousPage()}
-                  onClick={() => table.previousPage()}
-                >
-                  <ArrowLeft/>
-                </button>
-              </span>
-                  <span className="tooltip" data-tip="Next Page">
-                <button
-                  className="btn btn-info"
-                  disabled={!table.getCanNextPage()}
-                  onClick={() => table.nextPage()}
-                >
-                  <ArrowRight/>
-                </button>
-              </span>
-                  <span className="tooltip" data-tip="Last Page">
-                <button
-                  className="btn btn-info"
-                  disabled={!table.getCanNextPage()}
-                  onClick={() => table.lastPage()}
-                >
-                  <ArrowRightToLine/>
-                </button>
-              </span>
-                  <span>
-                Page {table.getState().pagination.pageIndex + 1} of{" "}
-                    {pageCount > 0 ? pageCount : `1`}{" "}| Total of{" "}
-                    {table.getRowCount().toLocaleString()} Rows
-              </span>
+                <div className="text-center mt-2 flex flex-row justify-center items-center gap-2">
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        disabled={!table.getCanPreviousPage()}
+                        onClick={() => table.firstPage()}>
+                        <ArrowLeftToLine/>
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      First Page
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        disabled={!table.getCanPreviousPage()}
+                        onClick={() => table.previousPage()}>
+                        <ArrowLeft/>
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      Previous Page
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        disabled={!table.getCanNextPage()}
+                        onClick={() => table.nextPage()}>
+                        <ArrowRight/>
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      Next Page
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        disabled={!table.getCanNextPage()}
+                        onClick={() => table.lastPage()}>
+                        <ArrowRightToLine/>
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      Last Page
+                    </TooltipContent>
+                  </Tooltip>
+                  <span className="p-4">
+                    Page {table.getState().pagination.pageIndex + 1} of{" "}
+                        {pageCount > 0 ? pageCount : `1`}{" "}| Total of{" "}
+                        {table.getRowCount().toLocaleString()} Rows
+                  </span>
                 </div>
               </TableHead>
             </TableRow>
