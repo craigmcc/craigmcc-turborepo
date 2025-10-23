@@ -4,8 +4,7 @@
 
 // External Imports ----------------------------------------------------------
 
-//import "@repo/tanstack-form/styles.css";
-//import "@repo/tanstack-table/styles.css";
+import { Toaster } from "@repo/shadcn-ui/components/sonner";
 import "@repo/shadcn-ui/globals.css";
 import { ThemeProvider } from "@repo/shadcn-ui/components/theme-provider";
 import type { Metadata } from "next";
@@ -15,9 +14,7 @@ import { ToastContainer } from "react-toastify";
 // Internal Imports ----------------------------------------------------------
 
 import { NavBar } from "@/components/layout/NavBar";
-// import { ThemeWrapper } from "@/components/layout/ThemeWrapper";
 import { CurrentProfileContextProvider } from "@/contexts/CurrentProfileContext";
-// import { ThemeContextProvider } from "@/contexts/ThemeContext";
 
 // Public Objects ------------------------------------------------------------
 
@@ -54,6 +51,7 @@ export default function RootLayout({
         position="bottom-right"
         theme="colored"
       />
+      <Toaster position="top-left" />
     </CurrentProfileContextProvider>
     </body>
     </html>
