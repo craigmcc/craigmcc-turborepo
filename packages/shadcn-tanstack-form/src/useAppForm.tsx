@@ -10,6 +10,10 @@ import { createFormHook } from "@tanstack/react-form";
 
 // Internal Modules ----------------------------------------------------------
 
+import { FormCheckbox } from "./FormCheckbox";
+import { FormInput } from "./FormInput";
+import { FormSelect } from "./FormSelect";
+import { FormTextarea } from "./FormTextarea";
 import { InputField } from "./InputField";
 import { ResetButton } from "./ResetButton";
 import { SubmitButton } from "./SubmitButton";
@@ -19,6 +23,10 @@ import { fieldContext, formContext } from "./useAppContexts";
 
 export const { useAppForm, withForm } = createFormHook({
   fieldComponents: {
+    FormCheckbox,
+    FormInput,
+    FormSelect,
+    FormTextarea,
     InputField,
   },
   fieldContext,
