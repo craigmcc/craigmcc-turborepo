@@ -9,8 +9,9 @@
 
 // Internal Modules ----------------------------------------------------------
 
-import { SignInForm } from "@/components/forms/SignInForm";
-import { SignOutForm } from "@/components/forms/SignOutForm";
+import { FieldComponentForm } from "@/components/forms/FieldComponentForm";
+//import { SignInForm } from "@/components/forms/SignInForm";
+//import { SignOutForm } from "@/components/forms/SignOutForm";
 import { SignUpForm } from "@/components/forms/SignUpForm";
 
 // Public Objects ------------------------------------------------------------
@@ -18,8 +19,11 @@ import { SignUpForm } from "@/components/forms/SignUpForm";
 export function Forms() {
   return (
     <div className="flex gap-8 justify-center">
+{/*
       <SignInForm/>
       <SignOutForm/>
+*/}
+      <FieldComponentForm/>
       <SignUpForm/>
     </div>
   );
