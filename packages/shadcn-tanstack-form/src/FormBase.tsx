@@ -67,9 +67,11 @@ export function FormBase({
         </>
       ) : (
         <>
-          <FieldContent>{labelElement}</FieldContent>
-          {children}
-          {errorElem}
+          <FieldContent className="w-full">
+            {labelElement}
+            {children}
+            {errorElem}
+          </FieldContent>
         </>
       )}
     </Field>

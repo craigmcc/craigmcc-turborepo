@@ -1,17 +1,17 @@
 import z from "zod"
 
-export const PROJECT_STATUSES = ["draft", "active", "finished"] as const
+export const PROJECT_STATUSES = ["active", "draft", "finished"] as const
 
 export const ProjectSchema = z.object({
-  name: z.string().min(1),
-  status: z.enum(PROJECT_STATUSES),
   description: z.string().transform(v => v || undefined),
+  name: z.string().min(1),
   notifications: z.object({
     email: z.boolean(),
     sms: z.boolean(),
     push: z.boolean(),
   }),
-/* TODO: Leave off users for now but add it back later
+  status: z.enum(PROJECT_STATUSES),
+/* TODO: Leave off users for now but maybe add it back later
   users: z
     .array(z.object({ email: z.email() }))
     .min(1)

@@ -18,28 +18,40 @@ import {
   CardTitle,
 } from "@repo/shadcn-ui/components/card";
 import {
+//  Field,
+  FieldContent,
+  FieldDescription,
+//  FieldError,
+  FieldGroup,
+  FieldLegend,
+//  FieldSeparator,
+  FieldSet,
+} from "@repo/shadcn-ui/components/field";
+/*
+import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@repo/shadcn-ui/components/input-group";
+} from "@repo/shadcn-ui/components/input-group"
+*/
 import { SelectItem } from "@repo/shadcn-ui/components/select";
 import { toast } from "sonner";
 import { XIcon } from "lucide-react";
 
 // Internal Modules ----------------------------------------------------------
 
-import { ServerResult } from "@repo/shadcn-tanstack-form/ServerResult";
-import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
-import { Result } from "@repo/shared-utils/Result";
+//import { ServerResult } from "@repo/shadcn-tanstack-form/ServerResult";
+//import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
+//import { Result } from "@repo/shared-utils/Result";
 import { createProject } from "@/actions/ProjectActions";
-import { ProjectSchema, ProjectSchemaType } from "@/zod-schemas/ProjectSchema";
+import { ProjectSchema, ProjectSchemaType, PROJECT_STATUSES } from "@/zod-schemas/ProjectSchema";
 
 // Public Objects ------------------------------------------------------------
 
 export function FieldComponentForm() {
 
-const form = useAppForm({
+  const form = useAppForm({
     defaultValues,
     validators: {
       onBlur: ProjectSchema,
@@ -69,9 +81,73 @@ const form = useAppForm({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
-          {/* Form fields would go here */}
-          <Button type="submit">Submit</Button>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
+          }}>
+          <FieldGroup>
+
+            <div className="grid grid-cols-3 gap-2">
+
+              <div className="col-span-2">
+              <form.AppField name="name">
+                {field => (
+                  <field.Input label="Name"/>
+                )}
+              </form.AppField>
+              </div>
+
+              <form.AppField name="status">
+                {field => (
+                  <field.Select label="Status">
+                    {PROJECT_STATUSES.map(status => (
+                      <SelectItem key={status} value={status}>
+                        {status}
+                      </SelectItem>
+                    ))}
+                  </field.Select>
+                )}
+              </form.AppField>
+
+            </div>
+
+            <form.AppField name="description">
+              {field => (
+                <field.Textarea
+                  description="Be as specific as possible"
+                  label="Description"
+                />
+              )}
+            </form.AppField>
+
+            <FieldSet>
+              <FieldContent>
+                <FieldLegend>Notifications</FieldLegend>
+                <FieldDescription>
+                  Select how you would like to receive notifications.
+                </FieldDescription>
+              </FieldContent>
+
+              <FieldGroup data-slot="checkbox-group">
+                <div className="grid grid-cols-3 gap-2">
+                  <form.AppField name="notifications.email">
+                    {field => <field.Checkbox label="Email" />}
+                  </form.AppField>
+
+                  <form.AppField name="notifications.sms">
+                    {field => <field.Checkbox label="Text" />}
+                  </form.AppField>
+
+                  <form.AppField name="notifications.push">
+                    {field => <field.Checkbox label="In App" />}
+                  </form.AppField>
+                </div>
+              </FieldGroup>
+            </FieldSet>
+
+            <Button>Create</Button>
+          </FieldGroup>
         </form>
       </CardContent>
     </Card>

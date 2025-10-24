@@ -23,14 +23,17 @@ import { fieldContext, formContext } from "./useAppContexts";
 
 export const { useAppForm, withForm } = createFormHook({
   fieldComponents: {
-    FormCheckbox,
-    FormInput,
-    FormSelect,
-    FormTextarea,
+    // Field based components
+    Checkbox: FormCheckbox,
+    Input : FormInput,
+    Select: FormSelect,
+    Textarea: FormTextarea,
+    // Original components
     InputField,
   },
   fieldContext,
   formComponents: {
+    // Original components
     ResetButton,
     SubmitButton,
   },
