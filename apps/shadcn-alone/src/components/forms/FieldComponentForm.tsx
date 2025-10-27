@@ -18,23 +18,21 @@ import {
   CardTitle,
 } from "@repo/shadcn-ui/components/card";
 import {
-//  Field,
+  Field,
   FieldContent,
   FieldDescription,
-//  FieldError,
+  FieldError,
   FieldGroup,
   FieldLegend,
 //  FieldSeparator,
   FieldSet,
 } from "@repo/shadcn-ui/components/field";
-/*
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
 } from "@repo/shadcn-ui/components/input-group"
-*/
 import { SelectItem } from "@repo/shadcn-ui/components/select";
 import { toast } from "sonner";
 import { XIcon } from "lucide-react";
@@ -76,9 +74,11 @@ export function FieldComponentForm() {
     <Card className="w-128 bg-secondary text-secondary-foreground border-2 rounded-2xl">
       <CardHeader>
         <CardTitle className="w-full text-center">Field Component Form</CardTitle>
+{/*
         <CardDescription className="w-full text-center">
           Example form using the Shadcn UI Field component.
         </CardDescription>
+*/}
       </CardHeader>
       <CardContent>
         <form
@@ -115,7 +115,7 @@ export function FieldComponentForm() {
             <form.AppField name="description">
               {field => (
                 <field.Textarea
-                  description="Be as specific as possible"
+                  // description="Be as specific as possible"
                   label="Description"
                 />
               )}
@@ -146,6 +146,86 @@ export function FieldComponentForm() {
               </FieldGroup>
             </FieldSet>
 
+            {/*<FieldSeparator/>*/}
+
+            <form.AppField name="users" mode="array">
+              {field => {
+                return (
+                  <FieldSet>
+                    <div className="flex justify-between gap-2 items-center">
+                      <FieldContent>
+                        <FieldLegend variant="label" className="mb-0">
+                          User Email Addresses
+                        </FieldLegend>
+                        <FieldDescription>
+                          Add up to 5 users to this project (including yourself).
+                        </FieldDescription>
+                        {field.state.meta.errors && (
+                          <FieldError errors={field.state.meta.errors} />
+                        )}
+                      </FieldContent>
+
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => field.pushValue({ email: "" })}
+                      >
+                        Add User
+                      </Button>
+                    </div>
+
+                    <FieldGroup>
+                      {field.state.value.map((_, index) => (
+                        <form.AppField key={index} name={`users[${index}].email`}>
+                          {innerField => {
+                            const isInvalid =
+                              innerField.state.meta.isTouched &&
+                              !innerField.state.meta.isValid
+
+                            return (
+                              <Field data-invalid={isInvalid}>
+                                <InputGroup>
+                                  <InputGroupInput
+                                    type="email"
+                                    id={innerField.name}
+                                    aria-invalid={isInvalid}
+                                    aria-label={`User ${index + 1} email`}
+                                    onBlur={innerField.handleBlur}
+                                    onChange={e =>
+                                      innerField.handleChange(e.target.value)
+                                    }
+                                    value={innerField.state.value}
+                                  />
+                                  <InputGroupAddon align="inline-end">
+                                    <InputGroupButton
+                                      type="button"
+                                      variant="ghost"
+                                      size="icon-xs"
+                                      onClick={() => field.removeValue(index)}
+                                      aria-label={`Remove user ${index + 1}`}
+                                    >
+                                      <XIcon />
+                                    </InputGroupButton>
+                                  </InputGroupAddon>
+                                </InputGroup>
+
+                                {isInvalid && (
+                                  <FieldError
+                                    errors={innerField.state.meta.errors}
+                                  />
+                                )}
+                              </Field>
+                            )
+                          }}
+                        </form.AppField>
+                      ))}
+                    </FieldGroup>
+                  </FieldSet>
+                )
+              }}
+            </form.AppField>
+
             <Button>Create</Button>
           </FieldGroup>
         </form>
@@ -166,5 +246,5 @@ const defaultValues: ProjectSchemaType = {
     sms: false,
   },
   status: "draft",
-//  users: [{ email: "" }],
+  users: [{ email: "" }],
 }

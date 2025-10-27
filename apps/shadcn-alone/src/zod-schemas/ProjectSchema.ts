@@ -11,12 +11,10 @@ export const ProjectSchema = z.object({
     push: z.boolean(),
   }),
   status: z.enum(PROJECT_STATUSES),
-/* TODO: Leave off users for now but maybe add it back later
   users: z
     .array(z.object({ email: z.email() }))
     .min(1)
     .max(5),
-*/
 });
 
 export type ProjectSchemaType = z.infer<typeof ProjectSchema>;
