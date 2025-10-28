@@ -7,7 +7,7 @@
 // External Modules ----------------------------------------------------------
 
 import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
-import { ActionResult } from "@repo/tanstack-form/ActionResult";
+import { ActionResult } from "@repo/daisy-tanstack-form/ActionResult";
 
 // Internal Modules ----------------------------------------------------------
 

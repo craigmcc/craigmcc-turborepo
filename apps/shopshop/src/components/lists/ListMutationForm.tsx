@@ -4,8 +4,8 @@
 
 // External Modules ----------------------------------------------------------
 
-import { ActionResult, ServerResult, useAppForm } from "@repo/tanstack-form/useAppForm";
-import { MutationFormProps } from "@repo/tanstack-table/DataTable";
+import { ActionResult, ServerResult, useAppForm } from "@repo/daisy-tanstack-form/useAppForm";
+import { MutationFormProps } from "@repo/daisy-tanstack-table/DataTable";
 import { useState } from "react";
 import { toast } from "react-toastify";
 

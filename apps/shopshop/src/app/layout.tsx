@@ -4,8 +4,8 @@
 
 // External Imports ----------------------------------------------------------
 
-import "@repo/tanstack-form/styles.css";
-import "@repo/tanstack-table/styles.css";
+import "@repo/daisy-tanstack-form/styles.css";
+import "@repo/daisy-tanstack-table/styles.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ToastContainer } from "react-toastify";

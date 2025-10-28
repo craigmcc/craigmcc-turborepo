@@ -7,7 +7,7 @@
 // External Modules ----------------------------------------------------------
 
 //import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
-import { DataTable } from "@repo/tanstack-table/DataTable";
+import { DataTable } from "@repo/daisy-tanstack-table/DataTable";
 import { useMemo, useState } from "react";
 //import { toast } from "react-toastify";
 

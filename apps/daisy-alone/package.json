@@ -2,7 +2,7 @@
   "jest": {
     "preset": "@repo/jest-presets/browser"
   },
-  "name": "daisyui-alone",
+  "name": "daisy-alone",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,9 +13,9 @@
   },
   "type": "module",
   "dependencies": {
+    "@repo/daisy-tanstack-form": "workspace:*",
+    "@repo/daisy-tanstack-table": "workspace:*",
     "@repo/shared-utils": "workspace:*",
-    "@repo/tanstack-form": "workspace:*",
-    "@repo/tanstack-table": "workspace:*",
     "@tanstack/react-form": "catalog:tanstack",
     "@tanstack/react-table": "catalog:tanstack",
     "clsx": "catalog:clsx",

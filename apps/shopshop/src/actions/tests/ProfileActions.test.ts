@@ -4,7 +4,7 @@
 
 // External Modules ----------------------------------------------------------
 
-import { ERRORS } from "@repo/tanstack-form/ActionResult";
+import { ERRORS } from "@repo/daisy-tanstack-form/ActionResult";
 
 // Internal Modules ----------------------------------------------------------
 

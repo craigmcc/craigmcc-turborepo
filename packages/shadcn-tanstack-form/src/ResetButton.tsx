@@ -7,7 +7,7 @@
 // External Modules ----------------------------------------------------------
 
 import { Button } from "@repo/shadcn-ui/components/button";
-import clsx from "clsx";
+//import clsx from "clsx";
 import { ButtonHTMLAttributes } from "react";
 
 // Internal Modules ----------------------------------------------------------
@@ -23,7 +23,7 @@ type Props = {
   label?: string,
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function ResetButton({ className, label, ...props }: Props) {
+export function ResetButton({ /*className,*/ label, ...props }: Props) {
 
   const form = useFormContext();
 

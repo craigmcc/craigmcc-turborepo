@@ -7,7 +7,7 @@
 // External Modules ----------------------------------------------------------
 
 import { Button } from "@repo/shadcn-ui/components/button";
-import clsx from "clsx";
+//import clsx from "clsx";
 import { LoaderCircle } from "lucide-react";
 import { ButtonHTMLAttributes } from "react";
 
@@ -24,7 +24,7 @@ type Props = {
   label?: string,
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function SubmitButton({ className, label, ...props }: Props) {
+export function SubmitButton({ /*className,*/ label, ...props }: Props) {
 
   const form = useFormContext();
 //  const { isSubmitting } = form.state;

@@ -44,7 +44,7 @@ export function InputField({ className, label, placeholder, type, ...props }: Pr
         className={clsx("w-full", className)}
         id={field.name}
         name={field.name}
-        onBlur={(e => field.handleBlur())}
+        onBlur={() => field.handleBlur()}
         onChange={(e) => field.handleChange(e.target.value)}
         placeholder={placeholder ? placeholder : undefined}
         type={type ? type : "text"}
