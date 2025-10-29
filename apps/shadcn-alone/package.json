@@ -34,14 +34,11 @@
     "tailwindcss": "catalog:tailwind4",
     "typescript": "catalog:typescript5"
   },
-  "jest": {
-    "preset": "@repo/jest-presets/browser"
-  },
   "name": "shadcn-alone",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 4002",
     "build": "next build",
+    "dev": "next dev --turbopack --port 4002",
     "lint": "next lint",
     "start": "next start --port 4002"
   },

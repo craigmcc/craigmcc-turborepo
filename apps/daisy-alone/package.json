@@ -32,14 +32,11 @@
     "tailwindcss": "catalog:tailwind4",
     "typescript": "catalog:typescript5"
   },
-  "jest": {
-    "preset": "@repo/jest-presets/browser"
-  },
   "name": "daisy-alone",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 4001",
     "build": "next build",
+    "dev": "next dev --turbopack --port 4001",
     "lint": "next lint",
     "start": "next start --port 4001"
   },
