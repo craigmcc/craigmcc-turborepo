@@ -1,17 +1,4 @@
 {
-  "jest": {
-    "preset": "@repo/jest-presets/browser"
-  },
-  "name": "daisy-alone",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack --port 4001",
-    "build": "next build",
-    "lint": "next lint",
-    "start": "next start --port 4001"
-  },
-  "type": "module",
   "dependencies": {
     "@repo/daisy-tanstack-form": "workspace:*",
     "@repo/daisy-tanstack-table": "workspace:*",
@@ -28,6 +15,7 @@
     "react-toastify": "catalog:react-toastify",
     "zod": "catalog:zod"
   },
+  "description": "Demonstration app for Daisy UI + Tailwind component styling",
   "devDependencies": {
     "@eslint/eslintrc": "catalog:eslint",
     "@repo/eslint-config": "workspace:*",
@@ -43,5 +31,18 @@
     "eslint-config-next": "catalog:eslint",
     "tailwindcss": "catalog:tailwind4",
     "typescript": "catalog:typescript5"
-  }
+  },
+  "jest": {
+    "preset": "@repo/jest-presets/browser"
+  },
+  "name": "daisy-alone",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack --port 4001",
+    "build": "next build",
+    "lint": "next lint",
+    "start": "next start --port 4001"
+  },
+  "type": "module",
+  "version": "0.1.0"
 }

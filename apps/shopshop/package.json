@@ -1,18 +1,4 @@
 {
-  "description": "Online shopping application.",
-  "name": "shopshop",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "build": "next build",
-    "coverage": "open coverage/index.html",
-    "dev": "next dev --port 4000",
-    "lint": "next lint",
-    "start": "next start --port 4000",
-    "test": "dotenvx run -f .env.test --quiet -- vitest watch",
-    "test:ci": "dotenvx run -f .env.test --quiet -- vitest run"
-  },
-  "type": "module",
   "dependencies": {
     "@auth/core": "catalog:next-auth5",
     "@repo/daisy-tanstack-form": "workspace:*",
@@ -37,6 +23,7 @@
     "react-toastify": "catalog:react-toastify",
     "zod": "catalog:zod"
   },
+  "description": "Online shopping application.",
   "devDependencies": {
     "@dotenvx/dotenvx": "catalog:dotenvx",
     "@eslint/eslintrc": "catalog:eslint",
@@ -55,5 +42,21 @@
     "tailwindcss": "catalog:tailwind4",
     "typescript": "catalog:typescript5",
     "vitest": "catalog:vitest"
-  }
+  },
+  "jest": {
+    "preset": "@repo/jest-presets/browser"
+  },
+  "name": "shopshop",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "coverage": "open coverage/index.html",
+    "dev": "next dev --port 4000",
+    "lint": "next lint",
+    "start": "next start --port 4000",
+    "test": "dotenvx run -f .env.test --quiet -- vitest watch",
+    "test:ci": "dotenvx run -f .env.test --quiet -- vitest run"
+  },
+  "type": "module",
+  "version": "0.1.0"
 }
