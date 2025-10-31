@@ -101,7 +101,6 @@ export function DataTable<TData>(
   }: DataTableProps<TData>) {
     // functional logic of this component
   }
-)
 ```
 
 In this particular case, the component itself (and therefore its properties) is generified

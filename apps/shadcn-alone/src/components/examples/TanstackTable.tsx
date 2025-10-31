@@ -6,8 +6,9 @@
 
 // External Modules ----------------------------------------------------------
 
-import { DataTable } from "@repo/shadcn-tanstack-table/DataTable";
+import { DataTable, TableAction } from "@repo/shadcn-tanstack-table/DataTable";
 //import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
+import { Eye, MessageSquareX, Pencil } from "lucide-react";
 import { useMemo, useState } from "react";
 
 // Internal Modules ----------------------------------------------------------
@@ -77,6 +78,7 @@ export function TanstackTable({ users }: TanstackTableProps) {
   return (
     <div>
       <DataTable
+        actions={actions}
         showPagination={true}
         table={table}
       />
@@ -86,5 +88,29 @@ export function TanstackTable({ users }: TanstackTableProps) {
 }
 
 // Private Objects -----------------------------------------------------------
+
+const actions: TableAction<User>[] = [
+  {
+    icon: <Pencil/>,
+    label: "Edit",
+    onClick: (row) => {
+      alert(`Edit user: ${row.original.name} ` + JSON.stringify(row.original));
+    }
+  },
+  {
+    icon: <MessageSquareX/>,
+    label: "Remove",
+    onClick: (row) => {
+      alert(`Remove user: ${row.original.name} ` + JSON.stringify(row.original));
+    }
+  },
+  {
+    icon: <Eye/>,
+    label: "View",
+    onClick: (row) => {
+      alert(`View user: ${row.original.name} ` + JSON.stringify(row.original));
+    }
+  },
+];
 
 const columnHelper = createColumnHelper<User>();
