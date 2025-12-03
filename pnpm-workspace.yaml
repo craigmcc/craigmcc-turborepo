@@ -54,7 +54,7 @@ catalogs:
   neverthrow:
     neverthrow: ^8.2.0
   next15:
-    next: ^15.4.7
+    next: ^15.5.7
     next-themes: ^0.4.6
   next-auth5:
     '@auth/core': ^0.40.0
