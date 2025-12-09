@@ -60,7 +60,7 @@ model Session {
   /// The IP address of the device
   ipAddress String?  @db.Text
   /// The unique session token
-  token     String   @db.Text
+  token     String   @unique @db.Text
   /// Updated at timestamp
   updatedAt DateTime @updatedAt
   /// User agent information of a device
@@ -81,7 +81,7 @@ model User {
   /// Created at timestamp
   createdAt     DateTime @default(now())
   /// Email address for this User
-  email         String   @db.Text
+  email         String   @unique @db.Text
   /// Has this email address been verified?
   emailVerified Boolean  @default(false)
   /// Optional avatar image URL for this User
