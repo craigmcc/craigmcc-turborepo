@@ -23,7 +23,7 @@ import { useEffect, useMemo, useState } from "react";
 
 // Internal Imports ----------------------------------------------------------
 
-import { ListMutationForm } from "@/components/lists/ListMutationForm";
+//import { ListMutationForm } from "@/components/lists/ListMutationForm";
 import { ListPlus, ProfilePlus } from "@/types/Types";
 
 // Public Objects ------------------------------------------------------------
@@ -93,13 +93,9 @@ export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
     <div className="card bg-info/50 border-2 rounded-2xl">
       <div className="card-body">
         <DataTable
-          mutators={ListMutationForm}
           showPagination={true}
-          supportsCreating={true}
-          supportsRemoving={true}
-          supportsUpdating={true}
           table={table}
-          title="Your Shopping Lists"
+          // title="Your Shopping Lists"
         />
       </div>
       <div className="card-actions justify-center px-6 pb-2">

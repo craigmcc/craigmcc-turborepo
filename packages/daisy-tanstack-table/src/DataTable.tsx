@@ -8,9 +8,10 @@
 
 import {
   flexRender,
+  Row,
   Table,
 } from "@tanstack/react-table";
-import clsx from "clsx";
+//import clsx from "clsx";
 import {
   ArrowDownAZ,
   ArrowDownUp,
@@ -19,142 +20,57 @@ import {
   ArrowRight,
   ArrowRightToLine,
   ArrowUpAZ,
-  Pencil,
-  Plus,
-  Trash,
-  X,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { createElement, useState } from "react";
+import { ReactNode } from "react";
 
 // Internal Modules ----------------------------------------------------------
 
 // Public Objects ------------------------------------------------------------
 
-export type MutationFormProps<TData> = {
-  // The data model we are editing or removing (or null if creating)
-  data: TData | null;
-  // Are we removing (true) or creating/updating (false)?
-  isRemoving: boolean | null;
-  // A cleanup function to call when the mutation is complete
-  // (either successfully or not)
-  onComplete?: () => void;
-}
+export type TableAction<TData> = {
+  // Optional icon for the action
+  icon?: ReactNode;
+  // Label for the action
+  label: string;
+  // Click handler for the action
+  onClick: (row: Row<TData>) => void;
+};
 
 type DataTableProps<TData> = {
-  // React component that implements the CRUD behaviors for TData
-  mutators?: (props: MutationFormProps<TData>) => React.JSX.Element | undefined;
+  // Optional actions rendered as a dropdown per-row
+  actions?: TableAction<TData>[];
   // Show pagination controls
   showPagination?: boolean;
-  // If we have mutators, support creating new rows
-  supportsCreating?: boolean;
-  // If we have mutators, support removing rows
-  supportsRemoving?: boolean;
-  // If we have mutators, support updating rows
-  supportsUpdating?: boolean;
   // The Tanstack Table we are displaying
   table: Table<TData>,
-  // Optional title for the table
-  title?: string;
-  // Optional CSS classes to apply to the table title ["card-title justify-center"]
-  titleClassName?: string;
 }
 
 export function DataTable<TData>(
   {
-    mutators,
+    actions,
     showPagination,
-    supportsCreating,
-    supportsRemoving,
-    supportsUpdating,
     table,
-    title,
-    titleClassName = "card-title justify-center",
   }: DataTableProps<TData>) {
-
-  const [creatingRow, setCreatingRow] = useState<TData | null>(null);
-  const [removingRow, setRemovingRow] = useState<TData | null>(null);
-  const [updatingRow, setUpdatingRow] = useState<TData | null>(null);
-  const [showModal, setShowModal] = useState<boolean>(false);
-
-  const router = useRouter();
 
   // Pagination state
   const pageCount = table.getPageCount();
-
-  // A cleanup function to reset all mutation state, and refresh the current page.
-  function onComplete() {
-    setCreatingRow(null);
-    setRemovingRow(null);
-    setUpdatingRow(null);
-    setShowModal(false);
-    router.refresh();
-  }
+  const extraColumn = actions && actions.length > 0 ? 1 : 0;
 
   return (
-    <>
+    <table className="table table-zebra border-4 rounded-md w-full">
 
-      {showModal && mutators && (creatingRow || updatingRow || removingRow) && (
-        <dialog className="modal modal-open">
-          <div className="modal-box">
-            <div className="flex flex-row w-full justify-end">
-              <span className="tooltip tooltip-left" data-tip="Close" >
-              <button
-                className="btn btn-sm btn-ghost justify-end"
-                onClick={() => {
-                  setCreatingRow(null);
-                  setUpdatingRow(null);
-                  setRemovingRow(null);
-                  setShowModal(false);
-                  // No revalidate on modal close without a mutation
-                }}
-              >
-                <X size={16}/>
-              </button>
-              </span>
-            </div>
-            {createElement(mutators, {
-              data: updatingRow || removingRow, // NOTE: not passing creatingRow
-              isRemoving: !!removingRow,
-              onComplete: onComplete,
-            })}
-          </div>
-        </dialog>
-      )}
-
-      {mutators && (supportsCreating || title) && (
-
-        <div className={clsx(titleClassName, "p-2")}>
-         {title && (
-            <span>{title}</span>
-          )}
-          {supportsCreating && (
-            <span className="tooltip tooltip-right" data-tip="Add">
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => {
-              setCreatingRow({} as TData);
-              setShowModal(true);
-            }}
-          >
-            <Plus size={16}/>
-          </button>
-          </span>
-          )}
-        </div>
-      )}
-
-      <table className="table table-zebra w-full">
-
-        <thead>
-        {table.getHeaderGroups().map(headerGroup => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map(header => (
-              <th key={header.id} colSpan={header.colSpan}>
-                <div  className="flex flex-row w-full justify-center fieldset-legend">
-                {flexRender(header.column.columnDef.header, header.getContext())}
+      <thead>
+      {table.getHeaderGroups().map(headerGroup => (
+        <tr key={headerGroup.id}>
+          {headerGroup.headers.map(header => (
+            <th key={header.id} colSpan={header.colSpan}>
+              <div  className="flex flex-row w-full justify-center">
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
                 { header.column.getCanSort() ? (
-                    <>
+                  <>
                     <span
                       onClick={header.column.getToggleSortingHandler()}
                       style={{ cursor: "pointer" }}
@@ -167,69 +83,69 @@ export function DataTable<TData>(
                         <ArrowDownUp className="ms-2 text-info" size={24}/>
                       )}
                     </span>
-                    </>
-                  ) :
-                  null
-                }
-                </div>
-              </th>
-            ))}
-            {(mutators && (supportsRemoving || supportsUpdating)) && (
-              <th className="flex flex-row w-full justify-center fieldset-legend">Actions</th>
-            )}
-          </tr>
-        ))}
-        </thead>
+                  </>
+                ) : null}
+              </div>
+            </th>
+          ))}
+          {actions && actions.length > 0 ? (
+            <th key={`${headerGroup.id}-actions`}>
+              <div className="flex flex-row w-full justify-center">Actions</div>
+            </th>
+          ) : null}
+        </tr>
+      ))}
+      </thead>
 
-        <tbody>
-        {table.getRowModel().rows.map(row => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map(cell => (
-              <td key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-            {(mutators && (supportsRemoving || supportsUpdating)) && (
-              <td className="p-2">
-                <div className="flex gap-2">
-                  {supportsUpdating && (
-                    <span className="tooltip" data-tip="Update">
-                    <button
-                      className="btn btn-secondary btn-sm"
-                      onClick={() => {
-                        setUpdatingRow(row.original);
-                        setShowModal(true);
-                      }}
-                    >
-                      <Pencil size={16}/>
-                    </button>
-                    </span>
-                  )}
-                  {supportsRemoving && (
-                    <span className="tooltip" data-tip="Remove">
-                    <button
-                      className="btn btn-error btn-sm"
-                      onClick={() => {
-                        setRemovingRow(row.original);
-                        setShowModal(true);
-                      }}
-                    >
-                      <Trash size={16}/>
-                    </button>
-                    </span>
-                  )}
-                </div>
-              </td>
-            )}
-          </tr>
-        ))}
-        </tbody>
+      <tbody>
+      {table.getRowModel().rows.map(row => (
+        <tr key={row.id}>
+          {row.getVisibleCells().map(cell => (
+            <td key={cell.id}>
+              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </td>
+          ))}
+          {actions && actions.length > 0 ? (
+            <td key={`${row.id}-actions`} className="flex flex-row justify-center">
+              <div className="dropdown dropdown-end">
+                <details>
+                  <summary className="btn bth-ghost">
+                    ...
+                  </summary>
+                  <ul tabIndex={0} className="menu dropdown-content z-1 mt-6 shadow-sm bg-base-300 rounded-box">
+                    {actions.map((action, idx) => (
+                      <li
+                        key={idx}
+                        onClick={() => {
+                          try {
+                            action.onClick(row as Row<TData>);
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }}
+                      >
+                        {action.icon ? (
+                          <span className="mr-2">
+                            {action.icon}
+                          </span>
+                        ) : null}
+                        {action.label}
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </div>
+            </td>
+          ) : null}
+        </tr>
+      ))}
+      </tbody>
 
-        { showPagination ? (
-          <tfoot>
-          <tr>
-            <th colSpan={table.getCenterLeafColumns().length}>
-              <div className="text-center space-x-4">
+      { showPagination ? (
+        <tfoot>
+        <tr>
+          <th colSpan={table.getCenterLeafColumns().length + extraColumn}>
+            <div className="text-center space-x-4">
               <span className="tooltip" data-tip="First Page">
                 <button
                   className="btn btn-info"
@@ -239,7 +155,7 @@ export function DataTable<TData>(
                   <ArrowLeftToLine/>
                 </button>
               </span>
-                <span className="tooltip" data-tip="Previous Page">
+              <span className="tooltip" data-tip="Previous Page">
                 <button
                   className="btn btn-info"
                   disabled={!table.getCanPreviousPage()}
@@ -248,7 +164,7 @@ export function DataTable<TData>(
                   <ArrowLeft/>
                 </button>
               </span>
-                <span className="tooltip" data-tip="Next Page">
+              <span className="tooltip" data-tip="Next Page">
                 <button
                   className="btn btn-info"
                   disabled={!table.getCanNextPage()}
@@ -257,7 +173,7 @@ export function DataTable<TData>(
                   <ArrowRight/>
                 </button>
               </span>
-                <span className="tooltip" data-tip="Last Page">
+              <span className="tooltip" data-tip="Last Page">
                 <button
                   className="btn btn-info"
                   disabled={!table.getCanNextPage()}
@@ -266,21 +182,18 @@ export function DataTable<TData>(
                   <ArrowRightToLine/>
                 </button>
               </span>
-                <span>
+              <span>
                 Page {table.getState().pagination.pageIndex + 1} of{" "}
-                  {pageCount > 0 ? pageCount : `1`}{" "}| Total of{" "}
-                  {table.getRowCount().toLocaleString()} Rows
+                {pageCount > 0 ? pageCount : `1`}{" "}| Total of{" "}
+                {table.getRowCount().toLocaleString()} Rows
               </span>
-              </div>
-            </th>
-          </tr>
-          </tfoot>
-        ) : null }
+            </div>
+          </th>
+        </tr>
+        </tfoot>
+      ) : null }
 
-      </table>
-
-    </>
-
+    </table>
   );
 
 }

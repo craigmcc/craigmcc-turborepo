@@ -97,7 +97,7 @@ export function CategoriesTable({ categories, list, profile }: CategoriesTablePr
         <DataTable
           showPagination={true}
           table={table}
-          title={`Categories for List '{list.name}'`}
+          // title={`Categories for List '{list.name}'`}
         />
       </div>
       <div className="card-actions justify-center px-6 pb-2">
