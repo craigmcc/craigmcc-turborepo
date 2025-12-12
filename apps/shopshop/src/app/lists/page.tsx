@@ -22,7 +22,7 @@ export default async function ListsPage() {
     redirect("/auth/signIn");
   }
 
-  const members = await dbShopShop.member.findMany({
+  const memberships = await dbShopShop.member.findMany({
     include: {
       list: true,
     },
@@ -34,12 +34,9 @@ export default async function ListsPage() {
     },
   });
 
-  const allLists: ListPlus[] = [];
-  members.map((member) => { allLists.push(member.list); });
-
   return (
     <div className="flex mt-4 justify-center w-full">
-      <ListsTable allLists={allLists} profile={profile} />
+      <ListsTable memberships={memberships} profile={profile} />
     </div>
   )
 

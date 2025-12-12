@@ -19,23 +19,24 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import { MemberRole } from "@repo/db-shopshop/index";
 import { useEffect, useMemo, useState } from "react";
 
 // Internal Imports ----------------------------------------------------------
 
 //import { ListMutationForm } from "@/components/lists/ListMutationForm";
-import { ListPlus, ProfilePlus } from "@/types/Types";
+import { MemberPlus, ProfilePlus } from "@/types/Types";
 
 // Public Objects ------------------------------------------------------------
 
 export type ListsTableProps = {
-  // All Lists for the signed in profile.
-  allLists: ListPlus[];
+  // Memberships of the currently signed in profile.
+  memberships: MemberPlus[];
   // The currently signed in profile.
   profile: ProfilePlus;
 }
 
-export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
+export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
@@ -43,7 +44,7 @@ export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
     pageSize: 10,
   });
   const [sorting, setSorting] = useState<SortingState>([
-    {id: "name", desc: false},
+    {id: "list.name", desc: false},
   ]);
   const [nameFilter, setNameFilter] = useState<string>("");
 
@@ -54,7 +55,7 @@ export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
 
     if (nameFilter.length > 0) {
       filters.push({
-        id: "name",
+        id: "list.name",
         value: nameFilter,
       });
     }
@@ -64,16 +65,24 @@ export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
 
   // Define columns for the table
   const columns = useMemo(() => [
-    columnHelper.accessor("name", {
+    columnHelper.accessor("list.name", {
       cell: info => info.getValue(),
       header: "List Name",
-      id: "name",
+      id: "list.name",
     }),
+    columnHelper.display({
+      cell: info => {
+        return info.row.original.role === MemberRole.ADMIN
+          ? "Admin" : "Guest";
+      },
+      header: "Role",
+      id: "role",
+    })
   ], []);
 
   // Create the table instance
   const table = useReactTable({
-    data: allLists,
+    data: memberships,
     columns,
     state: {
       columnFilters,
@@ -92,19 +101,22 @@ export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
   return (
     <div className="card bg-info/50 border-2 rounded-2xl">
       <div className="card-body">
+        <h2 className="card-title justify-center">
+          Your Lists
+        </h2>
+        <div className="card-actions justify-center px-2 pb-2">
+          <TextFieldFilter
+            controlId="nameFilter"
+            label="Filter by List Name"
+            placeholder="List Name..."
+            setTextFieldFilter={setNameFilter}
+            textFieldFilter={nameFilter}
+          />
+        </div>
         <DataTable
           showPagination={true}
           table={table}
           // title="Your Shopping Lists"
-        />
-      </div>
-      <div className="card-actions justify-center px-6 pb-2">
-        <TextFieldFilter
-          controlId="nameFilter"
-          label="Filter by List Name"
-          placeholder="List Name..."
-          setTextFieldFilter={setNameFilter}
-          textFieldFilter={nameFilter}
         />
       </div>
     </div>
@@ -117,4 +129,4 @@ export function ListsTable({ allLists /*, profile */ }: ListsTableProps) {
 /**
  * Helper for creating columns in the Lists table.
  */
-const columnHelper = createColumnHelper<ListPlus>();
+const columnHelper = createColumnHelper<MemberPlus>();
