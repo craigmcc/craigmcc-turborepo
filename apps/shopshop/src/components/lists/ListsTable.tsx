@@ -6,7 +6,7 @@
 
 // External Imports ----------------------------------------------------------
 
-import { DataTable } from "@repo/daisy-tanstack-table/DataTable";
+import { DataTable, TableAction } from "@repo/daisy-tanstack-table/DataTable";
 import { TextFieldFilter } from "@repo/daisy-tanstack-table/TextFieldFilter";
 import {
   ColumnFiltersState,
@@ -16,10 +16,12 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   PaginationState,
+  Row,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 import { MemberRole } from "@repo/db-shopshop/index";
+import { BadgeX, Pencil } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 // Internal Imports ----------------------------------------------------------
@@ -98,6 +100,24 @@ export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
     getSortedRowModel: getSortedRowModel(),
   });
 
+  // Define the per-row actions
+  const actions: TableAction<MemberPlus>[] = useMemo(() => [
+    {
+      icon: <Pencil size={16}/>,
+      label: "Edit",
+      onClick: (row: Row<MemberPlus>)  => {
+        alert(`Edit list: ${row.original.list!.name}`);
+      }
+    },
+    {
+      icon: <BadgeX size={16}/>,
+      label: "Remove",
+      onClick: (row: Row<MemberPlus>) => {
+        alert(`Remove list: ${row.original.list!.name}`);
+      }
+    },
+  ], []);
+
   return (
     <div className="card bg-info/50 border-2 rounded-2xl">
       <div className="card-body">
@@ -114,6 +134,7 @@ export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
           />
         </div>
         <DataTable
+          actions={actions}
           showPagination={true}
           table={table}
           // title="Your Shopping Lists"
