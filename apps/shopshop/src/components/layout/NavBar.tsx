@@ -6,12 +6,11 @@
 
 import { AlignJustify } from "lucide-react";
 import Link from "next/link";
-//import { useEffect } from "react";
 
 // Internal Imports ----------------------------------------------------------
 
 import { SignedInMenu } from "@/components/layout/SignedInMenu";
-import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { findProfile } from "@/lib/ProfileHelpers";
 
 // Public Objects ------------------------------------------------------------
@@ -21,13 +20,13 @@ export async function NavBar() {
   const profile = await findProfile();
 
   return (
-    <div className="navbar bg-base-200">
+    <div className="flex w-full h-[60px] bg-base-200 items-center justify-between px-2">
 
-      <div className="navbar-start">
+      <div className="flex gap-2 justify-start">
         <Link href="/">
-          <AlignJustify className="navbar-logo" size={32} />
+          <AlignJustify size={24} />
         </Link>
-        <Link className="font-semibold px-2" href="/">
+        <Link className="font-semibold" href="/">
           ShopShop
         </Link>
       </div>
@@ -38,7 +37,7 @@ export async function NavBar() {
 
       <div className="navbar-end">
         {profile && <SignedInMenu profile={profile}/>}
-        <ThemeSwitcher />
+        <ThemeToggle />
       </div>
 
     </div>

@@ -11,6 +11,12 @@
 // External Module -----------------------------------------------------------
 
 import { Profile } from "@repo/db-shopshop/dist";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@repo/shadcn-ui/components/dropdown-menu"
 import Link from "next/link";
 
 // Internal Modules ----------------------------------------------------------
@@ -33,24 +39,19 @@ export function SignedInMenu ({ profile }: Props){
   ];
 
   return (
-    <div className="dropdown dropdown-end">
-      <details>
-        <summary className="btn btn-ghost w-32">
-          <ProfileAvatar profile={profile} />
-        </summary>
-        <ul className="menu dropdown-content z-1 mt-6 shadow-sm bg-base-300 rounded-box" tabIndex={0}>
-          {CHOICES.map((CHOICE) => (
-            <li key={CHOICE.title}>
-              <Link
-                href={CHOICE.href}
-                key={CHOICE.title}
-              >
-                {CHOICE.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </details>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <ProfileAvatar profile={profile} />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        {CHOICES.map((CHOICE) => (
+          <DropdownMenuItem key={CHOICE.title}>
+            <Link href={CHOICE.href}>
+              {CHOICE.title}
+            </Link>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

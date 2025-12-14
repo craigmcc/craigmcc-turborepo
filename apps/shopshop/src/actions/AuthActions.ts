@@ -6,7 +6,7 @@
 
 // External Modules ----------------------------------------------------------
 
-import { ActionResult, ValidationActionResult } from "@repo/daisy-tanstack-form/ActionResult";
+import { ActionResult, ValidationActionResult } from "@repo/shadcn-tanstack-form/ActionResult";
 import { dbShopShop as db, Profile } from "@repo/db-shopshop/dist";
 import { serverLogger as logger } from "@repo/shared-utils/ServerLogger";
 import { ZodError } from "zod";

@@ -4,18 +4,15 @@
 
 // External Imports ----------------------------------------------------------
 
-import "@repo/daisy-tanstack-form/styles.css";
-import "@repo/daisy-tanstack-table/styles.css";
+import "@repo/shadcn-ui/globals-amethyst.css";
+import { Toaster } from "@repo/shadcn-ui/components/sonner";
+import { ThemeProvider } from "@repo/shadcn-ui/components/theme-provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ToastContainer } from "react-toastify";
 
 // Internal Imports ----------------------------------------------------------
 
-import "@/app/globals.css";
 import { NavBar } from "@/components/layout/NavBar";
-import { ThemeWrapper } from "@/components/layout/ThemeWrapper";
-import { ThemeContextProvider } from "@/contexts/ThemeContext";
 
 // Public Objects ------------------------------------------------------------
 
@@ -30,24 +27,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
     <body
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <ThemeContextProvider>
-        <ThemeWrapper>
-          <NavBar />
-          <main className="bg-base-100 h-[calc(100vh-80px)]">
-            {children}
-          </main>
-        </ThemeWrapper>
-        <ToastContainer
-          autoClose={5000}
-          hideProgressBar={true}
-          position="bottom-right"
-          theme="colored"
-        />
-      </ThemeContextProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        disableTransitionOnChange
+        enableSystem
+      >
+        <NavBar />
+        <main className="bg-base-100 h-[calc(100vh-60px)]">
+          {children}
+        </main>
+      </ThemeProvider>
+      <Toaster position="top-left" />
     </body>
     </html>
   );
