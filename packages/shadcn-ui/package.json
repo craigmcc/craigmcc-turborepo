@@ -1,6 +1,7 @@
 {
   "exports": {
     "./globals.css": "./src/styles/globals.css",
+    "./globals-amethyst.css": "./src/styles/globals-amethyst.css",
     "./components/*": "./dist/components/*.js",
     "./hooks/*": "./dist/hooks/*.js",
     "./lib/*": "./dist/lib/*.js"

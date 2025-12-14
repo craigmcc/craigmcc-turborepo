@@ -5,7 +5,7 @@
 // External Imports ----------------------------------------------------------
 
 import { Toaster } from "@repo/shadcn-ui/components/sonner";
-import "@repo/shadcn-ui/globals.css";
+import "@repo/shadcn-ui/globals-amethyst.css";
 import { ThemeProvider } from "@repo/shadcn-ui/components/theme-provider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
