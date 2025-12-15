@@ -4,6 +4,7 @@
 
 // External Imports ----------------------------------------------------------
 
+import { Button } from "@repo/shadcn-ui/components/button";
 import Link from "next/link";
 
 // Internal Imports ----------------------------------------------------------
@@ -18,18 +19,12 @@ export default function HomePage() {
         Your electronic shopping list.
       </p>
       <div className="flex flex-row justify-center text-center gap-6">
-        <button className="btn btn-info">
-          <Link className="flex flex-row gap-2" href="/auth/signUp">
-            {/*<GitBranchPlus />*/}
-            <span>Sign Up</span>
-          </Link>
-        </button>
-        <button className="btn btn-primary">
-          <Link className="flex flex-row gap-2" href="/auth/signIn">
-            {/*<Key />*/}
-            <span>Sign In</span>
-          </Link>
-        </button>
+        <Button variant="secondary" asChild>
+          <Link href="/auth/signUp">Sign Up</Link>
+        </Button>
+        <Button variant="default" asChild>
+          <Link href="/auth/signIn">Sign In</Link>
+        </Button>
       </div>
     </div>
   );

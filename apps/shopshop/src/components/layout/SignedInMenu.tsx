@@ -11,6 +11,7 @@
 // External Module -----------------------------------------------------------
 
 import { Profile } from "@repo/db-shopshop/dist";
+import { Button } from "@repo/shadcn-ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +23,7 @@ import Link from "next/link";
 // Internal Modules ----------------------------------------------------------
 
 import { ProfileAvatar } from "@/components/profiles/ProfileAvatar";
+import * as React from "react";
 
 // Public Objects ------------------------------------------------------------
 
@@ -41,7 +43,9 @@ export function SignedInMenu ({ profile }: Props){
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <ProfileAvatar profile={profile} />
+        <Button variant="outline" size="default">
+          <ProfileAvatar profile={profile} />
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {CHOICES.map((CHOICE) => (

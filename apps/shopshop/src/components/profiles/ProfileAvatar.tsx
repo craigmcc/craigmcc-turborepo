@@ -21,12 +21,12 @@ type Props = {
 export function ProfileAvatar({ profile }: Props) {
 
   return (
-    <div className="group relative mx-3 flex h-[48px] w-[48px] overflow-hidden rounded-[24px] transition-all group-hover:rounded-[16px]">
+    <div className="group relative mx-3 flex h-12 w-12 items-center overflow-hidden rounded-2xl transition-all group-hover:rounded-2xl">
       {profile.imageUrl ? (
         <Image alt={`Profile '{profile.name}'`} fill src={profile.imageUrl} />
       ) : (
-        <span className="flex h-[48px] w-[48px] items-center justify-center overflow-hidden rounded-[24px] bg-base-300 text-xs transition-all group-hover:rounded-[16px] group-hover:bg-accent">
-          <span className="text-accent-content">{initials(profile.name)}</span>
+        <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-3xl bg-base-300 text-xs transition-all group-hover:rounded-2xl group-hover:bg-accent">
+          <span className="accent">{initials(profile.name)}</span>
         </span>
       )}
     </div>

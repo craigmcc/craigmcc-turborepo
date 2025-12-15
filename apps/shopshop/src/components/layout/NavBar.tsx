@@ -20,9 +20,9 @@ export async function NavBar() {
   const profile = await findProfile();
 
   return (
-    <div className="flex w-full h-[60px] bg-base-200 items-center justify-between px-2">
+    <div className="flex w-full h-[60px] bg-primary/50 items-center justify-between">
 
-      <div className="flex gap-2 justify-start">
+      <div className="flex gap-2 ms-2 justify-start">
         <Link href="/">
           <AlignJustify size={24} />
         </Link>
@@ -31,11 +31,11 @@ export async function NavBar() {
         </Link>
       </div>
 
-      <div className="navbar-center gap-4">
+      <div className="flex flex-row gap-4 justify-center">
         <span>Options go here</span>
       </div>
 
-      <div className="navbar-end">
+      <div className="flex gap-2 items-center me-2 justify-end">
         {profile && <SignedInMenu profile={profile}/>}
         <ThemeToggle />
       </div>
