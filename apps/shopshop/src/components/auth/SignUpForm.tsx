@@ -8,14 +8,23 @@
 
 // External Modules ----------------------------------------------------------
 
-import { ActionResult } from "@repo/daisy-tanstack-form/ActionResult";
-import { ServerResult } from "@repo/daisy-tanstack-form/ServerResult";
-import { useAppForm } from "@repo/daisy-tanstack-form/useAppForm";
 import { Profile } from "@repo/db-shopshop/dist";
+import { ActionResult } from "@repo/shadcn-tanstack-form/ActionResult";
+import { ServerResult } from "@repo/shadcn-tanstack-form/ServerResult";
+import { useAppForm } from "@repo/shadcn-tanstack-form/useAppForm";
+import {
+  Card,
+//  CardAction,
+  CardContent,
+  CardDescription,
+//  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@repo/shadcn-ui/components/card";
 import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
 import { useRouter } from "next/navigation";
 import {  useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -70,14 +79,17 @@ export function SignUpForm() {
   }
 
   return (
-    <div className="card bg-info/50 border-2 rounded-2xl w-128">
-      <div className="card-body">
-        <h2 className="card-title justify-center">
-          <p>Sign Up</p>
-        </h2>
+    <Card className="w-lg bg-secondary text-secondary-foreground border-2 rounded-2xl">
+      <CardHeader>
+        <CardTitle className="w-full text-center">Sign Up</CardTitle>
+        <CardDescription className="text-center">
+          Enter your details to create your account.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <ServerResult result={result}/>
         <form
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-4"
           name="SignUpForm"
           onSubmit={(e) => {
             e.preventDefault();
@@ -85,26 +97,22 @@ export function SignUpForm() {
             form.handleSubmit();
           }}
         >
-          <div className="flex gap-2">
-            <form.AppField name="email">
-              {(field) =>
-                <field.InputField
-                  autoFocus
-                  label="Email"
-                  placeholder="Your email address"
-                />}
-            </form.AppField>
-          </div>
+          <form.AppField name="email">
+            {(field) =>
+              <field.InputField
+                autoFocus
+                label="Email"
+                placeholder="Your email address"
+              />}
+          </form.AppField>
+          <form.AppField name="name">
+            {(field) =>
+              <field.InputField
+                label="Name"
+                placeholder="Your Name"
+              />}
+          </form.AppField>
           <div className="flex flex-row gap-2">
-            <form.AppField name="name">
-              {(field) =>
-                <field.InputField
-                  label="Name"
-                  placeholder="Your Name"
-                />}
-            </form.AppField>
-          </div>
-          <div className="flex flex-row 2-full gap-2">
             <form.AppField name="password">
               {(field) =>
                 <field.InputField
@@ -122,15 +130,15 @@ export function SignUpForm() {
                 />}
             </form.AppField>
           </div>
-            <form.AppForm>
-              <div className="flex flex-row justify-center pt-2 gap-4">
-                <form.SubmitButton label="Sign Up" />
-                <form.ResetButton/>
-                </div>
-            </form.AppForm>
+          <form.AppForm>
+            <div className="w-full flex flex-row justify-center pt-2 gap-4">
+              <form.SubmitButton label="Sign Up" />
+              <form.ResetButton/>
+            </div>
+          </form.AppForm>
         </form>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 
 }

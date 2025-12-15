@@ -25,6 +25,7 @@
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "react-toastify": "catalog:react-toastify",
+    "sonner": "catalog:sonner",
     "zod": "catalog:zod"
   },
   "description": "Online shopping application.",

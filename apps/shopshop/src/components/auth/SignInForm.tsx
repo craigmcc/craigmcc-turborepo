@@ -6,14 +6,23 @@
 
 // External Modules ----------------------------------------------------------
 
-import { ActionResult } from "@repo/daisy-tanstack-form/ActionResult";
-import { ServerResult } from "@repo/daisy-tanstack-form/ServerResult";
-import { useAppForm } from "@repo/daisy-tanstack-form/useAppForm";
 import { Profile } from "@repo/db-shopshop/dist";
+import { ActionResult } from "@repo/shadcn-tanstack-form/ActionResult";
+import { ServerResult } from "@repo/shadcn-tanstack-form/ServerResult";
+import { useAppForm } from "@repo/shadcn-tanstack-form/useAppForm";
+import {
+  Card,
+//  CardAction,
+  CardContent,
+  CardDescription,
+//  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@repo/shadcn-ui/components/card";
 import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 // Internal Modules ----------------------------------------------------------
 
@@ -53,38 +62,29 @@ export function SignInForm() {
       }
     });
 
-    const result = await doSignInAction(formData);
-    if (result.model) {
-
-      logger.trace({
-        context: "SignInForm.submitForm.success",
-        email: formData.email,
-      });
+    const response = await doSignInAction(formData);
+    if (response.model) {
       setResult(null);
       toast.success("Welcome to this application!");
       router.push("/"); // TODO - choose a better landing page
-
     } else {
-
-      logger.trace({
-        context: "SignInForm.submitForm.error",
-        error: result.message,
-      });
-      setResult({ message: "Invalid email or password, please try again" });
-
+      setResult(response);
     }
 
   }
 
   return (
-    <div className="card bg-info/50 border-2 rounded-2xl w-96">
-      <div className="card-body">
-        <h2 className="card-title justify-center">
-          <p>Sign In</p>
-        </h2>
+    <Card className="w-lg bg-secondary text-secondary-foreground border-2 rounded-2xl">
+      <CardHeader>
+        <CardTitle className="w-full text-center">Sign In</CardTitle>
+        <CardDescription className="text-center">
+          Enter your credentials to sign in to this application.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <ServerResult result={result}/>
         <form
-          className="flex flex-col gap-2"
+          className="flex flex-col gap-4"
           name="SignInForm"
           onSubmit={(e) => {
             e.preventDefault();
@@ -109,14 +109,14 @@ export function SignInForm() {
               />}
           </form.AppField>
           <form.AppForm>
-            <div className="flex flex-row justify-center pt-2 gap-4">
-              <form.SubmitButton label="Sign In"/>
+            <div className="w-full flex flex-row justify-center pt-2 gap-4">
+              <form.SubmitButton label="Sign In" />
               <form.ResetButton/>
             </div>
           </form.AppForm>
         </form>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 
 }

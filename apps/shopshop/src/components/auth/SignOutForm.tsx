@@ -6,20 +6,28 @@
 
 // External Modules ----------------------------------------------------------
 
-import { ActionResult } from "@repo/daisy-tanstack-form/ActionResult";
-import { ServerResult } from "@repo/daisy-tanstack-form/ServerResult";
 import { Profile } from "@repo/db-shopshop/dist";
+import { ActionResult } from "@repo/shadcn-tanstack-form/ActionResult";
+import { ServerResult } from "@repo/shadcn-tanstack-form/ServerResult";
+import { Button } from "@repo/shadcn-ui/components/button"
+import {
+  Card,
+//  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@repo/shadcn-ui/components/card";
+import { Spinner } from "@repo/shadcn-ui/components/Spinner";
 import { clientLogger as logger } from "@repo/shared-utils/ClientLogger";
-import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 // Internal Modules ----------------------------------------------------------
 
 import { doSignOutAction } from "@/actions/AuthActions";
-
-//const isTesting = process.env.NODE_ENV === "test";
 
 // Public Objects ------------------------------------------------------------
 
@@ -36,58 +44,48 @@ export function SignOutForm() {
       message: "Performing sign out",
     })
 
-    try {
+    setIsSigningOut(true);
+    await doSignOutAction();
+    logger.trace({
+      context: "SignOutForm.submitForm.success",
+      message: "Sign out successful",
+    });
 
-      setIsSigningOut(true);
-      await doSignOutAction();
-      logger.trace({
-        context: "SignOutForm.submitForm.success",
-        message: "Sign out successful",
-      });
-
-      toast.success("Sign out successful");
-      router.push("/"); // TODO redirect to home page or login page
-
-    } catch (error) {
-
-      logger.trace({
-        context: "SignOutForm.submitForm.error",
-        error,
-      });
-      setResult({message: (error as Error).message})
-
-    } finally {
-
-      setIsSigningOut(false);
-
-    }
+    toast.success("Sign out successful");
+    setIsSigningOut(false);
+    router.push("/"); // TODO redirect to home page or login page
 
   }
 
   return (
-    <div className="card bg-info/50 border-2 rounded-2xl w-96">
-      <div className="card-body">
-        <h2 className="card-title justify-center">
-          <p>Sign Out</p>
-        </h2>
+    <Card className="w-md bg-secondary text-secondary-foreground border-2 rounded-2xl">
+      <CardHeader>
+        <CardTitle className="w-full text-center">Sign Out</CardTitle>
+        <CardDescription className="text-center">
+          Are you sure want to sign out?
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
         <ServerResult result={result}/>
-        <p>Are you sure you want to sign out?</p>
-        <div className="card-actions justify-center">
-          <button
-            className="btn btn-primary justify-center gap-2"
+      </CardContent>
+      <CardFooter>
+        <div className="w-full flex flex-row justify-center pt-2 gap-4">
+          <Button
+            className="w-32"
+            variant="destructive"
             onClick={performSignOut}
             type="button"
+            disabled={isSigningOut}
           >
             {isSigningOut ? (
               <>
-                <LoaderCircle className="animate-spin"/>Signing Out
+                <Spinner className="mr-2"/>Signing Out
               </>
             ): "Sign Out" }
-          </button>
+          </Button>
         </div>
-      </div>
-
-    </div>
+      </CardFooter>
+    </Card>
   )
 
 }
