@@ -6,8 +6,30 @@
 
 // External Imports ----------------------------------------------------------
 
-import { DataTable, TableAction } from "@repo/daisy-tanstack-table/DataTable";
-import { TextFieldFilter } from "@repo/daisy-tanstack-table/TextFieldFilter";
+import { MemberRole } from "@repo/db-shopshop/index";
+import { DataTable, TableAction } from "@repo/shadcn-tanstack-table/DataTable";
+import {
+  Card,
+//  CardAction,
+  CardContent,
+  CardDescription,
+//  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@repo/shadcn-ui/components/card";
+import {
+  Field,
+//  FieldContent,
+//  FieldDescription,
+//  FieldError,
+//  FieldGroup,
+  FieldLabel,
+//  FieldLegend,
+//  FieldSeparator,
+//  FieldSet,
+//  FieldTitle,
+} from "@repo/shadcn-ui/components/field";
+import { Input } from "@repo/shadcn-ui/components/input";
 import {
   ColumnFiltersState,
   createColumnHelper,
@@ -20,7 +42,6 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { MemberRole } from "@repo/db-shopshop/index";
 import { BadgeX, Pencil } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
@@ -41,6 +62,7 @@ export type ListsTableProps = {
 export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
 
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [nameFilter, setNameFilter] = useState<string>("");
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
@@ -48,7 +70,6 @@ export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
   const [sorting, setSorting] = useState<SortingState>([
     {id: "list.name", desc: false},
   ]);
-  const [nameFilter, setNameFilter] = useState<string>("");
 
   // Apply selection filters whenever they change
   useEffect(() => {
@@ -86,18 +107,18 @@ export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
   const table = useReactTable({
     data: memberships,
     columns,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    onPaginationChange: setPagination,
+    onSortingChange: setSorting,
     state: {
       columnFilters,
       pagination,
       sorting,
     },
-    onColumnFiltersChange: setColumnFilters,
-    onPaginationChange: setPagination,
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
   });
 
   // Define the per-row actions
@@ -119,28 +140,32 @@ export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
   ], []);
 
   return (
-    <div className="card bg-info/50 border-2 rounded-2xl">
-      <div className="card-body">
-        <h2 className="card-title justify-center">
-          Your Lists
-        </h2>
-        <div className="card-actions justify-center px-2 pb-2">
-          <TextFieldFilter
-            controlId="nameFilter"
-            label="Filter by List Name"
-            placeholder="List Name..."
-            setTextFieldFilter={setNameFilter}
-            textFieldFilter={nameFilter}
-          />
+    <Card className="w-xl bg-secondary text-secondary-foreground border-2 rounded-2xl">
+      <CardHeader>
+        <CardTitle className="w-full text-center">Your Lists</CardTitle>
+        <CardDescription className="text-center">
+          Manage your shopping lists below.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-col gap-4">
+          <Field>
+            <FieldLabel htmlFor="nameFilter">Filter by List Name</FieldLabel>
+            <Input
+              id="nameFilter"
+              onChange={(e) => setNameFilter(e.target.value)}
+              placeholder="List Name..."
+              value={nameFilter}
+            />
+          </Field>
         </div>
         <DataTable
           actions={actions}
           showPagination={true}
           table={table}
-          // title="Your Shopping Lists"
         />
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 
 }

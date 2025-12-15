@@ -35,9 +35,9 @@ export default async function ListsPage() {
   });
 
   return (
-    <div className="flex mt-4 justify-center w-full">
+    <main className="flex h-full w-full items-center justify-center">
       <ListsTable memberships={memberships} profile={profile} />
-    </div>
+    </main>
   )
 
 }
