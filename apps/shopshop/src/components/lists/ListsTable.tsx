@@ -8,6 +8,7 @@
 
 import { MemberRole } from "@repo/db-shopshop/index";
 import { DataTable, TableAction } from "@repo/shadcn-tanstack-table/DataTable";
+import { TextFieldFilter } from "@repo/shadcn-tanstack-table/TextFieldFilter";
 import {
   Card,
 //  CardAction,
@@ -149,15 +150,13 @@ export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-4">
-          <Field>
-            <FieldLabel htmlFor="nameFilter">Filter by List Name</FieldLabel>
-            <Input
-              id="nameFilter"
-              onChange={(e) => setNameFilter(e.target.value)}
-              placeholder="List Name..."
-              value={nameFilter}
-            />
-          </Field>
+          <TextFieldFilter
+            controlId="nameFilter"
+            label="Filter by List Name"
+            placeholder="List Name..."
+            setTextFieldFilter={(value) => setNameFilter(value)}
+            textFieldFilter={nameFilter}
+          />
         </div>
         <DataTable
           actions={actions}

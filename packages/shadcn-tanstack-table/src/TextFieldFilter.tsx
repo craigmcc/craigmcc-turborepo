@@ -6,6 +6,20 @@
 
 // External Modules ----------------------------------------------------------
 
+import {
+  Field,
+//  FieldContent,
+//  FieldDescription,
+//  FieldError,
+//  FieldGroup,
+  FieldLabel,
+//  FieldLegend,
+//  FieldSeparator,
+//  FieldSet,
+//  FieldTitle,
+} from "@repo/shadcn-ui/components/field";
+import { Input } from "@repo/shadcn-ui/components/input";
+
 // Internal Modules ----------------------------------------------------------
 
 // Public Objects ------------------------------------------------------------
@@ -31,19 +45,15 @@ export function TextFieldFilter({
   textFieldFilter,
 }: TextFieldFilterProps) {
   return (
-    <fieldset className="grid grid-cols-1 w-full gap-2">
-      <legend>
-        <label htmlFor={controlId}>{label}</label>
-      </legend>
-      <input
+    <Field>
+      <FieldLabel htmlFor={controlId}>{label}</FieldLabel>
+      <Input
         className="w-full"
         id={controlId}
-        name={controlId}
         onChange={(e) => setTextFieldFilter(e.target.value)}
         placeholder={placeholder ? placeholder : undefined}
-        type="text"
         value={textFieldFilter}
       />
-    </fieldset>
+    </Field>
   );
 }
