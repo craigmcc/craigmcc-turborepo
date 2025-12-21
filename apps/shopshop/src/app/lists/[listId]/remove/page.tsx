@@ -58,7 +58,6 @@ export default async function ListRemovePage(props: Props) {
 
   return (
     <div className="flex h-full w-full items-center justify-center">
-      // TODO: Pass in the list
       <ListForm list={member.list} removing={true}/>
     </div>
   );

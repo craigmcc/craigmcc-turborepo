@@ -9,6 +9,7 @@
 import { MemberRole } from "@repo/db-shopshop/index";
 import { DataTable, TableAction } from "@repo/shadcn-tanstack-table/DataTable";
 import { TextFieldFilter } from "@repo/shadcn-tanstack-table/TextFieldFilter";
+import { Button } from "@repo/shadcn-ui/components/button";
 import {
   Card,
 //  CardAction,
@@ -30,13 +31,15 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { BadgeX, Pencil } from "lucide-react";
+import {ArrowLeft, BadgeX, Pencil, SquarePlus} from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 // Internal Imports ----------------------------------------------------------
 
 //import { ListMutationForm } from "@/components/lists/ListMutationForm";
 import { MemberPlus, ProfilePlus } from "@/types/Types";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@repo/shadcn-ui/components/tooltip";
 
 // Public Objects ------------------------------------------------------------
 
@@ -55,6 +58,7 @@ export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
     pageIndex: 0,
     pageSize: 10,
   });
+  const router = useRouter();
   const [sorting, setSorting] = useState<SortingState>([
     {id: "list.name", desc: false},
   ]);
@@ -115,14 +119,14 @@ export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
       icon: <Pencil size={16}/>,
       label: "Edit",
       onClick: (row: Row<MemberPlus>)  => {
-        alert(`Edit list: ${row.original.list!.name}`);
+        router.push(`/lists/${row.original.list!.id}/settings`);
       }
     },
     {
       icon: <BadgeX size={16}/>,
       label: "Remove",
       onClick: (row: Row<MemberPlus>) => {
-        alert(`Remove list: ${row.original.list!.name}`);
+        router.push(`/lists/${row.original.list!.id}/remove`);
       }
     },
   ], []);
@@ -130,7 +134,19 @@ export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
   return (
     <Card className="w-xl bg-secondary text-secondary-foreground border-2 rounded-2xl">
       <CardHeader>
-        <CardTitle className="w-full text-center">Your Lists</CardTitle>
+        <CardTitle className="w-full items-center text-center">
+          <span className="p-4">Your Lists</span>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={() => router.push("/lists/create")}
+              >
+                <SquarePlus/>
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>Create</TooltipContent>
+          </Tooltip>
+        </CardTitle>
         <CardDescription className="text-center">
           Manage your shopping lists below.
         </CardDescription>

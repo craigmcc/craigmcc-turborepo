@@ -88,7 +88,7 @@ export function ListForm({ list, removing }: ListFormProps) {
           toast.error(`Error creating List: ${response.message}`);
         } else {
           setResult(null);
-          toast.success(`List '${list!.name}' created successfully`);
+          toast.success(`List '${response.model!.name}' created successfully`);
           router.push(DESTINATION);
         }
       } else if (isRemoving) {
@@ -103,7 +103,7 @@ export function ListForm({ list, removing }: ListFormProps) {
           toast.error(`Error removing List: '${response.message}'`);
         } else {
           setResult(null);
-          toast.success(`List "${list!.name}" removed successfully`);
+          toast.success(`List "${response.model!.name}" removed successfully`);
           router.push(DESTINATION);
         }
       } else if (isUpdating) {
@@ -115,11 +115,11 @@ export function ListForm({ list, removing }: ListFormProps) {
             list,
             response,
           })
-          toast.error(`Error removing List: '${response.message}'`);
+          toast.error(`Error updating List: '${response.message}'`);
         } else {
           setResult(null);
-          toast.success(`List '${list!.name}' updated successfully`);
-          router.push("DESTINATION");
+          toast.success(`List '${response.model!.name}' updated successfully`);
+          router.push(DESTINATION);
         }
       } else {
         logger.error({
@@ -137,7 +137,7 @@ export function ListForm({ list, removing }: ListFormProps) {
   }
 
   return (
-    <Card className="w-3xl bg-info text-info-foreground border-2 rounded-2xl">
+    <Card className="w-3xl bg-secondary text-secondary-foreground border-2 rounded-2xl">
       <CardHeader>
         <CardTitle className="w-full text-center">
           { isCreating && "Create New List" }
@@ -149,16 +149,21 @@ export function ListForm({ list, removing }: ListFormProps) {
         <ServerResult result={result}/>
         { isRemoving ? (
           <>
-          <div className="w-full justify-center">
-            Are you sure you want to remove List &quot;{list!.name}&quot;?)
+          <div className="flex flex-row mb-3 w-full justify-center">
+            Are you sure you want to remove List '{list!.name}'?)
           </div>
-          <div className="w-full justify-center">
+          <div className="flex flex-row w-full justify-center gap-4">
             <Button
-              className="justify-center"
+              onClick={() => router.push(DESTINATION)}
+              variant="default"
+            >
+              Cancel
+            </Button>
+            <Button
               onClick={() => form.handleSubmit(list)}
               variant="destructive"
             >
-              Remove List
+              Remove
             </Button>
           </div>
           </>

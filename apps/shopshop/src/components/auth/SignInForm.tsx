@@ -33,8 +33,8 @@ import { SignInSchema, type SignInSchemaType } from "@/zod-schemas/SignInSchema"
 
 export function SignInForm() {
 
-  const router = useRouter();
   const [result, setResult] = useState<ActionResult<Profile> | null>(null);
+  const router = useRouter();
 
   const defaultValues: SignInSchemaType = {
     email: "",
