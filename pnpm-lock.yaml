@@ -407,12 +407,6 @@ importers:
       '@auth/core':
         specifier: catalog:next-auth5
         version: 0.40.0
-      '@repo/daisy-tanstack-form':
-        specifier: workspace:*
-        version: link:../../packages/daisy-tanstack-form
-      '@repo/daisy-tanstack-table':
-        specifier: workspace:*
-        version: link:../../packages/daisy-tanstack-table
       '@repo/db-betterauth':
         specifier: workspace:*
         version: link:../../packages/db-betterauth
@@ -8869,7 +8863,7 @@ snapshots:
       obug: 2.1.1
       std-env: 3.10.0
       tinyrainbow: 3.0.3
-      vitest: 4.0.15(@types/node@24.0.11)(@vitest/ui@4.0.15)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)
+      vitest: 4.0.15(@types/node@24.0.12)(@vitest/ui@4.0.15)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -8924,7 +8918,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
-      vitest: 4.0.15(@types/node@24.0.11)(@vitest/ui@4.0.15)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)
+      vitest: 4.0.15(@types/node@24.0.12)(@vitest/ui@4.0.15)(jiti@2.6.1)(jsdom@26.1.0)(lightningcss@1.30.2)
 
   '@vitest/utils@4.0.15':
     dependencies:

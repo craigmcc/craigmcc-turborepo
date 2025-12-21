@@ -1,8 +1,6 @@
 {
   "dependencies": {
     "@auth/core": "catalog:next-auth5",
-    "@repo/daisy-tanstack-form": "workspace:*",
-    "@repo/daisy-tanstack-table": "workspace:*",
     "@repo/db-betterauth": "workspace:*",
     "@repo/db-shopshop": "workspace:*",
     "@repo/shared-utils": "workspace:*",

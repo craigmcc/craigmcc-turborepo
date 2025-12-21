@@ -117,14 +117,14 @@ export function ListsTable({ memberships /*, profile */ }: ListsTableProps) {
   const actions: TableAction<MemberPlus>[] = useMemo(() => [
     {
       icon: <Pencil size={16}/>,
-      label: "Edit",
+      label: "Edit List",
       onClick: (row: Row<MemberPlus>)  => {
         router.push(`/lists/${row.original.list!.id}/settings`);
       }
     },
     {
       icon: <BadgeX size={16}/>,
-      label: "Remove",
+      label: "Remove List",
       onClick: (row: Row<MemberPlus>) => {
         router.push(`/lists/${row.original.list!.id}/remove`);
       }

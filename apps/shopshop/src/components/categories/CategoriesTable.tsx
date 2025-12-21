@@ -6,8 +6,8 @@
 
 // External Imports ----------------------------------------------------------
 
-import { DataTable } from "@repo/daisy-tanstack-table/DataTable";
-import { TextFieldFilter } from "@repo/daisy-tanstack-table/TextFieldFilter";
+import { DataTable } from "@repo/shadcn-tanstack-table/DataTable";
+import { TextFieldFilter } from "@repo/shadcn-tanstack-table/TextFieldFilter";
 import {
   CellContext,
   ColumnFiltersState,

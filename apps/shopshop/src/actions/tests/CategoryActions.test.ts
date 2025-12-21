@@ -4,7 +4,7 @@
 
 // External Modules ----------------------------------------------------------
 
-import { ERRORS } from "@repo/daisy-tanstack-form/ActionResult";
+import { ERRORS } from "@repo/shadcn-tanstack-form/ActionResult";
 import { MemberRole } from "@repo/db-shopshop/dist";
 
 // Internal Modules ----------------------------------------------------------

@@ -137,7 +137,7 @@ export function DataTable<TData>({
                       ...
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent>
+                  <DropdownMenuContent align="end">
                     {actions.map((action, idx) => (
                       <DropdownMenuItem
                         key={idx}
