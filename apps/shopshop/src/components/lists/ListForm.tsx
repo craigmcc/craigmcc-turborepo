@@ -189,6 +189,12 @@ export function ListForm({ list, removing }: ListFormProps) {
             <form.AppForm>
               <div className="flex flex-row justify-between">
                 <form.SubmitButton/>
+                <Button
+                  onClick={() => router.push(DESTINATION)}
+                  variant="outline"
+                >
+                  Cancel
+                </Button>
                 <form.ResetButton/>
               </div>
             </form.AppForm>
