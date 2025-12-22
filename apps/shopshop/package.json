@@ -17,7 +17,7 @@
     "neverthrow": "catalog:neverthrow",
     "next": "catalog:next15",
     "next-themes": "catalog:next15",
-    "next-auth": "^5.0.0-beta.27",
+    "next-auth": "catalog:next-auth5",
     "pino": "catalog:pino",
     "postcss": "catalog:postcss",
     "react": "catalog:react19",
