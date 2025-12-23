@@ -23,12 +23,13 @@ type Props = {
   label?: string,
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function ResetButton({ /*className,*/ label, ...props }: Props) {
+export function ResetButton({ className, label, ...props }: Props) {
 
   const form = useFormContext();
 
   return (
     <Button
+      className={className || undefined}
       onClick={(e) => {
         e.preventDefault();
         form.reset();

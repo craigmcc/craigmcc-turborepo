@@ -24,7 +24,7 @@ type Props = {
   label?: string,
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function SubmitButton({ /*className,*/ label, ...props }: Props) {
+export function SubmitButton({ className, label, ...props }: Props) {
 
   const form = useFormContext();
 //  const { isSubmitting } = form.state;
@@ -36,6 +36,7 @@ export function SubmitButton({ /*className,*/ label, ...props }: Props) {
     >
       {([canSubmit, isSubmitting]) => (
         <Button
+          className={className || undefined}
           disabled={!canSubmit || isSubmitting}
           role="button"
           type="submit"

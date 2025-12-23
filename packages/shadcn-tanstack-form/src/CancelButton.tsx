@@ -24,12 +24,13 @@ type Props = {
   label?: string,
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function CancelButton({ /*className,*/ dest, label, ...props }: Props) {
+export function CancelButton({ className, dest, label, ...props }: Props) {
 
   const router = useRouter();
 
   return (
     <Button
+      className={className || undefined}
       onClick={(e) => {
         e.preventDefault();
         router.push(dest);
