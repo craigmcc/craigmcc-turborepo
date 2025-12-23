@@ -25,6 +25,7 @@
     "@tanstack/react-form": "catalog:tanstack",
     "clsx": "catalog:clsx",
     "lucide-react": "catalog:lucide-react",
+    "next": "catalog:next15",
     "postcss": "catalog:postcss",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",

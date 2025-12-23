@@ -10,6 +10,7 @@ import { createFormHook } from "@tanstack/react-form";
 
 // Internal Modules ----------------------------------------------------------
 
+import { CancelButton } from "./CancelButton";
 import { FormCheckbox } from "./FormCheckbox";
 import { FormInput } from "./FormInput";
 import { FormSelect } from "./FormSelect";
@@ -34,6 +35,7 @@ export const { useAppForm, withForm } = createFormHook({
   fieldContext,
   formComponents: {
     // Original components
+    CancelButton,
     ResetButton,
     SubmitButton,
   },
